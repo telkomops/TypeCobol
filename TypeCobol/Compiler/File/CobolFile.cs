@@ -94,7 +94,23 @@ namespace TypeCobol.Compiler.File
                         {
                             for (int i = 0; i < charsCount; i++)
                             {
-                                yield return lineBuffer[i];
+                                char convertedChar = lineBuffer[i];
+
+                                // Because the mainframe input files use fixed length lines
+                                // its alphanumeric literals could contain EBCDIC chars which
+                                // translate to end of line Unicode characters.
+                                // These characters would upset the later phases of the compiler :
+                                // TextDocument would detect a new line in the middle of an
+                                // alphnaumeric literal.
+                                // To avoid this, we replace them with a question mark char.
+                                // The alphanumeric char will off course be altered, but all
+                                // the non printable characters will also be altered by the
+                                // Unicode conversion anyway ... so it is not worse than doing 
+                                // nothing here.
+                                if (convertedChar == '\r' || convertedChar == '\n')
+                                    convertedChar = '?';
+
+                                yield return convertedChar;
                             }
                             if (charsCount == lineLength)
                             {

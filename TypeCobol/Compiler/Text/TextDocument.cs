@@ -36,10 +36,7 @@ namespace TypeCobol.Compiler.Text
         }
 
         /// <summary>
-        /// Reloads the text document with new chars.
-        /// The textSource must return unicode chars, with mandatory line endings of the form : '\r\n'.
-        /// Warning : Unix/Linux style line endings with only '\n' will not work.
-        /// This limitation was introduced to support individual '\r' or '\n' chars in alphanumric literals.
+        /// Reloads the text document with new chars
         /// </summary>
         public void LoadChars(IEnumerable<char> textSource)
         {
@@ -55,13 +52,20 @@ namespace TypeCobol.Compiler.Text
             {
                 if (chr == '\r')
                 {
+                    // If an end of line char is encountered, create a new line
+                    TextLine line = new TextLine(lineIndex, charsCount, currentLineText.ToString());
+                    lines.Add(line);
+                    lineIndex++;
+                    charsCount += line.Length;
+
+                    // Reset StringBuffer contents for next line
+                    currentLineText = new StringBuilder();
+
                     previousCharWasCr = true;
                 }
                 else if (chr == '\n')
                 {
-                    // Mandatory line endings : '\r' '\n'.
-                    // NB : BOTH are necessary, in this exact order.
-                    if (previousCharWasCr)
+                    if (!previousCharWasCr)
                     {
                         // If an end of line char is encountered, create a new line
                         TextLine line = new TextLine(lineIndex, charsCount, currentLineText.ToString());
@@ -77,14 +81,6 @@ namespace TypeCobol.Compiler.Text
                 }
                 else
                 {
-                    // Previous char was '\r' :
-                    // It was not appended to the line until we could check if it was followed by \n. 
-                    // No we know it was'nt, so we can safely add a '\r' char to the line 
-                    if (previousCharWasCr)
-                    {
-                        currentLineText.Append('\r');
-                    }
-
                     // Append the current char to the text of the current line
                     currentLineText.Append(chr);
 
