@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BUILD>
+  <PACKAGE>
+    <FILEREFERENCETABLE>
+      <FILECOUNT>1</FILECOUNT>
+      <FILE>
+        <FILENUMBER>1</FILENUMBER>
+        <FILENAME>C:\Users\MAYANJE\Source\Repos\TypeCobol_DOM\TypeCobol\TypeCobol_Stk\TypeCobol.DocumentModel\Tests\tcbl\PRG0.tcbl</FILENAME>
+      </FILE>
+    </FILEREFERENCETABLE>
+    <MESSAGE>
+      <MSGNUMBER>TC-00027-E</MSGNUMBER>
+      <MSGLINE>1</MSGLINE>
+      <MSGFILE>1</MSGFILE>
+      <MSGTEXT>File "C:\Users\MAYANJE\Source\Repos\TypeCobol_DOM\TypeCobol\TypeCobol_Stk\TypeCobol.DocumentModel\Tests\tcbl\PRG0.tcbl" has semantic error(s) preventing codegen (ProgramClass).</MSGTEXT>
+    </MESSAGE>
+  </PACKAGE>
+</BUILD>

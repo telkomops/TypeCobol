@@ -1,0 +1,211 @@
+// JavaCup specification for a simple expression evaluator (w/ actions)
+
+namespace TypeCobol.DocumentModel.Dom.Parser;
+
+using TUVienna.CS_CUP.Runtime;
+using System;
+
+/* Terminals (tokens returned by the scanner). */
+// Code structure
+
+terminal TypeCobol.Compiler.CodeElements.ProgramIdentification ProgramIdentification;
+terminal TypeCobol.Compiler.CodeElements.ProgramEnd ProgramEnd;
+terminal TypeCobol.Compiler.CodeElements.ClassIdentification ClassIdentification;
+terminal TypeCobol.Compiler.CodeElements.ClassEnd ClassEnd;
+terminal TypeCobol.Compiler.CodeElements.FactoryIdentification FactoryIdentification;
+terminal TypeCobol.Compiler.CodeElements.FactoryEnd FactoryEnd;
+terminal TypeCobol.Compiler.CodeElements.ObjectIdentification ObjectIdentification;
+terminal TypeCobol.Compiler.CodeElements.ObjectEnd ObjectEnd;
+terminal TypeCobol.Compiler.CodeElements.MethodIdentification MethodIdentification;
+terminal TypeCobol.Compiler.CodeElements.MethodEnd MethodEnd;
+terminal TypeCobol.Compiler.CodeElements.EnvironmentDivisionHeader EnvironmentDivisionHeader;
+terminal TypeCobol.Compiler.CodeElements.DataDivisionHeader DataDivisionHeader;
+terminal TypeCobol.Compiler.CodeElements.ProcedureDivisionHeader ProcedureDivisionHeader;
+terminal TypeCobol.Compiler.CodeElements.DeclarativesHeader DeclarativesHeader;
+terminal TypeCobol.Compiler.CodeElements.DeclarativesEnd DeclarativesEnd;
+terminal TypeCobol.Compiler.CodeElements.SectionHeader SectionHeader;
+terminal TypeCobol.Compiler.CodeElements.ConfigurationSectionHeader ConfigurationSectionHeader;
+terminal TypeCobol.Compiler.CodeElements.InputOutputSectionHeader InputOutputSectionHeader;
+terminal TypeCobol.Compiler.CodeElements.FileSectionHeader FileSectionHeader;
+terminal TypeCobol.Compiler.CodeElements.WorkingStorageSectionHeader WorkingStorageSectionHeader;
+terminal TypeCobol.Compiler.CodeElements.LocalStorageSectionHeader LocalStorageSectionHeader;
+terminal TypeCobol.Compiler.CodeElements.LinkageSectionHeader LinkageSectionHeader;
+terminal TypeCobol.Compiler.CodeElements.ParagraphHeader ParagraphHeader;
+terminal TypeCobol.Compiler.CodeElements.FileControlParagraphHeader FileControlParagraphHeader;
+terminal TypeCobol.Compiler.CodeElements.IOControlParagraphHeader IOControlParagraphHeader;
+terminal TypeCobol.Compiler.CodeElements.SentenceEnd SentenceEnd;
+terminal TypeCobol.Compiler.CodeElements.FileDescriptionEntry FileDescriptionEntry;
+terminal TypeCobol.Compiler.CodeElements.DataDescriptionEntry DataDescriptionEntry;
+terminal TypeCobol.Compiler.CodeElements.DataRedefinesEntry DataRedefinesEntry;
+terminal TypeCobol.Compiler.CodeElements.DataRenamesEntry DataRenamesEntry;
+terminal TypeCobol.Compiler.CodeElements.DataConditionEntry DataConditionEntry;
+terminal TypeCobol.Compiler.CodeElements.FileControlEntry FileControlEntry;
+terminal TypeCobol.Compiler.CodeElements.IOControlEntry IOControlEntry;
+terminal TypeCobol.Compiler.CodeElements.SourceComputerParagraph SourceComputerParagraph;
+terminal TypeCobol.Compiler.CodeElements.ObjectComputerParagraph ObjectComputerParagraph;
+terminal TypeCobol.Compiler.CodeElements.SpecialNamesParagraph SpecialNamesParagraph;
+terminal TypeCobol.Compiler.CodeElements.RepositoryParagraph RepositoryParagraph;
+terminal TypeCobol.Compiler.CodeElements.AcceptStatement AcceptStatement;
+terminal TypeCobol.Compiler.CodeElements.AddStatement AddStatement;
+terminal TypeCobol.Compiler.CodeElements.AlterStatement AlterStatement;
+terminal TypeCobol.Compiler.CodeElements.CallStatement CallStatement;
+terminal TypeCobol.Compiler.CodeElements.CancelStatement CancelStatement;
+terminal TypeCobol.Compiler.CodeElements.CloseStatement CloseStatement;
+terminal TypeCobol.Compiler.CodeElements.ComputeStatement ComputeStatement;
+terminal TypeCobol.Compiler.CodeElements.ContinueStatement ContinueStatement;
+terminal TypeCobol.Compiler.CodeElements.DeleteStatement DeleteStatement;
+terminal TypeCobol.Compiler.CodeElements.DisplayStatement DisplayStatement;
+terminal TypeCobol.Compiler.CodeElements.DivideStatement DivideStatement;
+terminal TypeCobol.Compiler.CodeElements.EntryStatement EntryStatement;
+terminal TypeCobol.Compiler.CodeElements.EvaluateStatement EvaluateStatement;
+terminal TypeCobol.Compiler.CodeElements.ExecStatement ExecStatement;
+terminal TypeCobol.Compiler.CodeElements.ExitMethodStatement ExitMethodStatement;
+terminal TypeCobol.Compiler.CodeElements.ExitProgramStatement ExitProgramStatement;
+terminal TypeCobol.Compiler.CodeElements.ExitStatement ExitStatement;
+terminal TypeCobol.Compiler.CodeElements.GobackStatement GobackStatement;
+terminal TypeCobol.Compiler.CodeElements.GotoStatement GotoStatement;
+terminal TypeCobol.Compiler.CodeElements.IfStatement IfStatement;
+terminal TypeCobol.Compiler.CodeElements.InitializeStatement InitializeStatement;
+terminal TypeCobol.Compiler.CodeElements.InspectStatement InspectStatement;
+terminal TypeCobol.Compiler.CodeElements.InvokeStatement InvokeStatement;
+terminal TypeCobol.Compiler.CodeElements.MergeStatement MergeStatement;
+terminal TypeCobol.Compiler.CodeElements.MoveStatement MoveStatement;
+terminal TypeCobol.Compiler.CodeElements.MultiplyStatement MultiplyStatement;
+terminal TypeCobol.Compiler.CodeElements.NextSentenceStatement NextSentenceStatement;
+terminal TypeCobol.Compiler.CodeElements.OpenStatement OpenStatement;
+terminal TypeCobol.Compiler.CodeElements.PerformProcedureStatement PerformProcedureStatement;
+terminal TypeCobol.Compiler.CodeElements.PerformStatement PerformStatement;
+terminal TypeCobol.Compiler.CodeElements.ReadStatement ReadStatement;
+terminal TypeCobol.Compiler.CodeElements.ReleaseStatement ReleaseStatement;
+terminal TypeCobol.Compiler.CodeElements.ReturnStatement ReturnStatement;
+terminal TypeCobol.Compiler.CodeElements.RewriteStatement RewriteStatement;
+terminal TypeCobol.Compiler.CodeElements.SearchStatement SearchStatement;
+terminal TypeCobol.Compiler.CodeElements.SetStatement SetStatement;
+terminal TypeCobol.Compiler.CodeElements.SortStatement SortStatement;
+terminal TypeCobol.Compiler.CodeElements.StartStatement StartStatement;
+terminal TypeCobol.Compiler.CodeElements.StopStatement StopStatement;
+terminal TypeCobol.Compiler.CodeElements.StringStatement StringStatement;
+terminal TypeCobol.Compiler.CodeElements.SubtractStatement SubtractStatement;
+terminal TypeCobol.Compiler.CodeElements.UnstringStatement UnstringStatement;
+terminal TypeCobol.Compiler.CodeElements.UseStatement UseStatement;
+terminal TypeCobol.Compiler.CodeElements.WriteStatement WriteStatement;
+terminal TypeCobol.Compiler.CodeElements.XmlGenerateStatement XmlGenerateStatement;
+terminal TypeCobol.Compiler.CodeElements.XmlParseStatement XmlParseStatement;
+terminal TypeCobol.Compiler.CodeElements.AtEndCondition AtEndCondition;
+terminal TypeCobol.Compiler.CodeElements.NotAtEndCondition NotAtEndCondition;
+terminal TypeCobol.Compiler.CodeElements.AtEndOfPageCondition AtEndOfPageCondition;
+terminal TypeCobol.Compiler.CodeElements.NotAtEndOfPageCondition NotAtEndOfPageCondition;
+terminal TypeCobol.Compiler.CodeElements.OnExceptionCondition OnExceptionCondition;
+terminal TypeCobol.Compiler.CodeElements.NotOnExceptionCondition NotOnExceptionCondition;
+terminal TypeCobol.Compiler.CodeElements.OnOverflowCondition OnOverflowCondition;
+terminal TypeCobol.Compiler.CodeElements.NotOnOverflowCondition NotOnOverflowCondition;
+terminal TypeCobol.Compiler.CodeElements.InvalidKeyCondition InvalidKeyCondition;
+terminal TypeCobol.Compiler.CodeElements.NotInvalidKeyCondition NotInvalidKeyCondition;
+terminal TypeCobol.Compiler.CodeElements.OnSizeErrorCondition OnSizeErrorCondition;
+terminal TypeCobol.Compiler.CodeElements.NotOnSizeErrorCondition NotOnSizeErrorCondition;
+terminal TypeCobol.Compiler.CodeElements.ElseCondition ElseCondition;
+terminal TypeCobol.Compiler.CodeElements.WhenCondition WhenCondition;
+terminal TypeCobol.Compiler.CodeElements.WhenOtherCondition WhenOtherCondition;
+terminal TypeCobol.Compiler.CodeElements.WhenSearchCondition WhenSearchCondition;
+terminal TypeCobol.Compiler.CodeElements.AddStatementEnd AddStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.CallStatementEnd CallStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.ComputeStatementEnd ComputeStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.DeleteStatementEnd DeleteStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.DivideStatementEnd DivideStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.EvaluateStatementEnd EvaluateStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.IfStatementEnd IfStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.InvokeStatementEnd InvokeStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.MultiplyStatementEnd MultiplyStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.PerformStatementEnd PerformStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.ReadStatementEnd ReadStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.ReturnStatementEnd ReturnStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.RewriteStatementEnd RewriteStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.SearchStatementEnd SearchStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.StartStatementEnd StartStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.StringStatementEnd StringStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.SubtractStatementEnd SubtractStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.UnstringStatementEnd UnstringStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.WriteStatementEnd WriteStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.XmlStatementEnd XmlStatementEnd;
+terminal TypeCobol.Compiler.CodeElements.LibraryCopyCodeElement LibraryCopy;
+terminal TypeCobol.Compiler.CodeElements.FunctionDeclarationHeader FunctionDeclarationHeader;
+terminal TypeCobol.Compiler.CodeElements.FunctionDeclarationEnd FunctionDeclarationEnd;
+terminal TypeCobol.Compiler.CodeElements.ProcedureStyleCall ProcedureStyleCall;
+terminal TypeCobol.Compiler.CodeElements.Program Program;
+
+/*
+// p103 : You cannot include a class definition in a sequence of programs or other class
+// definitions in a single compilation group. Each class must be specified as a
+// separate source file; that is, a class definition cannot be included in a batch
+// compile.
+*/
+non terminal TypeCobol.Compiler.CodeElements.CodeElement    cobolCompilationUnit, cobolProgram;
+non terminal TypeCobol.Compiler.CodeElements.CodeElement    programAttributes;
+non terminal TypeCobol.Compiler.CodeElements.ProgramEnd ProgramEndOpt;
+non terminal TypeCobol.Compiler.CodeElements.LibraryCopyCodeElement LibraryCopyOpt;
+
+
+/* The grammar */
+cobolCompilationUnit ::= cobolProgram
+/*
+	| cobolClass
+*/
+	;
+
+/*
+// --- COBOL PROGRAM ---
+
+// p83 : A COBOL source program is a syntactically correct set of COBOL statements.
+// p83 : A nested program is a program that is contained in another program.
+// p83 : Sibling programs are programs that are directly contained in the same program.
+
+// p83 : With the exception of the COPY and REPLACE statements and the end program marker,
+//       the statements, entries, paragraphs, and sections of a COBOL source program 
+//       are grouped into the following four divisions : 
+//       IDENTIFICATION DIVISION,ENVIRONMENT DIVISION,DATA DIVISION,PROCEDURE DIVISION
+
+// p83 : The end of a COBOL source program is indicated by the END PROGRAM marker.
+//       If there are no nested programs, the absence of additional source program lines
+//       also indicates the end of a COBOL program.
+
+// p97 : The IDENTIFICATION DIVISION must be the first division in each COBOL source
+// program, factory definition, object definition, and method definition. The
+// identification division names the program, class, or method and identifies the
+// factory definition and object definition. The IDENTIFICATION DIVISION can
+// include the date a program, class, or method was written, the date of compilation,
+// and other such documentary information.
+
+// p84 : Format: COBOL source program
+*/
+
+cobolProgram ::=
+	programAttributes
+/*	
+	environmentDivisionOpt
+	dataDivisionOpt
+	procedureDivisionOpt
+    nestedProgramOpt	
+*/
+	ProgramEndOpt
+	;
+
+
+// TCRFUN_LIBRARY_COPY
+programAttributes ::= ProgramIdentification LibraryCopyOpt;
+LibraryCopyOpt ::= /*empty */
+	| LibraryCopy
+	;
+
+ProgramEndOpt ::= /* empty */
+	| ProgramEnd:pe
+	{: RESULT = pe; :}
+	;
+
+/*
+environmentDivisionOpt ::= empty
+	| environmentDivision
+	;
+
+cobolProgram
+*/
+
