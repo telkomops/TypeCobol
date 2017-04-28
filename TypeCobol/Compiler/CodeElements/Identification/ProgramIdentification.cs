@@ -86,6 +86,11 @@
 			}
 			return sb.ToString();
 		}
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 
 
@@ -93,6 +98,11 @@
 public class LibraryCopyCodeElement: CodeElement {
 	public LibraryCopyCodeElement(): base(CodeElementType.LibraryCopy) { }
 	public ExternalName Name { get; set; }
+
+    public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+    {
+        v.Visit(this, data);
+    }
 }
 
 }

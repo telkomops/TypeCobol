@@ -29,5 +29,10 @@ namespace TypeCobol.Compiler.CodeElements
             sb.AppendLine("- ProgramName = " + ProgramName);
             return sb.ToString();
         }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 }

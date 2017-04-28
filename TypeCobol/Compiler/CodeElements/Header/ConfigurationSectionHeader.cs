@@ -11,5 +11,10 @@ namespace TypeCobol.Compiler.CodeElements
     {
         public ConfigurationSectionHeader() : base(CodeElementType.ConfigurationSectionHeader)
         { }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 }

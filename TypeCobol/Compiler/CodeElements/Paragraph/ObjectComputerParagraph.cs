@@ -57,6 +57,11 @@ namespace TypeCobol.Compiler.CodeElements
         /// Segmentation is not supported for programs compiled with the THREAD option.
         /// </summary>
         public IntegerValue SegmentLimit { get; set; }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 
     /// <summary>

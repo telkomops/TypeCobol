@@ -121,5 +121,11 @@ namespace TypeCobol.Compiler.CodeElements
                    && this.ContinueVisitToChildren(astVisitor, RecordName, FromSendingField,
                    WriteBeforeAdvancing, WriteAfterAdvancing, ByNumberOfLines, ByMnemonicForEnvironmentName, ByLogicalPage);
         }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
+
     }
 }

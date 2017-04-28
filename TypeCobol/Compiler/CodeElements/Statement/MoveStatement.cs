@@ -123,6 +123,11 @@ namespace TypeCobol.Compiler.CodeElements {
 			    return _functions;
 		    }
 	    }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 
     /// <summary>
@@ -178,8 +183,11 @@ namespace TypeCobol.Compiler.CodeElements {
                 return _functions;
 		    }
 	    }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
-
-
 
 }

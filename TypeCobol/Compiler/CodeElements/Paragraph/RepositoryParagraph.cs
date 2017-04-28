@@ -17,5 +17,10 @@ namespace TypeCobol.Compiler.CodeElements
         /// Optionally, the REPOSITORY paragraph defines associations between class-names and external class-names.
         /// </summary>
         public IDictionary<SymbolDefinitionOrReference, SymbolDefinitionOrReference> ClassNames { get; set; }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 }

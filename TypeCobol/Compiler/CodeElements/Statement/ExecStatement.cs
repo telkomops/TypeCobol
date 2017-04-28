@@ -32,5 +32,10 @@ namespace TypeCobol.Compiler.CodeElements
                    && this.ContinueVisitToChildren(astVisitor, (IEnumerable<IVisitable>) CodeLines)
                    && this.ContinueVisitToChildren(astVisitor, ExecTranslatorName);
         }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 }

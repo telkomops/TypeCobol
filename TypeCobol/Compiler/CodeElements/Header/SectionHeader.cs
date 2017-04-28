@@ -45,5 +45,10 @@ namespace TypeCobol.Compiler.CodeElements
             }
             return sb.ToString();
         }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 }

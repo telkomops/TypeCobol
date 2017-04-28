@@ -118,6 +118,11 @@
                    && this.ContinueVisitToChildren(astVisitor, SendingVariable)
                    && this.ContinueVisitToChildren(astVisitor, (IEnumerable<IVisitable>) ReceivingStorageAreas);
         }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 
     /// <summary>Sending field for SET statement for assignation</summary>
@@ -202,6 +207,11 @@
                        && this.ContinueVisitToChildren(astVisitor, SendingVariable, IncrementDirection)
                        && this.ContinueVisitToChildren(astVisitor, (IEnumerable<IVisitable>)ReceivingIndexes);
             }
+
+            public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+            {
+                v.Visit(this, data);
+            }
         }
 
         public enum IndexIncrementDirection {
@@ -210,7 +220,7 @@
         }
 
         /// <summary> Format 3: SET for external switches: set externalSwitches to ON|OFF</summary>
-        internal class SetStatementForSwitches: SetStatement {
+        public class SetStatementForSwitches: SetStatement {
 	        public SetStatementForSwitches(): base(StatementType.SetStatementForSwitches) { }
 
 	        /// <summary>mnemonicForUPSISwitchNameReference+ TO (ON | OFF)</summary>
@@ -241,6 +251,11 @@
 		        if ((map[UPSISwitchPosition.On].Count == 0) && (map[UPSISwitchPosition.Off].Count == 0)) str.Append("?");
 		        return str.ToString();
 	        }
+
+            public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+            {
+                v.Visit(this, data);
+            }
     }
 
     public class SetUPSISwitchInstruction : IVisitable {
@@ -263,7 +278,8 @@
     /// set condition-names to true
     ///          List<Identifier> ConditionIdentifiers //identifier
     /// </summary>
-    internal class SetStatementForConditions: SetStatement {
+    public class SetStatementForConditions : SetStatement
+    {
 	    public SetStatementForConditions(): base(StatementType.SetStatementForConditions) { }
 
 	    /// <summary>identifier (condition-name)</summary>
@@ -301,6 +317,11 @@
 			    return variables;
 		    }
 	    }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 
 }

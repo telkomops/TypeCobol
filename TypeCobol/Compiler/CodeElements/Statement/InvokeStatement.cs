@@ -261,5 +261,10 @@ namespace TypeCobol.Compiler.CodeElements
                    SuperObjectIdentifier, MethodName, ConstructorMethod, OutputParameter)
                    && this.ContinueVisitToChildren(astVisitor, InputParameters);
         }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 }

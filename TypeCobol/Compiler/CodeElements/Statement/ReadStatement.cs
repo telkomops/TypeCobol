@@ -73,5 +73,10 @@ namespace TypeCobol.Compiler.CodeElements
             return base.VisitCodeElement(astVisitor) && astVisitor.Visit(this)
                    && this.ContinueVisitToChildren(astVisitor, FileName, KeyDataItem, ReadNextRecord, ReceivingStorageArea);
         }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 }

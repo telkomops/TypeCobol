@@ -11,5 +11,9 @@ namespace TypeCobol.Compiler.CodeElements
     {
         public FileControlParagraphHeader() : base(CodeElementType.FileControlParagraphHeader)
         { }
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 }

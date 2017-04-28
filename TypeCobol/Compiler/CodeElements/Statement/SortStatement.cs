@@ -259,5 +259,10 @@ namespace TypeCobol.Compiler.CodeElements
                    InputProcedure, ThroughInputProcedure, OutputProcedure, ThroughOutputProcedure)
                    && this.ContinueVisitToChildren(astVisitor, SortingKeys, InputFiles, OutputFiles);
         }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }    
 }

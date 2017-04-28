@@ -80,6 +80,11 @@ namespace TypeCobol.Compiler.CodeElements
         /// Values in the return code, function code, and feedback code fields are defined by VSAM. There are no COBOL additions, deletions, or modifications to the VSAM definitions. 
         /// </summary>
         public ReceivingStorageArea VSAMReturnCode { get; set; }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 
     /// <summary>

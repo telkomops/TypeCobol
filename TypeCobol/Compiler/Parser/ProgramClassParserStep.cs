@@ -17,7 +17,7 @@ namespace TypeCobol.Compiler.Parser
     /// Parse a complete Cobol program or class object from a set of CodeElements changes.
     /// This ultimate step of parsing is not incremental.
     /// </summary>
-    static class ProgramClassParserStep
+    public static class ProgramClassParserStep
     {
         public static void ParseProgramOrClass(TextSourceInfo textSourceInfo, ISearchableReadOnlyList<CodeElementsLine> codeElementsLines, TypeCobolOptions compilerOptions, SymbolTable customSymbols, out Program newProgram, out Class newClass, out IList<ParserDiagnostic> diagnostics)
         {

@@ -143,6 +143,11 @@ namespace TypeCobol.Compiler.CodeElements
         /// EXTEND mode that get an error.
         /// </summary>
         public SyntaxProperty<OpenMode> OpenMode { get; set; }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 
     /// <summary>
@@ -216,5 +221,10 @@ namespace TypeCobol.Compiler.CodeElements
         /// - After the execution of each ALTER statement in the outermost program (except ALTER statements in declarative procedures)
         /// </summary>
         public SyntaxProperty<bool> AllProcedures { get; set; }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 }

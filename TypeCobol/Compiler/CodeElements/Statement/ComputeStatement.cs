@@ -38,6 +38,11 @@ public class ComputeStatement: AbstractArithmeticStatement {
                    && this.ContinueVisitToChildren(astVisitor, (IEnumerable<IVisitable>) ReceivingStorageAreas)
                    && this.ContinueVisitToChildren(astVisitor, ArithmeticExpression);
         }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 
 

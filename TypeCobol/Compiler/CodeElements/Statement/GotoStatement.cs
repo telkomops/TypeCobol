@@ -48,6 +48,11 @@ public class GotoSimpleStatement: GotoStatement {
         public override string ToString() {
 		return "GOTO "+(ProcedureName!=null? ProcedureName.ToString():"?");
 	}
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
 }
 
 /// <summary>
@@ -99,6 +104,11 @@ public class GotoConditionalStatement: GotoStatement {
 		if (DependingOn != null) str.Append(" DEPENDING ON ").Append(DependingOn.ToString());
 		return str.ToString();
 	}
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
 }
 
 }

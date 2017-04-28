@@ -28,5 +28,10 @@ namespace TypeCobol.Compiler.CodeElements
             sb.AppendLine("- MethodName = " + MethodName);
             return sb.ToString();
         }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 }

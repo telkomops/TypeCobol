@@ -233,6 +233,11 @@ namespace TypeCobol.Compiler.CodeElements
         /// program when specified under an SD.
         /// </summary>
         public SymbolReference CodeSet { get; set; }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 
     /// <summary>

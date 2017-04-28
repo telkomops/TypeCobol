@@ -127,7 +127,7 @@ namespace TypeCobol.Compiler
         /// (if the code elements lines changed since the last time this method was called)
         /// Thread-safe : this method can be called from any thread.
         /// </summary>
-        public void RefreshProgramClassDocumentSnapshot()
+        public virtual void RefreshProgramClassDocumentSnapshot()
         {
             // Make sure two threads don't try to update this snapshot at the same time
             bool snapshotWasUpdated = false;
@@ -173,7 +173,7 @@ namespace TypeCobol.Compiler
         /// Only one of the two properties Program or Class can be not null.
         /// Tread-safe : accessible from any thread, returns an immutable object tree.
         /// </summary> 
-        public ProgramClassDocument ProgramClassDocumentSnapshot { get; private set; }
+        public ProgramClassDocument ProgramClassDocumentSnapshot { get; protected set; }
 
         public IList<Diagnostic> AllDiagnostics() {
             var allDiagnostics = new List<Diagnostic>();

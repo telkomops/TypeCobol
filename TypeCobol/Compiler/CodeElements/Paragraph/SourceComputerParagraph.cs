@@ -36,5 +36,10 @@ namespace TypeCobol.Compiler.CodeElements
         /// OBJECT-COMPUTER paragraph), and in the data and procedure divisions.
         /// </summary>
         public SyntaxProperty<bool> DebuggingMode { get; set; }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 }

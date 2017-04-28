@@ -12,6 +12,7 @@ using TypeCobol.Compiler.Concurrency;
 using TypeCobol.Compiler.Diagnostics;
 using TypeCobol.Compiler.File;
 using TypeCobol.Compiler.CodeModel;
+using TypeCobol.Compiler.Preprocessor;
 
 namespace TypeCobol
 {
@@ -39,11 +40,29 @@ namespace TypeCobol
             CustomSymbols = custmSymbols;
         }
 
-		private static DocumentFormat GetFormat(string filename) {
+		protected static DocumentFormat GetFormat(string filename) {
 			return DocumentFormat.FreeUTF8Format;//TODO autodetect
 		}
 
-		public void Init([NotNull] string path, TypeCobolOptions options, DocumentFormat format = null, IList<string> copies = null) {
+        /// <summary>
+        /// Create a File Compiler
+        /// </summary>
+        /// <param name="libraryName"></param>
+        /// <param name="fileName"></param>
+        /// <param name="sourceFileProvider"></param>
+        /// <param name="documentProvider"></param>
+        /// <param name="columnsLayout"></param>
+        /// <param name="compilerOptions"></param>
+        /// <param name="customSymbols"></param>
+        /// <param name="isCopyFile"></param>
+        /// <param name="compilationProject"></param>
+        /// <returns></returns>
+        protected virtual FileCompiler CreateFileCompiler(string libraryName, string fileName, SourceFileProvider sourceFileProvider, IProcessedTokensDocumentProvider documentProvider, ColumnsLayout columnsLayout, TypeCobolOptions compilerOptions, TypeCobol.Compiler.CodeModel.SymbolTable customSymbols, bool isCopyFile, CompilationProject compilationProject)
+        {
+            return new FileCompiler(libraryName, fileName, sourceFileProvider, documentProvider, columnsLayout, compilerOptions, customSymbols, isCopyFile, compilationProject);
+        }
+
+		public virtual void Init([NotNull] string path, TypeCobolOptions options, DocumentFormat format = null, IList<string> copies = null) {
 			FileCompiler compiler;
 			if (Compilers.TryGetValue(path, out compiler)) return;
 			string filename = Path.GetFileName(path);

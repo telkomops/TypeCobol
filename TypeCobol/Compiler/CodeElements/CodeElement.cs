@@ -26,6 +26,10 @@ namespace TypeCobol.Compiler.CodeElements
         /// The Cobol syntax can be decomposed in 116 elementary code elements
         /// </summary>
         public CodeElementType Type { get; private set; }
+        /// <summary>
+        /// The Semantic data of this Code Element, usually type information.
+        /// </summary>
+        public ISemanticData SemanticData { get; set; }
 
         private IList<Token> _consumedTokens;
         /// <summary>
@@ -89,6 +93,14 @@ namespace TypeCobol.Compiler.CodeElements
             get { return Diagnostics != null && Diagnostics.Count > 0; }
         }
 
+        /// <summary>
+        /// Abstract Visitor method
+        /// </summary>
+        /// <typeparam name="R"></typeparam>
+        /// <typeparam name="D"></typeparam>
+        /// <param name="v"></param>
+        /// <param name="data"></param>
+        public abstract void Accept<R, D>(ICodeElementVisitor<R, D> v, D data);
 
         public bool AcceptASTVisitor(IASTVisitor astVisitor) {
             bool continueVisit = astVisitor.BeginCodeElement(this) && VisitCodeElement(astVisitor);

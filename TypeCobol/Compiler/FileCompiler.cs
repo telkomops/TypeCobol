@@ -46,7 +46,7 @@ namespace TypeCobol.Compiler
         /// <summary>
         /// Document representing the results of the compilation in case of program or class file
         /// </summary>
-        public CompilationUnit CompilationResultsForProgram { get; private set; }
+        public CompilationUnit CompilationResultsForProgram { get; protected set; }
 
         public CompilationProject CompilationProject { get; set; }
 
@@ -96,7 +96,7 @@ namespace TypeCobol.Compiler
         /// <summary>
         /// Common internal implementation for all 4 constructors above
         /// </summary>
-        private FileCompiler(string libraryName, string fileName, CobolFile loadedCobolFile, SourceFileProvider sourceFileProvider, IProcessedTokensDocumentProvider documentProvider, ColumnsLayout columnsLayout, ITextDocument textDocument, TypeCobolOptions compilerOptions, SymbolTable customSymbols, bool isCopyFile,
+        protected FileCompiler(string libraryName, string fileName, CobolFile loadedCobolFile, SourceFileProvider sourceFileProvider, IProcessedTokensDocumentProvider documentProvider, ColumnsLayout columnsLayout, ITextDocument textDocument, TypeCobolOptions compilerOptions, SymbolTable customSymbols, bool isCopyFile,
             [CanBeNull] MultilineScanState scanState, CompilationProject compilationProject, List<RemarksDirective.TextNameVariation> copyTextNameVariations)
         {
             // 1.a Find the Cobol source file
@@ -157,7 +157,7 @@ namespace TypeCobol.Compiler
         /// <summary>
         /// Synchronous one-time compilation of the current file
         /// </summary>
-        public void CompileOnce()
+        public virtual void CompileOnce()
         {
             if (CompilerOptions.ExecToStep == null)
                 CompilerOptions.ExecToStep = ExecutionStep.SemanticCheck;

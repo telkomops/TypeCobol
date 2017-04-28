@@ -63,6 +63,11 @@ namespace TypeCobol.Compiler.CodeElements
                        TerminationConditionTestTime, UntilTerminationCondition)
                    && this.ContinueVisitToChildren(astVisitor, (IEnumerable<IVisitable>) VaryingLoopDescriptions);
         }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 
     /// <summary>

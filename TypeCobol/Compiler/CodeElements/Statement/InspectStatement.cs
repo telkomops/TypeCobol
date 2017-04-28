@@ -257,6 +257,11 @@
             /// </summary>
             First
         }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 
     /// <summary>
@@ -370,6 +375,11 @@
             return base.VisitCodeElement(astVisitor) && astVisitor.Visit(this)
                    && this.ContinueVisitToChildren(astVisitor, SearchedCharacterString, ReplacingCharacterString)
                    && this.ContinueVisitToChildren(astVisitor, (IEnumerable<IVisitable>) ReplacingConditions);
+        }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
         }
     }
 }

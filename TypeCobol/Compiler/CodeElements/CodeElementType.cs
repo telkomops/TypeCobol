@@ -163,8 +163,9 @@ namespace TypeCobol.Compiler.CodeElements
 		ProcedureStyleCall,
 
         // [/TYPECOBOL]
-
-
         Program,
+
+        //THE END
+        CodeElementTypeCount,
     }
 }

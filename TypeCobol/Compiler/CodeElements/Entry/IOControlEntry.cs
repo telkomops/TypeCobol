@@ -48,6 +48,11 @@ namespace TypeCobol.Compiler.CodeElements
         public IntegerValue EveryRecordCount { get; set; }
         
         public SymbolReference OfFileName { get; set; }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 
     /// <summary>
@@ -90,6 +95,11 @@ namespace TypeCobol.Compiler.CodeElements
         public SyntaxProperty<SameAreaType> SameAreaType { get; set; }
 
         public SymbolReference[] FileNames { get; set; }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 
     /// <summary>
@@ -114,6 +124,11 @@ namespace TypeCobol.Compiler.CodeElements
     public class MultipleFileTapeIOControlEntry : IOControlEntry
     {
         public PhysicalReelOfTape[] PhysicalReelOfTape { get; set; }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 
     public class PhysicalReelOfTape
@@ -136,5 +151,10 @@ namespace TypeCobol.Compiler.CodeElements
         /// file-name-2 Each file must have standard sequential organization.    
         /// </summary>
         public SymbolReference[] FileNames { get; set; }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 }

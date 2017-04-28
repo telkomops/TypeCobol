@@ -6,5 +6,10 @@ namespace TypeCobol.Compiler.CodeElements
     {
         public NotInvalidKeyCondition() : base(CodeElementType.NotInvalidKeyCondition)
         { }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
     }
 }

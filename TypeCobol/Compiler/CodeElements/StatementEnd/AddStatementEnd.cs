@@ -6,5 +6,11 @@ namespace TypeCobol.Compiler.CodeElements
     {
         public AddStatementEnd() : base(CodeElementType.AddStatementEnd)
         { }
+
+        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        {
+            v.Visit(this, data);
+        }
+
     }
 }

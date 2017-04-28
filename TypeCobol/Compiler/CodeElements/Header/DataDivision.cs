@@ -5,6 +5,10 @@
 /// </summary>
 public class DataDivisionHeader: CodeElement {
 	public DataDivisionHeader() : base(CodeElementType.DataDivisionHeader) { }
+    public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+    {
+        v.Visit(this, data);
+    }
 }
 
 
@@ -17,6 +21,10 @@ public abstract class DataSectionHeader: CodeElement {
 /// </summary>
 public class FileSectionHeader: DataSectionHeader {
 	public FileSectionHeader() : base(CodeElementType.FileSectionHeader) { }
+    public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+    {
+        v.Visit(this, data);
+    }
 }
 
 /// <summary>
@@ -25,6 +33,10 @@ public class FileSectionHeader: DataSectionHeader {
 /// </summary>
 public class WorkingStorageSectionHeader: DataSectionHeader {
 	public WorkingStorageSectionHeader() : base(CodeElementType.WorkingStorageSectionHeader) { }
+    public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+    {
+        v.Visit(this, data);
+    }
 }
 
 /// <summary>
@@ -32,6 +44,10 @@ public class WorkingStorageSectionHeader: DataSectionHeader {
 /// </summary>
 public class LocalStorageSectionHeader: DataSectionHeader {
 	public LocalStorageSectionHeader() : base(CodeElementType.LocalStorageSectionHeader) { }
+    public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+    {
+        v.Visit(this, data);
+    }
 }
 
 /// <summary>
@@ -39,6 +55,10 @@ public class LocalStorageSectionHeader: DataSectionHeader {
 /// </summary>
 public class LinkageSectionHeader: DataSectionHeader {
 	public LinkageSectionHeader() : base(CodeElementType.LinkageSectionHeader) { }
+    public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+    {
+        v.Visit(this, data);
+    }
 }
 
 
