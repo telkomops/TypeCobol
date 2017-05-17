@@ -20,6 +20,18 @@ namespace TypeCobol.DocumentModel.Dom
             set;
         }
 
+        public EnvironmentDivision EnvironmentDivision
+        {
+            get;
+            set;
+        }
+
+        public TypeCobol.Compiler.CodeElements.ProgramEnd ProgramEnd
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -36,6 +48,10 @@ namespace TypeCobol.DocumentModel.Dom
         public override IEnumerator<Compiler.CodeElements.CodeElement> GetEnumerator()
         {
             yield return ProgramAttributes;
+            if (EnvironmentDivision != null)
+                yield return EnvironmentDivision;
+            if (ProgramEnd != null)
+                yield return ProgramEnd;
         }
     }
 }

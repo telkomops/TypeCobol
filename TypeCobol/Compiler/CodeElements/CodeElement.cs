@@ -29,13 +29,13 @@ namespace TypeCobol.Compiler.CodeElements
         /// <summary>
         /// The Semantic data of this Code Element, usually type information.
         /// </summary>
-        public ISemanticData SemanticData { get; set; }
+        public virtual ISemanticData SemanticData { get; set; }
 
         private IList<Token> _consumedTokens;
         /// <summary>
         /// All significant tokens consumed in the source document to build this code element
         /// </summary>
-        public IList<Token> ConsumedTokens
+        public virtual IList<Token> ConsumedTokens
         {
             get { return this._consumedTokens; }
             set {
@@ -49,44 +49,44 @@ namespace TypeCobol.Compiler.CodeElements
         /// Keywords can also be symbol references (special registers).
         /// This property enables to retrieve symbol information attached to this token at a later stage.
         /// </summary>
-        public IDictionary<Token,SymbolInformation> SymbolInformationForTokens { get; set; }
+        public virtual IDictionary<Token, SymbolInformation> SymbolInformationForTokens { get; set; }
         
         /// <summary>
         /// Storage area definitions (explicit data definitions AND compiler generated storage area allocations)
         /// </summary>
-        public IDictionary<SymbolDefinition,DataDescriptionEntry> StorageAreaDefinitions { get; set; }
+        public virtual IDictionary<SymbolDefinition, DataDescriptionEntry> StorageAreaDefinitions { get; set; }
 
         /// <summary>
         /// List of storage areas read from by this CodeElement
         /// </summary>
-        public IList<StorageArea> StorageAreaReads { get; set; }
+        public virtual IList<StorageArea> StorageAreaReads { get; set; }
 
         /// <summary>
         /// List of storage areas written to by this CodeElement
         /// </summary>
-        public IList<ReceivingStorageArea> StorageAreaWrites { get; set; }
+        public virtual IList<ReceivingStorageArea> StorageAreaWrites { get; set; }
 
         /// <summary>
         /// Impacts which we will need to resolve at the next stage between two group items
         /// because of MOVE CORRESPONDING, ADD CORRESPONDING, and SUBTRACT CORRESPONDING statements
         /// </summary>
-        public GroupCorrespondingImpact StorageAreaGroupsCorrespondingImpact { get; set; }
+        public virtual GroupCorrespondingImpact StorageAreaGroupsCorrespondingImpact { get; set; }
 
         /// <summary>
         /// Program, method, or function entry point which can be targeted by call instructions (with shared storage areas)
         /// </summary>
-        public CallTarget CallTarget { get; set; }
+        public virtual CallTarget CallTarget { get; set; }
 
         /// <summary>
         /// List of program, method, or function call instructions (with shared sotrage areas)
         /// </summary>
-        public IList<CallSite> CallSites { get; set; }
+        public virtual IList<CallSite> CallSites { get; set; }
 
         /// <summary>
         /// List of errors found on this CodeElement
         /// </summary>
 
-        public IList<Diagnostic> Diagnostics { get; set; }
+        public virtual IList<Diagnostic> Diagnostics { get; set; }
 
         public bool IsInError
         {
@@ -102,13 +102,15 @@ namespace TypeCobol.Compiler.CodeElements
         /// <param name="data"></param>
         public abstract void Accept<R, D>(ICodeElementVisitor<R, D> v, D data);
 
-        public bool AcceptASTVisitor(IASTVisitor astVisitor) {
+        public virtual bool AcceptASTVisitor(IASTVisitor astVisitor)
+        {
             bool continueVisit = astVisitor.BeginCodeElement(this) && VisitCodeElement(astVisitor);
             astVisitor.EndCodeElement(this);
             return continueVisit;
         }
 
-        public virtual bool VisitCodeElement(IASTVisitor astVisitor) {
+        public virtual bool VisitCodeElement(IASTVisitor astVisitor)
+        {
             var continueVisit = this.ContinueVisitToChildren(astVisitor, CallTarget, StorageAreaGroupsCorrespondingImpact)
                                 && this.ContinueVisitToChildren(astVisitor, CallSites, ConsumedTokens, StorageAreaReads, StorageAreaWrites);
             if (continueVisit && StorageAreaDefinitions != null)
@@ -128,7 +130,7 @@ namespace TypeCobol.Compiler.CodeElements
         /// Apply propperties of the current CodeElement to the specified one.
         /// </summary>
         /// <param name="ce"></param>
-        public void ApplyPropertiesToCE([NotNull] CodeElement ce)
+        public virtual void ApplyPropertiesToCE([NotNull] CodeElement ce)
         {
             ce.ConsumedTokens = this.ConsumedTokens;
             ce.Diagnostics = this.Diagnostics;
@@ -169,14 +171,16 @@ namespace TypeCobol.Compiler.CodeElements
         /// Return true if this CodeElement is inside a COPY
         /// </summary>
         /// <returns></returns>
-        public bool IsInsideCopy() {
+        public virtual bool IsInsideCopy()
+        {
             CalculateIsAcrossSourceFile();
             return _isInsideCopy.Value;
         }
 
         private bool? _isAcrossSourceFile = null;
 
-        private void CalculateIsAcrossSourceFile() {
+        protected void CalculateIsAcrossSourceFile()
+        {
             if (_isAcrossSourceFile == null || _isInsideCopy == null)
             {
                 CopyDirective firstSource = null; //null = in the main source file
@@ -218,18 +222,21 @@ namespace TypeCobol.Compiler.CodeElements
         ///  - In 2 different copy
         /// </summary>
         /// <returns></returns>
-        public bool IsAcrossSourceFile() {
+        public virtual bool IsAcrossSourceFile()
+        {
             CalculateIsAcrossSourceFile();
             return _isAcrossSourceFile.Value;
         }
 
 
-        protected void ResetLazyProperties() {
+        protected void ResetLazyProperties()
+        {
             _isInsideCopy = null;
             _isAcrossSourceFile = null;
         }
 
-        public string SourceText {
+        public virtual string SourceText
+        {
 			get {
 				var str = new StringBuilder();
 				ITokensLine previous = null;
@@ -255,7 +262,8 @@ namespace TypeCobol.Compiler.CodeElements
 			}
 		}
 
-		private string GetIndent(ITokensLine line, int firstTokenStartIndex) {
+        protected string GetIndent(ITokensLine line, int firstTokenStartIndex)
+        {
 			var lineStartIndex = line.SequenceNumberText.Length + 1;// +1 for line.IndicatorChar
 			return line.SourceText.Substring(0, firstTokenStartIndex-lineStartIndex);
 		}
@@ -263,7 +271,7 @@ namespace TypeCobol.Compiler.CodeElements
         // --- Antlr4.Runtime.IToken implementation ---
         // ... used by the ProgramClassParser  ...
 
-        public string Text
+        public virtual string Text
         {
             get
             {
@@ -284,7 +292,7 @@ namespace TypeCobol.Compiler.CodeElements
             }
         }
 
-        public int Line
+        public virtual int Line
         {
             get
             {
@@ -293,7 +301,7 @@ namespace TypeCobol.Compiler.CodeElements
             }
         }
 
-        public int Channel
+        public virtual int Channel
         {
             get
             {
@@ -301,42 +309,48 @@ namespace TypeCobol.Compiler.CodeElements
             }
         }
 
-		public int Column {
+        public virtual int Column
+        {
 			get {
 				if (ConsumedTokens.Count < 1) return -1;// ISSUE #204
 				return ConsumedTokens[0].Column;
 			}
 		}
 
-		public int TokenIndex {
+        public virtual int TokenIndex
+        {
 			get {
 				if (ConsumedTokens.Count < 1) return -1;
 				return ConsumedTokens[0].TokenIndex;
 			}
 		}
 
-		public int StartIndex {
+        public virtual int StartIndex
+        {
 			get {
 				if (ConsumedTokens.Count < 1) return -1;
 				return ConsumedTokens[0].StartIndex;
 			}
 		}
 
-		public int StopIndex {
+        public virtual int StopIndex
+        {
 			get {
 				if (ConsumedTokens.Count < 1) return -1;// ISSUE #204
 				return ConsumedTokens[ConsumedTokens.Count-1].StopIndex;
 			}
 		}
 
-		public ITokenSource TokenSource {
+        public virtual ITokenSource TokenSource
+        {
 			get {
 				if (ConsumedTokens.Count < 1) return null;
 				return ConsumedTokens[0].TokenSource;
 			}
 		}
 
-		public ICharStream InputStream {
+        public virtual ICharStream InputStream
+        {
 			get {
 				if (ConsumedTokens.Count < 1) return null;
 				return ConsumedTokens[0].InputStream;

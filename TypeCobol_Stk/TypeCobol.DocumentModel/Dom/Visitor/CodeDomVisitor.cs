@@ -160,6 +160,11 @@ namespace TypeCobol.DocumentModel.Dom.Visitor
         //CodeElementGroup
         public virtual R Visit(CobolProgram that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(ProgramAttributes that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(EnvironmentDivision that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(ConfigurationSection that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(InputOutputSection that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(FileControlParagraph that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(IoControlParagraph that, D data) { return visitCodeElement(that, data); }
 
         //Expressions
         //public virtual R Visit(ReceivingStorageArea that, D data) { return visitCodeElement(that, data); }

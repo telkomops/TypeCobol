@@ -26,9 +26,19 @@ namespace TypeCobol.DocumentModel.Dom
             set;
         }
 
+        /// <summary>
+        /// Empty constructor
+        /// </summary>
         public ProgramAttributes()
             : base(CodeDomType.ProgramAttributes)
         {
+        }
+
+        public ProgramAttributes(TypeCobol.Compiler.CodeElements.ProgramIdentification prdId, TypeCobol.Compiler.CodeElements.LibraryCopyCodeElement libCopy)
+            : base(CodeDomType.ProgramAttributes)
+        {
+            ProgramIdentification = prdId;
+            LibraryCopyOpt = libCopy;
         }
 
         public override void Accept<R, D>(TypeCobol.DocumentModel.Dom.Visitor.CodeDomVisitor<R, D> v, D data)

@@ -13,6 +13,12 @@ namespace TypeCobol.DocumentModel.Dom
     public enum CodeDomType
     {
         CobolProgram = CodeElementType.CodeElementTypeCount,
-        ProgramAttributes,
+            ProgramAttributes,
+            EnvironmentDivision,
+                ConfigurationSection,
+                    ConfigurationParagraph,
+                InputOutputSection,
+                    FileControlParagraph,
+                    IoControlParagraph,
     }
 }

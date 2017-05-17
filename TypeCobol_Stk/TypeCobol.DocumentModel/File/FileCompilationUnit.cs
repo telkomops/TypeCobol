@@ -63,7 +63,7 @@ namespace TypeCobol.DocumentModel.File
                     }
                     else
                     {//EXPERIMENTAL FASHION
-                        ParseCodeDom(((ImmutableList<CodeElementsLine>)codeElementsDocument.Lines));
+                        TypeCobol.DocumentModel.Dom.CobolProgram cobolProgram = ParseCodeDom(((ImmutableList<CodeElementsLine>)codeElementsDocument.Lines));
                     }
 
                     // Stop perf measurement
@@ -72,11 +72,13 @@ namespace TypeCobol.DocumentModel.File
             }
         }
 
-        protected void ParseCodeDom(ISearchableReadOnlyList<CodeElementsLine> Lines)
+        protected TypeCobol.DocumentModel.Dom.CobolProgram ParseCodeDom(ISearchableReadOnlyList<CodeElementsLine> Lines)
         {
             TypeCobol.DocumentModel.Dom.Scanner.CodeElementTokenizer scanner = new TypeCobol.DocumentModel.Dom.Scanner.CodeElementTokenizer(Lines);
             TypeCobol.DocumentModel.Dom.Parser.ProgramParser pp = new TypeCobol.DocumentModel.Dom.Parser.ProgramParser(scanner);
-            pp.parse();
+            TUVienna.CS_CUP.Runtime.Symbol symbol = pp.parse();
+            TypeCobol.DocumentModel.Dom.CobolProgram cobolProgram = (TypeCobol.DocumentModel.Dom.CobolProgram)symbol.value;
+            return cobolProgram;
         }
     }    
 

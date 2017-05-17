@@ -165,6 +165,8 @@ namespace TypeCobol.Compiler.CodeElements
         // [/TYPECOBOL]
         Program,
 
+        //Extra code element
+        CodeElementProxy,
         //THE END
         CodeElementTypeCount,
     }

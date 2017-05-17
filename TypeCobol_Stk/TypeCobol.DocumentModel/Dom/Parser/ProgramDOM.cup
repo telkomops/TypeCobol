@@ -4,9 +4,12 @@ namespace TypeCobol.DocumentModel.Dom.Parser;
 
 using TUVienna.CS_CUP.Runtime;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using TypeCobol.Compiler.CodeElements;
+using TypeCobol.DocumentModel.Dom;
 
 /* Terminals (tokens returned by the scanner). */
-// Code structure
 
 terminal TypeCobol.Compiler.CodeElements.ProgramIdentification ProgramIdentification;
 terminal TypeCobol.Compiler.CodeElements.ProgramEnd ProgramEnd;
@@ -133,79 +136,166 @@ terminal TypeCobol.Compiler.CodeElements.FunctionDeclarationEnd FunctionDeclarat
 terminal TypeCobol.Compiler.CodeElements.ProcedureStyleCall ProcedureStyleCall;
 terminal TypeCobol.Compiler.CodeElements.Program Program;
 
-/*
-// p103 : You cannot include a class definition in a sequence of programs or other class
-// definitions in a single compilation group. Each class must be specified as a
-// separate source file; that is, a class definition cannot be included in a batch
-// compile.
-*/
-non terminal TypeCobol.Compiler.CodeElements.CodeElement    cobolCompilationUnit, cobolProgram;
-non terminal TypeCobol.Compiler.CodeElements.CodeElement    programAttributes;
-non terminal TypeCobol.Compiler.CodeElements.ProgramEnd ProgramEndOpt;
+non terminal TypeCobol.DocumentModel.Dom.CobolProgram    cobolCompilationUnit, cobolProgram;
+non terminal TypeCobol.DocumentModel.Dom.ProgramAttributes    programAttributes;
 non terminal TypeCobol.Compiler.CodeElements.LibraryCopyCodeElement LibraryCopyOpt;
+non terminal TypeCobol.Compiler.CodeElements.ProgramEnd ProgramEndOpt;
+
+non terminal TypeCobol.DocumentModel.Dom.EnvironmentDivision environmentDivisionOpt, environmentDivision;
+non terminal TypeCobol.DocumentModel.Dom.ConfigurationSection configurationSectionOpt, configurationSection;
+non terminal TypeCobol.DocumentModel.Dom.InputOutputSection inputOutputSectionOpt, inputOutputSection;
+non terminal System.Collections.IList /*List<TypeCobol.DocumentModel.Dom.ConfigurationParagraph>*/ configurationParagraphs;
+non terminal TypeCobol.DocumentModel.Dom.ConfigurationParagraph configurationParagraph;
+non terminal TypeCobol.DocumentModel.Dom.FileControlParagraph fileControlParagraphOpt, fileControlParagraph;
+non terminal System.Collections.IList /*List<TypeCobol.Compiler.CodeElements.FileControlEntry>*/ fileControlEntriesOpt, fileControlEntries;
+non terminal TypeCobol.DocumentModel.Dom.IoControlParagraph ioControlParagraphOpt, ioControlParagraph, ioControlSentencesOpt;
+non terminal System.Collections.IList /*List<TypeCobol.Compiler.CodeElements.IOControlEntry>*/ ioControlEntries;
 
 
 /* The grammar */
-cobolCompilationUnit ::= cobolProgram
+cobolCompilationUnit ::= cobolProgram:cp
 /*
 	| cobolClass
 */
+	{: RESULT = cp; :}
 	;
 
 /*
 // --- COBOL PROGRAM ---
-
-// p83 : A COBOL source program is a syntactically correct set of COBOL statements.
-// p83 : A nested program is a program that is contained in another program.
-// p83 : Sibling programs are programs that are directly contained in the same program.
-
-// p83 : With the exception of the COPY and REPLACE statements and the end program marker,
-//       the statements, entries, paragraphs, and sections of a COBOL source program 
-//       are grouped into the following four divisions : 
-//       IDENTIFICATION DIVISION,ENVIRONMENT DIVISION,DATA DIVISION,PROCEDURE DIVISION
-
-// p83 : The end of a COBOL source program is indicated by the END PROGRAM marker.
-//       If there are no nested programs, the absence of additional source program lines
-//       also indicates the end of a COBOL program.
-
-// p97 : The IDENTIFICATION DIVISION must be the first division in each COBOL source
-// program, factory definition, object definition, and method definition. The
-// identification division names the program, class, or method and identifies the
-// factory definition and object definition. The IDENTIFICATION DIVISION can
-// include the date a program, class, or method was written, the date of compilation,
-// and other such documentary information.
-
-// p84 : Format: COBOL source program
 */
 
 cobolProgram ::=
-	programAttributes
-/*	
-	environmentDivisionOpt
+	programAttributes:pas
+	environmentDivisionOpt:ed
+/*
 	dataDivisionOpt
 	procedureDivisionOpt
     nestedProgramOpt	
 */
-	ProgramEndOpt
+	ProgramEndOpt:pe
+	{: 
+		RESULT = new CobolProgram(); 
+		RESULT.ProgramAttributes = pas;
+		RESULT.EnvironmentDivision = ed;
+		RESULT.ProgramEnd = pe;
+	:}
 	;
 
+programAttributes ::= ProgramIdentification:pid LibraryCopyOpt:lc
+	{: RESULT = new ProgramAttributes(pid, lc); :}
+	;
 
-// TCRFUN_LIBRARY_COPY
-programAttributes ::= ProgramIdentification LibraryCopyOpt;
 LibraryCopyOpt ::= /*empty */
-	| LibraryCopy
+	{: RESULT = null; :}
+	| LibraryCopy:lc
+	{: RESULT = lc; :}
+	;
+
+environmentDivisionOpt ::= /*empty*/
+	{: RESULT = null; :}
+	| environmentDivision:ed
+	{: RESULT = ed; :}
+	;
+
+environmentDivision ::=
+	EnvironmentDivisionHeader:edh  
+	configurationSectionOpt:cs
+	inputOutputSectionOpt:ioc
+	{: RESULT = new TypeCobol.DocumentModel.Dom.EnvironmentDivision(edh, cs, ioc); :}
+	;
+
+configurationSectionOpt ::= /*empty*/
+	{: RESULT = null; :}
+	| configurationSection:cs
+	{: RESULT = cs; :}
+	;
+
+configurationSection ::= ConfigurationSectionHeader:csh
+	{: RESULT = new ConfigurationSection(csh); :}
+	| ConfigurationSectionHeader:csh configurationParagraphs:cps
+	{: RESULT = new ConfigurationSection(csh,(List<TypeCobol.DocumentModel.Dom.ConfigurationParagraph>)cps); :}
+	;
+
+configurationParagraphs ::= configurationParagraph:cp
+		{: RESULT = new List<ConfigurationParagraph>(); RESULT.Add(cp); :}
+	| configurationParagraphs:cps configurationParagraph:cp
+		{: RESULT = cps; cps.Add(cp); :}
+	;
+
+configurationParagraph ::= SourceComputerParagraph:scp
+	{: RESULT = new ConfigurationParagraph.SourceComputer(scp); :}
+	| ObjectComputerParagraph:ocp
+	{: RESULT = new ConfigurationParagraph.ObjectComputer(ocp); :}
+	| SpecialNamesParagraph:snp
+	{: RESULT = new ConfigurationParagraph.SpecialNames(snp); :}
+	| RepositoryParagraph:rp
+	{: RESULT = new ConfigurationParagraph.Repository(rp); :}
+	;
+
+inputOutputSection ::= 
+	InputOutputSectionHeader:iosh
+	fileControlParagraphOpt:fcp
+	ioControlParagraphOpt:iocp
+	{: RESULT = new InputOutputSection(iosh, fcp, iocp);  :}
+	;
+
+fileControlParagraphOpt ::= /*empty*/
+	{: RESULT = null; :}
+	| fileControlParagraph:fcp
+	{: RESULT = fcp; :}
+	;
+
+fileControlParagraph ::=
+	FileControlParagraphHeader:fcph
+	fileControlEntriesOpt:fces
+	{: 
+		RESULT = new FileControlParagraph(); 
+		RESULT.FileControlParagraphHeader = fcph;
+		RESULT.FileControlEntries = (List<TypeCobol.Compiler.CodeElements.FileControlEntry>)fces;
+	:}
+	;
+
+fileControlEntriesOpt ::= /*empty*/
+		{: RESULT = null; :}
+	| fileControlEntries:fces
+		{: RESULT = fces; :}
+	;
+
+fileControlEntries ::= FileControlEntry:fce
+		{: RESULT = new List<FileControlEntry>(); RESULT.Add(fce); :}
+	| fileControlEntries:fces FileControlEntry:fce
+		{: RESULT = fces; fces.Add(fce); :}
+	;
+
+ioControlParagraphOpt ::= /*empty*/
+		{: RESULT = null; :}
+	| ioControlParagraph:iocp
+		{: RESULT = iocp; :}
+	;
+
+ioControlParagraph ::= 
+	IOControlParagraphHeader:iocph
+	ioControlSentencesOpt:iocs
+	{: RESULT = iocs; iocs.IOControlParagraphHeader = iocph; :}
+	;
+
+ioControlSentencesOpt ::= /* empty */	
+		{: RESULT = new IoControlParagraph(); :}
+	| ioControlEntries:ioces SentenceEnd:se
+		{:	RESULT = new IoControlParagraph(); 
+			RESULT.IOControlEntries = (List<TypeCobol.Compiler.CodeElements.IOControlEntry>)ioces; 
+			RESULT.SentenceEnd = se;
+		:}
+	;
+
+ioControlEntries ::= IOControlEntry:ioce
+		{: RESULT = new List<IOControlEntry>(); RESULT.Add(ioce); :}
+	| ioControlEntries:ioces IOControlEntry:ioce
+		{: RESULT = ioces; ioces.Add(ioce); :}
 	;
 
 ProgramEndOpt ::= /* empty */
 	| ProgramEnd:pe
 	{: RESULT = pe; :}
 	;
-
-/*
-environmentDivisionOpt ::= empty
-	| environmentDivision
-	;
-
-cobolProgram
-*/
 
