@@ -26,6 +26,12 @@ namespace TypeCobol.DocumentModel.Dom
             set;
         }
 
+        public DataDivision DataDivision
+        {
+            get;
+            set;
+        }
+
         public TypeCobol.Compiler.CodeElements.ProgramEnd ProgramEnd
         {
             get;
@@ -51,6 +57,8 @@ namespace TypeCobol.DocumentModel.Dom
                 yield return ProgramAttributes;
             if (EnvironmentDivision != null)
                 yield return EnvironmentDivision;
+            if (this.DataDivision != null)
+                yield return this.DataDivision;
             if (ProgramEnd != null)
                 yield return ProgramEnd;
         }

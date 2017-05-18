@@ -95,7 +95,7 @@ namespace TypeCobol.DocumentModel.Dom
             set;
         }
 
-        public List<ConfigurationParagraph> ConfigurationParagraphs
+        public ConfigurationParagraphs ConfigurationParagraphs
         {
             get;
             set;
@@ -121,7 +121,7 @@ namespace TypeCobol.DocumentModel.Dom
         /// <summary>
         /// Configuration Section Header Constructor
         /// </summary>
-        public ConfigurationSection(TypeCobol.Compiler.CodeElements.ConfigurationSectionHeader confSectHeader, List<ConfigurationParagraph> confParagraphs)
+        public ConfigurationSection(TypeCobol.Compiler.CodeElements.ConfigurationSectionHeader confSectHeader, ConfigurationParagraphs confParagraphs)
             : base(CodeDomType.ConfigurationSection)
         {
             ConfigurationSectionHeader = confSectHeader;
@@ -209,6 +209,13 @@ namespace TypeCobol.DocumentModel.Dom
         }
     }
 
+    /// <summary>
+    /// A List of Configuration Paragarph
+    /// </summary>
+    public class ConfigurationParagraphs : List<ConfigurationParagraph>
+    {
+    }
+
     public class InputOutputSection : CodeElementGroup
     {
         public InputOutputSectionHeader InputOutputSectionHeader
@@ -260,6 +267,16 @@ namespace TypeCobol.DocumentModel.Dom
         }
     }
 
+    /// <summary>
+    /// A List of FileControlEntry
+    /// </summary>
+    public class FileControlEntries : List<FileControlEntry>
+    {
+        public FileControlEntries()
+        {
+        }
+    }
+
     public class FileControlParagraph : CodeElementGroup
     {
         public FileControlParagraphHeader FileControlParagraphHeader
@@ -268,7 +285,7 @@ namespace TypeCobol.DocumentModel.Dom
             set;
         }
 
-        public List<FileControlEntry> FileControlEntries
+        public FileControlEntries FileControlEntries
         {
             get;
             set;
@@ -295,6 +312,16 @@ namespace TypeCobol.DocumentModel.Dom
         }
     }
 
+    /// <summary>
+    /// A List of IOControlEntry
+    /// </summary>
+    public class IOControlEntries : List<IOControlEntry>
+    {
+        public IOControlEntries()
+        {
+        }
+    }
+
     public class IoControlParagraph : CodeElementGroup
     {
         public IOControlParagraphHeader IOControlParagraphHeader
@@ -303,7 +330,7 @@ namespace TypeCobol.DocumentModel.Dom
             set;
         }
 
-        public List<IOControlEntry> IOControlEntries
+        public IOControlEntries IOControlEntries
         {
             get;
             set;

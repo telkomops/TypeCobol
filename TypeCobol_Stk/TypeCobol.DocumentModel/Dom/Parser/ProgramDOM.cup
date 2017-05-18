@@ -144,12 +144,12 @@ non terminal TypeCobol.Compiler.CodeElements.ProgramEnd ProgramEndOpt;
 non terminal TypeCobol.DocumentModel.Dom.EnvironmentDivision environmentDivisionOpt, environmentDivision;
 non terminal TypeCobol.DocumentModel.Dom.ConfigurationSection configurationSectionOpt, configurationSection;
 non terminal TypeCobol.DocumentModel.Dom.InputOutputSection inputOutputSectionOpt, inputOutputSection;
-non terminal System.Collections.IList /*List<TypeCobol.DocumentModel.Dom.ConfigurationParagraph>*/ configurationParagraphs;
+non terminal TypeCobol.DocumentModel.Dom.ConfigurationParagraphs configurationParagraphs;
 non terminal TypeCobol.DocumentModel.Dom.ConfigurationParagraph configurationParagraph;
 non terminal TypeCobol.DocumentModel.Dom.FileControlParagraph fileControlParagraphOpt, fileControlParagraph;
-non terminal System.Collections.IList /*List<TypeCobol.Compiler.CodeElements.FileControlEntry>*/ fileControlEntriesOpt, fileControlEntries;
+non terminal TypeCobol.DocumentModel.Dom.FileControlEntries fileControlEntriesOpt, fileControlEntries;
 non terminal TypeCobol.DocumentModel.Dom.IoControlParagraph ioControlParagraphOpt, ioControlParagraph, ioControlSentencesOpt;
-non terminal System.Collections.IList /*List<TypeCobol.Compiler.CodeElements.IOControlEntry>*/ ioControlEntries;
+non terminal TypeCobol.DocumentModel.Dom.IOControlEntries ioControlEntries;
 
 non terminal TypeCobol.DocumentModel.Dom.DataDefinitionEntry dataDefinitionEntry;
 non terminal TypeCobol.DocumentModel.Dom.DataDefinitionEntries dataDefinitionEntries, dataDefinitionEntriesOpt;
@@ -179,7 +179,7 @@ cobolCompilationUnit ::= cobolProgram:cp
 cobolProgram ::=
 	programAttributes:pas
 	environmentDivisionOpt:ed
-	dataDivisionOpt
+	dataDivisionOpt:dv
 /*
 	procedureDivisionOpt
     nestedProgramOpt	
@@ -189,6 +189,7 @@ cobolProgram ::=
 		RESULT = new CobolProgram(); 
 		RESULT.ProgramAttributes = pas;
 		RESULT.EnvironmentDivision = ed;
+		RESULT.DataDivision = dv;
 		RESULT.ProgramEnd = pe;
 	:}
 	;
@@ -234,11 +235,11 @@ configurationSectionOpt ::= /*empty*/
 configurationSection ::= ConfigurationSectionHeader:csh
 	{: RESULT = new ConfigurationSection(csh); :}
 	| ConfigurationSectionHeader:csh configurationParagraphs:cps
-	{: RESULT = new ConfigurationSection(csh,(List<TypeCobol.DocumentModel.Dom.ConfigurationParagraph>)cps); :}
+	{: RESULT = new ConfigurationSection(csh,cps); :}
 	;
 
 configurationParagraphs ::= configurationParagraph:cp
-		{: RESULT = new List<ConfigurationParagraph>(); RESULT.Add(cp); :}
+		{: RESULT = new ConfigurationParagraphs(); RESULT.Add(cp); :}
 	| configurationParagraphs:cps configurationParagraph:cp
 		{: RESULT = cps; cps.Add(cp); :}
 	;
@@ -278,7 +279,7 @@ fileControlParagraph ::=
 	{: 
 		RESULT = new FileControlParagraph(); 
 		RESULT.FileControlParagraphHeader = fcph;
-		RESULT.FileControlEntries = (List<TypeCobol.Compiler.CodeElements.FileControlEntry>)fces;
+		RESULT.FileControlEntries = fces;
 	:}
 	;
 
@@ -289,7 +290,7 @@ fileControlEntriesOpt ::= /*empty*/
 	;
 
 fileControlEntries ::= FileControlEntry:fce
-		{: RESULT = new List<FileControlEntry>(); RESULT.Add(fce); :}
+		{: RESULT = new FileControlEntries(); RESULT.Add(fce); :}
 	| fileControlEntries:fces FileControlEntry:fce
 		{: RESULT = fces; fces.Add(fce); :}
 	;
@@ -310,13 +311,13 @@ ioControlSentencesOpt ::= /* empty */
 		{: RESULT = new IoControlParagraph(); :}
 	| ioControlEntries:ioces SentenceEnd:se
 		{:	RESULT = new IoControlParagraph(); 
-			RESULT.IOControlEntries = (List<TypeCobol.Compiler.CodeElements.IOControlEntry>)ioces; 
+			RESULT.IOControlEntries = ioces; 
 			RESULT.SentenceEnd = se;
 		:}
 	;
 
 ioControlEntries ::= IOControlEntry:ioce
-		{: RESULT = new List<IOControlEntry>(); RESULT.Add(ioce); :}
+		{: RESULT = new IOControlEntries(); RESULT.Add(ioce); :}
 	| ioControlEntries:ioces IOControlEntry:ioce
 		{: RESULT = ioces; ioces.Add(ioce); :}
 	;
