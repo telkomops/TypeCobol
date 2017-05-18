@@ -18,6 +18,31 @@ namespace TypeCobol.DocumentModel.Dom
         }
 
         /// <summary>
+        /// All significant tokens consumed in the source document to build this code element
+        /// For a CodeElementGroup this is a Computed value.
+        /// </summary>
+        public override IList<TypeCobol.Compiler.Scanner.Token> ConsumedTokens
+        {
+            get 
+            {
+                List<TypeCobol.Compiler.Scanner.Token> tokens = null;
+                IEnumerator<CodeElement> enumGroup = GetEnumerator();
+                while (enumGroup.MoveNext())
+                {
+                    CodeElement ce = enumGroup.Current;
+                    var ce_tokens = ce.ConsumedTokens;
+                    if (ce_tokens != null)
+                    {
+                        if (tokens == null)
+                            tokens = new List<TypeCobol.Compiler.Scanner.Token>();
+                        tokens.AddRange(ce_tokens);
+                    }
+                }
+                return tokens; 
+            }
+        }
+
+        /// <summary>
         /// Acceptation method on a visitor
         /// </summary>
         /// <typeparam name="R"></typeparam>

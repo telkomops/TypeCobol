@@ -75,6 +75,7 @@
     <Compile Include="Dom\Parser\ProgramSymbols.cs" />
     <Compile Include="Dom\ProgramAttributes.cs" />
     <Compile Include="Dom\Scanner\CodeElementTokenizer.cs" />
+    <Compile Include="Dom\Statements.cs" />
     <Compile Include="Dom\Visitor\BaseCdeDomVisitor.cs" />
     <Compile Include="Dom\Visitor\CodeDomVisitor.cs" />
     <Compile Include="File\FileCompilationUnit.cs" />
