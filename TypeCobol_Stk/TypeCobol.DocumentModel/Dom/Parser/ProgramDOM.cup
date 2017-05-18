@@ -232,6 +232,12 @@ configurationParagraph ::= SourceComputerParagraph:scp
 	{: RESULT = new ConfigurationParagraph.Repository(rp); :}
 	;
 
+inputOutputSectionOpt ::= /*empty*/
+	{: RESULT = null; :}
+	| inputOutputSection:ios
+	{: RESULT = ios; :}
+	;
+
 inputOutputSection ::= 
 	InputOutputSectionHeader:iosh
 	fileControlParagraphOpt:fcp

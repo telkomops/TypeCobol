@@ -64,8 +64,9 @@ namespace TypeCobol.DocumentModel.Dom.Scanner
         /// <returns>An Enumerator on Symbols</returns>
         public IEnumerator<TUVienna.CS_CUP.Runtime.Symbol> GetEnumerator()
         {
+            int i = 0;
             foreach (CodeElementsLine cel in CodeElementsLines)
-            {
+            {                
                 if (cel.CodeElements != null)
                 {
                     foreach(Compiler.CodeElements.CodeElement ce in cel.CodeElements)
@@ -73,7 +74,8 @@ namespace TypeCobol.DocumentModel.Dom.Scanner
                         TUVienna.CS_CUP.Runtime.Symbol symbol = new TUVienna.CS_CUP.Runtime.Symbol(((int)ce.Type) + CS_CUP_START_TOKEN - 1, ce);
                         yield return symbol;
                     }
-                }                
+                }
+                i++;
             }
             yield return EOF;
         }
