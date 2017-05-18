@@ -20,5 +20,12 @@ namespace TypeCobol.DocumentModel.Dom
                 InputOutputSection,
                     FileControlParagraph,
                     IoControlParagraph,
+            DataDivision,
+                FileSection,
+                    FileDescription,
+                WorkingStorageSection,
+                    ExecSqlStatement,
+                LocalStorageSection,
+                LinkageSection,
     }
 }

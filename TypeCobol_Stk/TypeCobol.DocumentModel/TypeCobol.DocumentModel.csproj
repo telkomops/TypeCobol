@@ -69,11 +69,13 @@
     <Compile Include="Dom\CobolProgram.cs" />
     <Compile Include="Dom\CodeElementGroup.cs" />
     <Compile Include="Dom\CodeDomType.cs" />
+    <Compile Include="Dom\DataDivision.cs" />
     <Compile Include="Dom\EnvironmentDivision.cs" />
     <Compile Include="Dom\Parser\ProgramParser.cs" />
     <Compile Include="Dom\Parser\ProgramSymbols.cs" />
     <Compile Include="Dom\ProgramAttributes.cs" />
     <Compile Include="Dom\Scanner\CodeElementTokenizer.cs" />
+    <Compile Include="Dom\Visitor\BaseCdeDomVisitor.cs" />
     <Compile Include="Dom\Visitor\CodeDomVisitor.cs" />
     <Compile Include="File\FileCompilationUnit.cs" />
     <Compile Include="File\FileParser.cs" />
@@ -92,6 +94,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Dom\CobolDomClassDiagram.cd" />
     <None Include="Dom\Parser\ProgramDOM.cup">
       <Generator>..\bin\%24%28Configuration%29\CSCup.exe</Generator>
     </None>

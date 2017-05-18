@@ -47,7 +47,8 @@ namespace TypeCobol.DocumentModel.Dom
 
         public override IEnumerator<Compiler.CodeElements.CodeElement> GetEnumerator()
         {
-            yield return ProgramAttributes;
+            if (ProgramAttributes != null)
+                yield return ProgramAttributes;
             if (EnvironmentDivision != null)
                 yield return EnvironmentDivision;
             if (ProgramEnd != null)

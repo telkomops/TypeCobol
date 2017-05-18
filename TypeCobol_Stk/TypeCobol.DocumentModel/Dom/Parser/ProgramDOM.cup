@@ -10,7 +10,6 @@ using TypeCobol.Compiler.CodeElements;
 using TypeCobol.DocumentModel.Dom;
 
 /* Terminals (tokens returned by the scanner). */
-
 terminal TypeCobol.Compiler.CodeElements.ProgramIdentification ProgramIdentification;
 terminal TypeCobol.Compiler.CodeElements.ProgramEnd ProgramEnd;
 terminal TypeCobol.Compiler.CodeElements.ClassIdentification ClassIdentification;
@@ -136,6 +135,7 @@ terminal TypeCobol.Compiler.CodeElements.FunctionDeclarationEnd FunctionDeclarat
 terminal TypeCobol.Compiler.CodeElements.ProcedureStyleCall ProcedureStyleCall;
 terminal TypeCobol.Compiler.CodeElements.Program Program;
 
+/* Non terminals */
 non terminal TypeCobol.DocumentModel.Dom.CobolProgram    cobolCompilationUnit, cobolProgram;
 non terminal TypeCobol.DocumentModel.Dom.ProgramAttributes    programAttributes;
 non terminal TypeCobol.Compiler.CodeElements.LibraryCopyCodeElement LibraryCopyOpt;
@@ -151,6 +151,18 @@ non terminal System.Collections.IList /*List<TypeCobol.Compiler.CodeElements.Fil
 non terminal TypeCobol.DocumentModel.Dom.IoControlParagraph ioControlParagraphOpt, ioControlParagraph, ioControlSentencesOpt;
 non terminal System.Collections.IList /*List<TypeCobol.Compiler.CodeElements.IOControlEntry>*/ ioControlEntries;
 
+non terminal TypeCobol.DocumentModel.Dom.DataDefinitionEntry dataDefinitionEntry;
+non terminal TypeCobol.DocumentModel.Dom.DataDefinitionEntries dataDefinitionEntries, dataDefinitionEntriesOpt;
+non terminal TypeCobol.DocumentModel.Dom.ExecSqlStatement execSqlStatement;
+non terminal TypeCobol.DocumentModel.Dom.StorageEntry storageEntry;
+non terminal TypeCobol.DocumentModel.Dom.StorageEntries storageEntries;
+non terminal TypeCobol.DocumentModel.Dom.FileDescription fileDescriptionEntry;
+non terminal TypeCobol.DocumentModel.Dom.FileDescriptionEntries fileDescriptionEntries;
+non terminal TypeCobol.DocumentModel.Dom.FileSection fileSection;
+non terminal TypeCobol.DocumentModel.Dom.WorkingStorageSection workingStorageSection;
+non terminal TypeCobol.DocumentModel.Dom.LocalStorageSection localStorageSection;
+non terminal TypeCobol.DocumentModel.Dom.LinkageSection linkageSection;
+non terminal TypeCobol.DocumentModel.Dom.DataDivision dataDivisionOpt, dataDivision;
 
 /* The grammar */
 cobolCompilationUnit ::= cobolProgram:cp
@@ -167,8 +179,8 @@ cobolCompilationUnit ::= cobolProgram:cp
 cobolProgram ::=
 	programAttributes:pas
 	environmentDivisionOpt:ed
-/*
 	dataDivisionOpt
+/*
 	procedureDivisionOpt
     nestedProgramOpt	
 */
@@ -190,6 +202,15 @@ LibraryCopyOpt ::= /*empty */
 	| LibraryCopy:lc
 	{: RESULT = lc; :}
 	;
+
+ProgramEndOpt ::= /* empty */
+	| ProgramEnd:pe
+	{: RESULT = pe; :}
+	;
+
+/*
+// --- ENVIRONMENT DIVISION ---
+*/
 
 environmentDivisionOpt ::= /*empty*/
 	{: RESULT = null; :}
@@ -300,8 +321,102 @@ ioControlEntries ::= IOControlEntry:ioce
 		{: RESULT = ioces; ioces.Add(ioce); :}
 	;
 
-ProgramEndOpt ::= /* empty */
-	| ProgramEnd:pe
-	{: RESULT = pe; :}
+
+/*
+// --- DATA DIVISION ---
+*/
+dataDivisionOpt ::= /*empty*/
+	{: RESULT = null; :}
+	| dataDivision:dv
+	{: RESULT = dv; :}
 	;
 
+dataDivision ::=
+	DataDivisionHeader:ddh
+	fileSection:fs
+	workingStorageSection :wss
+	localStorageSection:lss
+	linkageSection:ls
+	{: 
+		RESULT = new DataDivision(ddh);
+		RESULT.FileSection = fs;
+		RESULT.WorkingStorageSection = wss;
+		RESULT.LocalStorageSection = lss;
+		RESULT.LinkageSection = ls;
+	:}
+	;
+
+fileSection ::= /*empty*/
+	{: RESULT = null; :}
+	| FileSectionHeader:feh fileDescriptionEntries:des
+	{: RESULT = new FileSection(feh, des); :}
+	;
+
+fileDescriptionEntries ::= /*empty*/
+	{: RESULT = new TypeCobol.DocumentModel.Dom.FileDescriptionEntries(); :}
+	| fileDescriptionEntries:fdes fileDescriptionEntry:fde
+	{: RESULT = fdes; fdes.Add(fde); :}
+	;
+
+fileDescriptionEntry ::= FileDescriptionEntry:fde dataDefinitionEntries:dfes
+	{: RESULT = new TypeCobol.DocumentModel.Dom.FileDescription(fde, dfes); :}
+	;
+
+workingStorageSection ::= /*empty*/
+	{: RESULT = null; :}
+	| WorkingStorageSectionHeader:wssh storageEntries:ses
+	{: RESULT = new WorkingStorageSection(wssh, ses); :}
+	;
+
+storageEntries ::= /*empty*/
+	{: RESULT = new TypeCobol.DocumentModel.Dom.StorageEntries(); :}
+	| storageEntries:ses storageEntry:se
+	{: RESULT = ses; ses.Add(se); :}
+	;
+
+storageEntry ::= dataDefinitionEntry:dde
+	{: RESULT = new TypeCobol.DocumentModel.Dom.StorageEntry.DataDefinition(dde); :}
+	| execSqlStatement:ess
+	{: RESULT = new TypeCobol.DocumentModel.Dom.StorageEntry.ExecSql(ess); :}
+	;
+
+execSqlStatement ::= ExecStatement:es
+	{: RESULT = new ExecSqlStatement(es); :}
+	| ExecStatement:es SentenceEnd:se
+	{: RESULT = new ExecSqlStatement(es, se); :}
+	;
+
+localStorageSection ::= /*empty*/
+	{: RESULT = null; :}
+	| LocalStorageSectionHeader:lsh storageEntries:ses
+	{: RESULT = new LocalStorageSection(lsh, ses); :}
+	;
+
+dataDefinitionEntriesOpt ::= /*empty*/
+	{: RESULT = new TypeCobol.DocumentModel.Dom.DataDefinitionEntries(); :}
+	| dataDefinitionEntries:ddes
+	{: RESULT = ddes; :}
+	;
+
+dataDefinitionEntries ::= dataDefinitionEntry:dde
+	{: RESULT = new TypeCobol.DocumentModel.Dom.DataDefinitionEntries(); RESULT.Add(dde); :}
+	| dataDefinitionEntries:ddes dataDefinitionEntry:dde
+	{: RESULT = ddes; ddes.Add(dde); :}
+	;
+
+dataDefinitionEntry ::=
+	  DataDescriptionEntry:dde
+	{: RESULT = new TypeCobol.DocumentModel.Dom.DataDefinitionEntry.DataDescription(dde); :}
+	| DataRedefinesEntry:dre
+	{: RESULT = new TypeCobol.DocumentModel.Dom.DataDefinitionEntry.DataRedefines(dre); :}
+	| DataRenamesEntry:dre
+	{: RESULT = new TypeCobol.DocumentModel.Dom.DataDefinitionEntry.DataRenames(dre); :}
+	| DataConditionEntry:dce
+	{: RESULT = new TypeCobol.DocumentModel.Dom.DataDefinitionEntry.DataCondition(dce); :}
+	;
+
+linkageSection ::= /*empty*/
+	{: RESULT = null; :}
+	| LinkageSectionHeader:lsh dataDefinitionEntriesOpt:ddes
+	{: RESULT = new LinkageSection(lsh, ddes); :}
+	;

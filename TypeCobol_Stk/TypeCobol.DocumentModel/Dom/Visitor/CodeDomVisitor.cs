@@ -165,6 +165,13 @@ namespace TypeCobol.DocumentModel.Dom.Visitor
         public virtual R Visit(InputOutputSection that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(FileControlParagraph that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(IoControlParagraph that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(DataDivision that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(ExecSqlStatement that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(TypeCobol.DocumentModel.Dom.FileDescription that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(FileSection that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(WorkingStorageSection that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(LocalStorageSection that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(LinkageSection that, D data) { return visitCodeElement(that, data); }
 
         //Expressions
         //public virtual R Visit(ReceivingStorageArea that, D data) { return visitCodeElement(that, data); }

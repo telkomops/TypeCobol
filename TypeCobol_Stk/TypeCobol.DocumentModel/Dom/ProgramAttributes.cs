@@ -48,9 +48,10 @@ namespace TypeCobol.DocumentModel.Dom
 
         public override IEnumerator<Compiler.CodeElements.CodeElement> GetEnumerator()
         {
-            yield return ProgramIdentification;
-            if (LibraryCopyOpt != null)
-                yield return LibraryCopyOpt;
+            if (this.ProgramIdentification != null)
+                yield return this.ProgramIdentification;
+            if (this.LibraryCopyOpt != null)
+                yield return this.LibraryCopyOpt;
         }
     }
 }

@@ -74,11 +74,12 @@ namespace TypeCobol.DocumentModel.Dom
 
         public override IEnumerator<Compiler.CodeElements.CodeElement> GetEnumerator()
         {
-            yield return EnvironmentDivisionHeader;
-            if (ConfigurationSection != null)
-                yield return ConfigurationSection;
-            if (InputOutputSection != null)
-                yield return InputOutputSection;
+            if (this.EnvironmentDivisionHeader != null)
+                yield return this.EnvironmentDivisionHeader;
+            if (this.ConfigurationSection != null)
+                yield return this.ConfigurationSection;
+            if (this.InputOutputSection != null)
+                yield return this.InputOutputSection;
 
         }
     }
@@ -134,10 +135,11 @@ namespace TypeCobol.DocumentModel.Dom
 
         public override IEnumerator<Compiler.CodeElements.CodeElement> GetEnumerator()
         {
-            yield return ConfigurationSectionHeader;
-            if (ConfigurationParagraphs != null)
+            if (this.ConfigurationSectionHeader != null)
+                yield return this.ConfigurationSectionHeader;
+            if (this.ConfigurationParagraphs != null)
             {
-                foreach (var cp in ConfigurationParagraphs)
+                foreach (var cp in this.ConfigurationParagraphs)
                 {
                     yield return cp;
                 }
@@ -249,11 +251,12 @@ namespace TypeCobol.DocumentModel.Dom
 
         public override IEnumerator<CodeElement> GetEnumerator()
         {
-            yield return InputOutputSectionHeader;
-            if (FileControlParagraph != null)
-                yield return FileControlParagraph;
-            if (IoControlParagraph != null)
-                yield return IoControlParagraph;
+            if (this.InputOutputSectionHeader != null)
+                yield return this.InputOutputSectionHeader;
+            if (this.FileControlParagraph != null)
+                yield return this.FileControlParagraph;
+            if (this.IoControlParagraph != null)
+                yield return this.IoControlParagraph;
         }
     }
 
@@ -282,10 +285,11 @@ namespace TypeCobol.DocumentModel.Dom
 
         public override IEnumerator<CodeElement> GetEnumerator()
         {
-            yield return FileControlParagraphHeader;
-            if (FileControlEntries != null)
+            if (this.FileControlParagraphHeader != null)
+                yield return this.FileControlParagraphHeader;
+            if (this.FileControlEntries != null)
             {
-                foreach(var fce in FileControlEntries)
+                foreach (var fce in this.FileControlEntries)
                     yield return fce;
             }
         }
@@ -322,14 +326,15 @@ namespace TypeCobol.DocumentModel.Dom
 
         public override IEnumerator<CodeElement> GetEnumerator()
         {
-            yield return IOControlParagraphHeader;
-            if (IOControlEntries != null)
+            if (this.IOControlParagraphHeader != null)
+                yield return this.IOControlParagraphHeader;
+            if (this.IOControlEntries != null)
             {
-                foreach (var ioce in IOControlEntries)
+                foreach (var ioce in this.IOControlEntries)
                     yield return ioce;
             }
-            if (SentenceEnd != null)
-                yield return SentenceEnd;
+            if (this.SentenceEnd != null)
+                yield return this.SentenceEnd;
         }
     }
 }
