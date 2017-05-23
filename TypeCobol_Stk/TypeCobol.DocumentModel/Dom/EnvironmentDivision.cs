@@ -17,8 +17,14 @@ namespace TypeCobol.DocumentModel.Dom
         /// </summary>
         public TypeCobol.Compiler.CodeElements.EnvironmentDivisionHeader EnvironmentDivisionHeader
         {
-            get;
-            set;
+            get
+            {
+                return (EnvironmentDivisionHeader)base.Target;
+            }
+            set
+            {
+                base.Target = value;
+            }
         }
 
         public ConfigurationSection ConfigurationSection
@@ -91,8 +97,14 @@ namespace TypeCobol.DocumentModel.Dom
     {
         public TypeCobol.Compiler.CodeElements.ConfigurationSectionHeader ConfigurationSectionHeader
         {
-            get;
-            set;
+            get
+            {
+                return (TypeCobol.Compiler.CodeElements.ConfigurationSectionHeader)base.Target;
+            }
+            set
+            {
+                base.Target = value;
+            }
         }
 
         public ConfigurationParagraphs ConfigurationParagraphs
@@ -220,8 +232,14 @@ namespace TypeCobol.DocumentModel.Dom
     {
         public InputOutputSectionHeader InputOutputSectionHeader
         {
-            get;
-            set;
+            get
+            {
+                return (InputOutputSectionHeader)base.Target;
+            }
+            set
+            {
+                base.Target = value;
+            }
         }
 
         public FileControlParagraph FileControlParagraph
@@ -281,8 +299,14 @@ namespace TypeCobol.DocumentModel.Dom
     {
         public FileControlParagraphHeader FileControlParagraphHeader
         {
-            get;
-            set;
+            get
+            {
+                return (FileControlParagraphHeader)base.Target;
+            }
+            set
+            {
+                base.Target = value;
+            }
         }
 
         public FileControlEntries FileControlEntries
@@ -326,8 +350,14 @@ namespace TypeCobol.DocumentModel.Dom
     {
         public IOControlParagraphHeader IOControlParagraphHeader
         {
-            get;
-            set;
+            get
+            {
+                return (IOControlParagraphHeader)base.Target;
+            }
+            set
+            {
+                base.Target = value;
+            }
         }
 
         public IOControlEntries IOControlEntries

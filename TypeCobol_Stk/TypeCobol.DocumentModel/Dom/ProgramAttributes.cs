@@ -13,8 +13,14 @@ namespace TypeCobol.DocumentModel.Dom
         /// </summary>
         public TypeCobol.Compiler.CodeElements.ProgramIdentification ProgramIdentification
         {
-            get;
-            set;
+            get
+            {
+                return (TypeCobol.Compiler.CodeElements.ProgramIdentification)base.Target;
+            }
+            set
+            {
+                base.Target = value;
+            }
         }
 
         /// <summary>

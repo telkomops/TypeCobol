@@ -7,7 +7,7 @@ namespace TypeCobol.DocumentModel.Dom
     /// <summary>
     /// A class that represents a group of CodeElement.
     /// </summary>
-    public abstract class CodeElementGroup : CodeElement, IEnumerable<CodeElement>
+    public abstract class CodeElementGroup : CodeElementProxy<CodeElement>, IEnumerable<CodeElement>
     {
         /// <summary>
         /// Cosntructor

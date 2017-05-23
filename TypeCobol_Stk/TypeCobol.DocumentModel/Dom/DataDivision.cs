@@ -14,8 +14,14 @@ namespace TypeCobol.DocumentModel.Dom
     {
 	    public DataDivisionHeader DataDivisionHeader 
         {
-            get;
-            set;
+            get
+            {
+                return (DataDivisionHeader)base.Target;
+            }
+            set
+            {
+                base.Target = value;
+            }
         }
         /// <summary>
         /// The File Section
@@ -263,8 +269,14 @@ namespace TypeCobol.DocumentModel.Dom
     {
         TypeCobol.Compiler.CodeElements.FileDescriptionEntry FileDescriptionEntry
         {
-            get;
-            set;
+            get
+            {
+                return (FileDescriptionEntry)base.Target;
+            }
+            set
+            {
+                base.Target = value;
+            }
         }
         /// <summary>
         /// Data Definition Entries
@@ -335,8 +347,14 @@ namespace TypeCobol.DocumentModel.Dom
     {
         public FileSectionHeader FileSectionHeader
         {
-            get;
-            set;
+            get
+            {
+                return (FileSectionHeader)base.Target;
+            }
+            set
+            {
+                base.Target = value;
+            }
         }
 
         public FileDescriptionEntries FileDescriptionEntries
@@ -542,8 +560,14 @@ namespace TypeCobol.DocumentModel.Dom
     {
         public LinkageSectionHeader LinkageSectionHeader
         {
-            get;
-            set;
+            get
+            {
+                return (LinkageSectionHeader)base.Target;
+            }
+            set
+            {
+                base.Target = value;
+            }
         }
 
         public DataDefinitionEntries DataDefinitionEntries
