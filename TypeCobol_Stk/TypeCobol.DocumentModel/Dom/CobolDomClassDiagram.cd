@@ -3,13 +3,12 @@
   <Class Name="TypeCobol.DocumentModel.Dom.CobolProgram">
     <Position X="2.75" Y="2.25" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AIAAAAAAAAAAABAAAAAAEAAAAAAAAAAAAAAAAAABAAg=</HashCode>
+      <HashCode>AIAAAAAAAAAAABAAAAAAEAgAAAAAAAAAAAAAAAABAAg=</HashCode>
       <FileName>Dom\CobolProgram.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="EnvironmentDivision" />
       <Property Name="ProgramAttributes" />
-      <Property Name="ProgramEnd" />
+      <Property Name="EnvironmentDivision" />
     </ShowAsAssociation>
   </Class>
   <Class Name="TypeCobol.DocumentModel.Dom.EnvironmentDivision">
@@ -19,8 +18,8 @@
       <FileName>Dom\EnvironmentDivision.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="ConfigurationSection" />
       <Property Name="EnvironmentDivisionHeader" />
+      <Property Name="ConfigurationSection" />
       <Property Name="InputOutputSection" />
     </ShowAsAssociation>
   </Class>
@@ -30,22 +29,6 @@
       <HashCode>AIAAAAAAAAAAgBAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Dom\ProgramAttributes.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="ProgramIdentification" />
-      <Property Name="LibraryCopyOpt" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="TypeCobol.Compiler.CodeElements.ProgramEnd" Collapsed="true">
-    <Position X="3.25" Y="1" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="TypeCobol.Compiler.CodeElements.ProgramIdentification">
-    <Position X="13.75" Y="1.25" Width="2.25" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="TypeCobol.Compiler.CodeElements.LibraryCopyCodeElement">
-    <Position X="11" Y="2.75" Width="2" />
-    <TypeIdentifier />
   </Class>
   <Class Name="TypeCobol.DocumentModel.Dom.ConfigurationSection">
     <Position X="11" Y="4.75" Width="2.75" />
@@ -65,8 +48,8 @@
       <FileName>Dom\EnvironmentDivision.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="FileControlParagraph" />
       <Property Name="InputOutputSectionHeader" />
+      <Property Name="FileControlParagraph" />
       <Property Name="IoControlParagraph" />
     </ShowAsAssociation>
   </Class>
@@ -105,6 +88,18 @@
   </Class>
   <Class Name="TypeCobol.Compiler.CodeElements.FileControlParagraphHeader" Collapsed="true">
     <Position X="19.5" Y="9" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ProgramEnd" Collapsed="true">
+    <Position X="3.25" Y="1" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ProgramIdentification">
+    <Position X="13.75" Y="1.25" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.LibraryCopyCodeElement">
+    <Position X="11" Y="2.75" Width="2" />
     <TypeIdentifier />
   </Class>
   <Font Name="Segoe UI" Size="9" />
