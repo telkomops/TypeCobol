@@ -136,7 +136,7 @@ terminal TypeCobol.Compiler.CodeElements.ProcedureStyleCall ProcedureStyleCall;
 terminal TypeCobol.Compiler.CodeElements.Program Program;
 
 /* Non terminals */
-non terminal TypeCobol.DocumentModel.Dom.CobolProgram    cobolCompilationUnit, cobolProgram;
+non terminal TypeCobol.DocumentModel.Dom.CobolProgram    cobolCompilationUnit, cobolProgram, cobolProgramBase, nestedProgram;
 non terminal TypeCobol.DocumentModel.Dom.ProgramAttributes    programAttributes;
 non terminal TypeCobol.Compiler.CodeElements.LibraryCopyCodeElement LibraryCopyOpt;
 non terminal TypeCobol.Compiler.CodeElements.ProgramEnd ProgramEndOpt;
@@ -164,6 +164,12 @@ non terminal TypeCobol.DocumentModel.Dom.LocalStorageSection localStorageSection
 non terminal TypeCobol.DocumentModel.Dom.LinkageSection linkageSection;
 non terminal TypeCobol.DocumentModel.Dom.DataDivision dataDivisionOpt, dataDivision;
 
+non terminal TypeCobol.DocumentModel.Dom.NestedPrograms nestedProgramOpt;
+
+non terminal TypeCobol.DocumentModel.Dom.Statement statement, singleStatement;
+non terminal TypeCobol.DocumentModel.Dom.Statements statements, statementsOpts;
+
+
 /* The grammar */
 cobolCompilationUnit ::= cobolProgram:cp
 /*
@@ -177,20 +183,28 @@ cobolCompilationUnit ::= cobolProgram:cp
 */
 
 cobolProgram ::=
+	cobolProgramBase:cpb
+    nestedProgramOpt:nsp
+	ProgramEndOpt:pe
+	{: 
+		RESULT = cpb; 
+		cpb.NestedPrograms = nsp;
+		cpb.ProgramEnd = pe;
+	:}
+	;
+
+cobolProgramBase ::=
 	programAttributes:pas
 	environmentDivisionOpt:ed
 	dataDivisionOpt:dv
 /*
 	procedureDivisionOpt
-    nestedProgramOpt	
 */
-	ProgramEndOpt:pe
 	{: 
 		RESULT = new CobolProgram(); 
 		RESULT.ProgramAttributes = pas;
 		RESULT.EnvironmentDivision = ed;
 		RESULT.DataDivision = dv;
-		RESULT.ProgramEnd = pe;
 	:}
 	;
 
@@ -207,6 +221,23 @@ LibraryCopyOpt ::= /*empty */
 ProgramEndOpt ::= /* empty */
 	| ProgramEnd:pe
 	{: RESULT = pe; :}
+	;
+
+nestedProgram ::= 	
+	cobolProgramBase:cpb
+    nestedProgramOpt:nsp
+	ProgramEnd:pe
+	{: 
+		RESULT = cpb; 
+		cpb.NestedPrograms = nsp;
+		cpb.ProgramEnd = pe;
+	:}
+	;
+
+nestedProgramOpt ::= /* Empty */
+	{: RESULT = new NestedPrograms(); :}
+	| nestedProgramOpt:nsp nestedProgram:np
+	{: RESULT = nsp; nsp.Add(np); :}
 	;
 
 /*
@@ -420,4 +451,194 @@ linkageSection ::= /*empty*/
 	{: RESULT = null; :}
 	| LinkageSectionHeader:lsh dataDefinitionEntriesOpt:ddes
 	{: RESULT = new LinkageSection(lsh, ddes); :}
+	;
+
+procedureDivision ::=
+	ProcedureDivisionHeader declarativesOpt functionOrSectionDeclarations
+	;
+
+functionOrSectionDeclarations ::= /*empty*/
+	| functionOrSectionDeclarations functionOrSectionDeclaration
+	;
+
+functionOrSectionDeclaration ::= functionDeclaration
+	| section
+	;
+
+procedureDivision ::=
+	ProcedureDivisionHeader :pdh
+	declarativesOpt
+	section*
+	;
+
+declarativesOpt ::= /*empty*/
+|declaratives
+;
+
+declaratives ::=
+	DeclarativesHeader
+	(SectionHeader UseStatement
+		paragraph* 
+	)+
+	DeclarativesEnd;
+
+
+sectionsOpt ::= /*empty*/
+	| sections
+	;
+
+sections ::= section
+	| sections section
+	;
+
+section ::=
+	| SectionHeader paragraphsOpt
+	| ParagraphHeader paragraphsOpt
+	| sentences
+	;
+
+paragraphsOpt ::= /*empty*/
+	|paragraphs
+	;
+
+paragraphs ::= paragraph
+	| paragraphs paragraph
+	;
+
+paragraph ::=
+	| ParagraphHeader sentencesOpt
+	| sentences
+	;
+
+sentencesOpt ::= /*empty*/
+	| sentences
+	;
+
+sentences ::= sentence
+	| sentences sentence
+	;
+
+functionDeclaration ::=
+	FunctionDeclarationHeader
+	dataDivision?
+	functionProcedureDivision?
+	FunctionDeclarationEnd
+	;
+
+functionProcedureDivision ::=
+	ProcedureDivisionHeader sectionsOpt;
+
+sentence ::= statementsOpt SentenceEnd
+	| ExecStatement
+	;
+
+statementsOpt ::= /*empty*/
+	{: RESULT = null; :}
+	| statements:stmts
+	{: RESULT = stmts; :}
+	;
+
+statements ::= statement:tstm
+	{: RESULT = new Statements(); RESULT.Add(stmt); :}
+	| statements:stmts statement:stmt
+	{: RESULT = stmts; stmts.Add(stmt); :}
+	;
+
+statement ::= singleStatement:stmt
+	{: RESULT = stmt; :}
+	/*| compoundStatement*/
+	;
+
+singleStatement ::=
+	ContinueStatement:stmt
+	{: RESULT = new SingleStatement.ContinueStatement(stmt); :}
+	| EntryStatement:stmt
+	{: RESULT = new SingleStatement.EntryStatement(stmt); :}
+// -- arithmetic --
+	| AddStatement:stmt
+	{: RESULT = new SingleStatement.AddStatement(stmt); :}
+	| ComputeStatement:stmt
+	{: RESULT = new SingleStatement.ComputeStatement(stmt); :}
+	| DivideStatement:stmt
+	{: RESULT = new SingleStatement.DivideStatement(stmt); :}
+	| MultiplyStatement:stmt
+	{: RESULT = new SingleStatement.MultiplyStatement(stmt); :}
+	| SubtractStatement:stmt
+	{: RESULT = new SingleStatement.SubtractStatement(stmt); :}
+// -- data movement --
+	| AcceptStatement:stmt // (DATE, DAY, DAY-OF-WEEK, TIME)
+	{: RESULT = new SingleStatement.AcceptStatement(stmt); :} 
+	| InitializeStatement:stmt
+	{: RESULT = new SingleStatement.InitializeStatement(stmt); :}
+	| InspectStatement:stmt
+	{: RESULT = new SingleStatement.InspectStatement(stmt); :}
+	| MoveStatement:stmt
+	{: RESULT = new SingleStatement.MoveStatement(stmt); :}
+	| SetStatement:stmt
+	{: RESULT = new SingleStatement.SetStatement(stmt); :}
+	| StringStatement:stmt
+	{: RESULT = new SingleStatement.StringStatement(stmt); :}
+	| UnstringStatement:stmt
+	{: RESULT = new SingleStatement.UnstringStatement(stmt); :}
+	| XmlGenerateStatement:stmt
+	{: RESULT = new SingleStatement.XmlGenerateStatement(stmt); :}
+	| XmlParseStatement:stmt
+	{: RESULT = new SingleStatement.XmlParseStatement(stmt); :}
+// -- ending --
+	| StopStatement:stmt
+	{: RESULT = new SingleStatement.StopStatement(stmt); :}
+	| ExitMethodStatement:stmt
+	{: RESULT = new SingleStatement.ExitMethodStatement(stmt); :}
+	| ExitProgramStatement:stmt
+	{: RESULT = new SingleStatement.ExitProgramStatement(stmt); :}
+	| GobackStatement:stmt
+	{: RESULT = new SingleStatement.GobackStatement(stmt); :}
+// -- input-output --
+	| CloseStatement:stmt
+	{: RESULT = new SingleStatement.CloseStatement(stmt); :}
+	| DeleteStatement:stmt
+	{: RESULT = new SingleStatement.DeleteStatement(stmt); :}
+	| DisplayStatement:stmt
+	{: RESULT = new SingleStatement.DisplayStatement(stmt); :}
+	| OpenStatement:stmt
+	{: RESULT = new SingleStatement.OpenStatement(stmt); :}
+	| ReadStatement:stmt
+	{: RESULT = new SingleStatement.ReadStatement(stmt); :}
+	| RewriteStatement:stmt
+	{: RESULT = new SingleStatement.RewriteStatement(stmt); :}
+	| StartStatement:stmt
+	{: RESULT = new SingleStatement.StartStatement(stmt); :}
+//	StopStatement // literal
+	| WriteStatement:stmt
+	{: RESULT = new SingleStatement.WriteStatement(stmt); :}
+// -- ordering --
+	| MergeStatement:stmt
+	{: RESULT = new SingleStatement.MergeStatement(stmt); :}
+	| ReleaseStatement:stmt
+	{: RESULT = new SingleStatement.ReleaseStatement(stmt); :}
+	| ReturnStatement:stmt
+	{: RESULT = new SingleStatement.ReturnStatement(stmt); :}
+	| SortStatement:stmt
+	{: RESULT = new SingleStatement.SortStatement(stmt); :}
+// -- procedure-branching --
+	| AlterStatement:stmt
+	{: RESULT = new SingleStatement.AlterStatement(stmt); :}
+	| ExitStatement:stmt
+	{: RESULT = new SingleStatement.ExitStatement(stmt); :}
+	| GotoStatement:stmt
+	{: RESULT = new SingleStatement.GotoStatement(stmt); :}
+	| PerformProcedureStatement:stmt
+	{: RESULT = new SingleStatement.PerformProcedureStatement(stmt); :}
+// -- program or method linkage --
+	| CallStatement:stmt
+	{: RESULT = new SingleStatement.CallStatement(stmt); :}
+	| ProcedureStyleCall:stmt
+	{: RESULT = new SingleStatement.ProcedureStyleCall(stmt); :}
+	| CancelStatement:stmt
+	{: RESULT = new SingleStatement.CancelStatement(stmt); :}
+	| InvokeStatement:stmt
+	{: RESULT = new SingleStatement.InvokeStatement(stmt); :}
+// -- DB2 & CICS integration --
+	| ExecStatement:stmt
+	{: RESULT = new SingleStatement.ExecStatement(stmt); :}
 	;

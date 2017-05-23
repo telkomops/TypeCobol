@@ -10,12 +10,22 @@ namespace TypeCobol.DocumentModel.Dom
     public abstract class CodeElementGroup : CodeElementProxy<CodeElement>, IEnumerable<CodeElement>
     {
         /// <summary>
-        /// Cosntructor
+        /// Constructor
         /// </summary>
         /// <param name="type"></param>
         public CodeElementGroup(CodeDomType type) : base((CodeElementType)type)
         {
         }
+
+        /// <summary>
+        /// Cosntructor
+        /// </summary>
+        /// <param name="type"></param>
+        public CodeElementGroup(CodeElementType type)
+            : base(type)
+        {
+        }
+
 
         /// <summary>
         /// All significant tokens consumed in the source document to build this code element

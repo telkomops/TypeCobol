@@ -32,6 +32,12 @@ namespace TypeCobol.DocumentModel.Dom
             set;
         }
 
+        public NestedPrograms NestedPrograms
+        {
+            get;
+            set;
+        }
+
         public TypeCobol.Compiler.CodeElements.ProgramEnd ProgramEnd
         {
             get;
@@ -62,5 +68,15 @@ namespace TypeCobol.DocumentModel.Dom
             if (ProgramEnd != null)
                 yield return ProgramEnd;
         }
+    }
+
+    /// <summary>
+    /// Nested Programs List.
+    /// </summary>
+    public class NestedPrograms : List<CobolProgram>
+    {
+        public NestedPrograms()
+        {
+        }   
     }
 }
