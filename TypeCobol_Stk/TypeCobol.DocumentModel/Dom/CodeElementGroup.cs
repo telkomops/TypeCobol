@@ -26,6 +26,16 @@ namespace TypeCobol.DocumentModel.Dom
         {
         }
 
+        /// <summary>
+        /// Cosntructor
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="target">Target code elemnt proxy</param>
+        public CodeElementGroup(CodeElementType type, CodeElement target)
+            : base(type, target)
+        {
+        }
+
 
         /// <summary>
         /// All significant tokens consumed in the source document to build this code element

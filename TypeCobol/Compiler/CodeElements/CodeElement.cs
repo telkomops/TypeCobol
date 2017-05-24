@@ -25,7 +25,7 @@ namespace TypeCobol.Compiler.CodeElements
         /// <summary>
         /// The Cobol syntax can be decomposed in 116 elementary code elements
         /// </summary>
-        public CodeElementType Type { get; private set; }
+        public CodeElementType Type { get; protected set; }
         /// <summary>
         /// The Semantic data of this Code Element, usually type information.
         /// </summary>

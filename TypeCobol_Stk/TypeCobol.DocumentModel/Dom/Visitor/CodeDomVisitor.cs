@@ -160,18 +160,34 @@ namespace TypeCobol.DocumentModel.Dom.Visitor
         //CodeElementGroup
         public virtual R Visit(CobolProgram that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(ProgramAttributes that, D data) { return visitCodeElement(that, data); }
+
+        //Environment Division
         public virtual R Visit(EnvironmentDivision that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(ConfigurationSection that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(InputOutputSection that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(FileControlParagraph that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(IoControlParagraph that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(DataDivision that, D data) { return visitCodeElement(that, data); }
+
+        //Data Division
         public virtual R Visit(ExecSqlStatement that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(TypeCobol.DocumentModel.Dom.FileDescription that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(FileSection that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(WorkingStorageSection that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(LocalStorageSection that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(LinkageSection that, D data) { return visitCodeElement(that, data); }
+
+        //Procedure Division
+        public virtual R Visit(ProcedureDivision that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(Sentence.Statements that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(Sentence.ExecSql that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(Paragraph that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(Section.Section that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(Section.Paragraph that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(Section.Sentences that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(Section.Declarative that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(Declaratives that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(FunctionDeclaration that, D data) { return visitCodeElement(that, data); }
 
         //Expressions
         //public virtual R Visit(ReceivingStorageArea that, D data) { return visitCodeElement(that, data); }

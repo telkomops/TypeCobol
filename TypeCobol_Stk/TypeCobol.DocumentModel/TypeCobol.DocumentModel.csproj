@@ -73,6 +73,7 @@
     <Compile Include="Dom\EnvironmentDivision.cs" />
     <Compile Include="Dom\Parser\ProgramParser.cs" />
     <Compile Include="Dom\Parser\ProgramSymbols.cs" />
+    <Compile Include="Dom\ProcedureDivision.cs" />
     <Compile Include="Dom\ProgramAttributes.cs" />
     <Compile Include="Dom\Scanner\CodeElementTokenizer.cs" />
     <Compile Include="Dom\Statements.cs" />

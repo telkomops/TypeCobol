@@ -27,5 +27,16 @@ namespace TypeCobol.DocumentModel.Dom
                     ExecSqlStatement,
                 LocalStorageSection,
                 LinkageSection,
+
+            ProcedureDivision,
+                SentenceStatements,
+                SentenceExecSql,
+                Paragraph,
+                SectionSection,
+                SectionParagraph,
+                SectionSentences,
+                SectionDeclarative,
+                Declaratives,
+                FunctionDeclaration,
     }
 }

@@ -140,6 +140,7 @@ non terminal TypeCobol.DocumentModel.Dom.CobolProgram    cobolCompilationUnit, c
 non terminal TypeCobol.DocumentModel.Dom.ProgramAttributes    programAttributes;
 non terminal TypeCobol.Compiler.CodeElements.LibraryCopyCodeElement LibraryCopyOpt;
 non terminal TypeCobol.Compiler.CodeElements.ProgramEnd ProgramEndOpt;
+non terminal TypeCobol.DocumentModel.Dom.NestedPrograms nestedProgramOpt;
 
 non terminal TypeCobol.DocumentModel.Dom.EnvironmentDivision environmentDivisionOpt, environmentDivision;
 non terminal TypeCobol.DocumentModel.Dom.ConfigurationSection configurationSectionOpt, configurationSection;
@@ -164,11 +165,21 @@ non terminal TypeCobol.DocumentModel.Dom.LocalStorageSection localStorageSection
 non terminal TypeCobol.DocumentModel.Dom.LinkageSection linkageSection;
 non terminal TypeCobol.DocumentModel.Dom.DataDivision dataDivisionOpt, dataDivision;
 
-non terminal TypeCobol.DocumentModel.Dom.NestedPrograms nestedProgramOpt;
-
+non terminal TypeCobol.DocumentModel.Dom.ProcedureDivision procedureDivision, procedureDivisionOpt;
 non terminal TypeCobol.DocumentModel.Dom.Statement statement, singleStatement;
-non terminal TypeCobol.DocumentModel.Dom.Statements statements, statementsOpts;
-
+non terminal TypeCobol.DocumentModel.Dom.Statements statements, statementsOpt;
+non terminal TypeCobol.DocumentModel.Dom.Sentence sentence;
+non terminal TypeCobol.DocumentModel.Dom.Sentences sentences, sentencesOpt;
+non terminal TypeCobol.DocumentModel.Dom.Paragraph paragraph;
+non terminal TypeCobol.DocumentModel.Dom.Paragraphs paragraphs;
+non terminal TypeCobol.DocumentModel.Dom.Section section;
+non terminal TypeCobol.DocumentModel.Dom.Sections sections, sectionsOpt, declarativesSections;
+non terminal TypeCobol.DocumentModel.Dom.Section.Declarative declarativesSection;
+non terminal TypeCobol.DocumentModel.Dom.Declaratives declaratives, declarativesOpt;
+non terminal TypeCobol.DocumentModel.Dom.FunctionDeclaration functionDeclaration;
+non terminal TypeCobol.DocumentModel.Dom.ProcedureDivision functionProcedureDivision, functionProcedureDivisionOpt;
+non terminal TypeCobol.DocumentModel.Dom.ProcedureDivision.Element functionOrSectionDeclaration;
+non terminal TypeCobol.DocumentModel.Dom.ProcedureDivision.Elements functionOrSectionDeclarations;
 
 /* The grammar */
 cobolCompilationUnit ::= cobolProgram:cp
@@ -197,14 +208,13 @@ cobolProgramBase ::=
 	programAttributes:pas
 	environmentDivisionOpt:ed
 	dataDivisionOpt:dv
-/*
-	procedureDivisionOpt
-*/
+	procedureDivisionOpt:pdiv
 	{: 
 		RESULT = new CobolProgram(); 
 		RESULT.ProgramAttributes = pas;
 		RESULT.EnvironmentDivision = ed;
 		RESULT.DataDivision = dv;
+		RESULT.ProcedureDivision = pdiv;
 	:}
 	;
 
@@ -453,83 +463,138 @@ linkageSection ::= /*empty*/
 	{: RESULT = new LinkageSection(lsh, ddes); :}
 	;
 
+procedureDivisionOpt ::= /*empty*/
+	{: RESULT = null; :}
+	| procedureDivision:pdiv
+	{: RESULT = pdiv; :}
+	;
+
 procedureDivision ::=
-	ProcedureDivisionHeader declarativesOpt functionOrSectionDeclarations
+	ProcedureDivisionHeader:pdh 
+	declarativesOpt:decls
+	functionOrSectionDeclarations:elems
+	{:
+		RESULT = new ProcedureDivision(pdh); 
+		RESULT.Declaratives = decls;
+		RESULT.ProcedureElements = elems;
+	:}
 	;
 
 functionOrSectionDeclarations ::= /*empty*/
-	| functionOrSectionDeclarations functionOrSectionDeclaration
+	{: RESULT = new ProcedureDivision.Elements(); :}
+	| functionOrSectionDeclarations:elems functionOrSectionDeclaration:elem
+	{: RESULT = elems; elems.Add(elem); :}
 	;
 
-functionOrSectionDeclaration ::= functionDeclaration
-	| section
-	;
-
-procedureDivision ::=
-	ProcedureDivisionHeader :pdh
-	declarativesOpt
-	section*
-	;
-
-declarativesOpt ::= /*empty*/
-|declaratives
-;
-
-declaratives ::=
-	DeclarativesHeader
-	(SectionHeader UseStatement
-		paragraph* 
-	)+
-	DeclarativesEnd;
-
-
-sectionsOpt ::= /*empty*/
-	| sections
-	;
-
-sections ::= section
-	| sections section
-	;
-
-section ::=
-	| SectionHeader paragraphsOpt
-	| ParagraphHeader paragraphsOpt
-	| sentences
-	;
-
-paragraphsOpt ::= /*empty*/
-	|paragraphs
-	;
-
-paragraphs ::= paragraph
-	| paragraphs paragraph
-	;
-
-paragraph ::=
-	| ParagraphHeader sentencesOpt
-	| sentences
-	;
-
-sentencesOpt ::= /*empty*/
-	| sentences
-	;
-
-sentences ::= sentence
-	| sentences sentence
+functionOrSectionDeclaration ::= functionDeclaration:fd
+	{: RESULT = new ProcedureDivision.Element.Function(fd); :}
+	| section:s
+	{: RESULT = new ProcedureDivision.Element.Section(s); :}
 	;
 
 functionDeclaration ::=
-	FunctionDeclarationHeader
-	dataDivision?
-	functionProcedureDivision?
-	FunctionDeclarationEnd
+	FunctionDeclarationHeader:fdh
+	dataDivisionOpt:dv
+	functionProcedureDivisionOpt:fpd
+	FunctionDeclarationEnd:fe
+	{:
+		RESULT = new FunctionDeclaration(fdh); 
+		RESULT.DataDivision = dv;
+		RESULT.ProcedureDivision = fpd;
+		RESULT.FunctionDeclarationEnd = fe;
+	:}
+	;
+
+functionProcedureDivisionOpt ::= /*empty*/
+	{: RESULT = null; :}
+	| functionProcedureDivision:fpd
+	{: RESULT = fpd; :}
 	;
 
 functionProcedureDivision ::=
-	ProcedureDivisionHeader sectionsOpt;
+	ProcedureDivisionHeader:pdh sectionsOpt:alls
+	{: RESULT = new ProcedureDivision(pdh, alls); :}
+	;
 
-sentence ::= statementsOpt SentenceEnd
-	| ExecStatement
+
+declarativesOpt ::= /*empty*/
+	{: RESULT = null; :}
+	| declaratives:decls
+	{: RESULT = decls; :}
+	;
+
+declaratives ::=
+	DeclarativesHeader:dh
+	declarativesSections:decls
+	DeclarativesEnd:de
+	{: RESULT = Declaratives(dh, decls,de); :}
+	;
+
+
+declarativesSections ::= declarativesSection:ds
+	{: RESULT = new Sections(); RESULT.Add(ds); :}
+	| declarativesSections:decls declarativesSection:ds
+	{: RESULT = decls; decls.Add(ds); :}
+	;
+
+declarativesSection ::= SectionHeader:sh UseStatement:us paragraphs:p
+	{: RESULT = new Section.Declarative(sh, us, p); :}
+	;
+
+sectionsOpt ::= /*empty*/
+	{: RESULT = new Sections(); :}
+	| sections:alls
+	{: RESULT = alls; :}
+	;
+
+sections ::= sections
+	{: RESULT = new Sections(); RESULT.Add(s); :}
+	| sections:alls section:s
+	{: RESULT = alls; alls.Add(s); :}
+	;
+
+section ::= SectionHeader:sh 
+	{: RESULT = new Section.Section(sh, null); :}
+	| SectionHeader:sh paragraphs:ps
+	{: RESULT = new Section.Section(sh, ps); :}
+	| ParagraphHeader:ph 
+	{: RESULT = new Section.Paragraph(ph, null); :}
+	| ParagraphHeader:ph paragraphs:ps
+	{: RESULT = new Section.Paragraph(ph, ps); :}
+	| sentences:alls
+	{: RESULT = new Section.Sentences(alls); :}
+	;
+
+paragraphs ::= paragraph:p
+	{: RESULT = new Paragraphs(); RESULT.Add(p); :}
+	| paragraphs:ps paragraph:p
+	{: RESULT = ps; ps.Add(p); :}
+	;
+
+paragraph ::= ParagraphHeader:ph sentencesOpt:alls
+	{: RESULT = new Paragraph(ph, alls); :}
+	| sentences:alls
+	{: RESULT = new Paragraph(alls); :}
+	;
+
+sentencesOpt ::= /*empty*/
+	{: RESULT = new Sentences(); :}
+	| sentences:alls
+	{: RESULT = alls; :}
+	;
+
+sentences ::= sentence:s
+	{: RESULT = new Sentences(); RESULT.Add(s); :}
+	| sentences:alls sentence:s
+	{: RESULT = alls; sentences.Add(s); :}
+	;
+
+sentence ::= SentenceEnd:send
+	{: RESULT = new Sentence.Statements(null, send); :}
+    | statements:stmts SentenceEnd:send
+	{: RESULT = new Sentence.Statements(stmts, send); :}
+	| ExecStatement:stmt
+	{: RESULT = new Sentence.ExecSql(stmt); :}
 	;
 
 statementsOpt ::= /*empty*/
@@ -538,7 +603,7 @@ statementsOpt ::= /*empty*/
 	{: RESULT = stmts; :}
 	;
 
-statements ::= statement:tstm
+statements ::= statement:stmt
 	{: RESULT = new Statements(); RESULT.Add(stmt); :}
 	| statements:stmts statement:stmt
 	{: RESULT = stmts; stmts.Add(stmt); :}
