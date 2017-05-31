@@ -179,10 +179,9 @@ namespace TypeCobol.DocumentModel.Dom.Visitor
 
         //Procedure Division
         public virtual R Visit(ProcedureDivision that, D data) { return visitCodeElement(that, data); }
-        public virtual R Visit(Sentence.Statements that, D data) { return visitCodeElement(that, data); }
-        public virtual R Visit(Sentence.ExecSql that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(Sentence that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(Paragraph that, D data) { return visitCodeElement(that, data); }
-        public virtual R Visit(Section.Section that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(Section.Standard that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(Section.Paragraph that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(Section.Sentences that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(Section.Declarative that, D data) { return visitCodeElement(that, data); }

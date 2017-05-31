@@ -32,11 +32,14 @@ namespace TypeCobol.DocumentModel.Dom
                 SentenceStatements,
                 SentenceExecSql,
                 Paragraph,
-                SectionSection,
+                SectionStandard,
                 SectionParagraph,
                 SectionSentences,
                 SectionDeclarative,
                 Declaratives,
+                Sentence,
                 FunctionDeclaration,
+                //Statement
+                    AddStatementConditional,
     }
 }

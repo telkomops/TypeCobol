@@ -132,7 +132,7 @@ terminal TypeCobol.Compiler.CodeElements.XmlStatementEnd XmlStatementEnd;
 terminal TypeCobol.Compiler.CodeElements.LibraryCopyCodeElement LibraryCopy;
 terminal TypeCobol.Compiler.CodeElements.FunctionDeclarationHeader FunctionDeclarationHeader;
 terminal TypeCobol.Compiler.CodeElements.FunctionDeclarationEnd FunctionDeclarationEnd;
-terminal TypeCobol.Compiler.CodeElements.ProcedureStyleCall ProcedureStyleCall;
+terminal TypeCobol.Compiler.CodeElements.ProcedureStyleCallStatement ProcedureStyleCall;
 terminal TypeCobol.Compiler.CodeElements.Program Program;
 
 /* Non terminals */
@@ -166,20 +166,45 @@ non terminal TypeCobol.DocumentModel.Dom.LinkageSection linkageSection;
 non terminal TypeCobol.DocumentModel.Dom.DataDivision dataDivisionOpt, dataDivision;
 
 non terminal TypeCobol.DocumentModel.Dom.ProcedureDivision procedureDivision, procedureDivisionOpt;
-non terminal TypeCobol.DocumentModel.Dom.Statement statement, singleStatement;
-non terminal TypeCobol.DocumentModel.Dom.Statements statements, statementsOpt;
+non terminal TypeCobol.DocumentModel.Dom.Statement statement, singleStatement, compoundStatement;
+non terminal TypeCobol.DocumentModel.Dom.Statements statements;
 non terminal TypeCobol.DocumentModel.Dom.Sentence sentence;
 non terminal TypeCobol.DocumentModel.Dom.Sentences sentences, sentencesOpt;
 non terminal TypeCobol.DocumentModel.Dom.Paragraph paragraph;
 non terminal TypeCobol.DocumentModel.Dom.Paragraphs paragraphs;
 non terminal TypeCobol.DocumentModel.Dom.Section section;
-non terminal TypeCobol.DocumentModel.Dom.Sections sections, sectionsOpt, declarativesSections;
+non terminal TypeCobol.DocumentModel.Dom.Sections sections, declarativesSections;
 non terminal TypeCobol.DocumentModel.Dom.Section.Declarative declarativesSection;
 non terminal TypeCobol.DocumentModel.Dom.Declaratives declaratives, declarativesOpt;
 non terminal TypeCobol.DocumentModel.Dom.FunctionDeclaration functionDeclaration;
 non terminal TypeCobol.DocumentModel.Dom.ProcedureDivision functionProcedureDivision, functionProcedureDivisionOpt;
 non terminal TypeCobol.DocumentModel.Dom.ProcedureDivision.Element functionOrSectionDeclaration;
 non terminal TypeCobol.DocumentModel.Dom.ProcedureDivision.Elements functionOrSectionDeclarations;
+
+non terminal TypeCobol.DocumentModel.Dom.EndCondition onAtEnd, noAtEnd;
+non terminal TypeCobol.DocumentModel.Dom.EndConditions endConditions;
+non terminal TypeCobol.DocumentModel.Dom.ExceptionCondition onException, noException;
+non terminal TypeCobol.DocumentModel.Dom.ExceptionConditions exceptionConditions;
+non terminal TypeCobol.DocumentModel.Dom.KeyCondition onInvalidKey, noInvalidKey;
+non terminal TypeCobol.DocumentModel.Dom.KeyConditions keyConditions;
+non terminal TypeCobol.DocumentModel.Dom.OverflowCondition onOverflow, noOverflow;
+non terminal TypeCobol.DocumentModel.Dom.OverflowConditions overflowConditions;
+non terminal TypeCobol.DocumentModel.Dom.SizeErrorCondition onSizeError, noSizeError;
+non terminal TypeCobol.DocumentModel.Dom.SizeErrorConditions sizeErrorConditions;
+
+non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.AddConditional addStatementConditional;
+
+precedence left SentenceEnd;
+precedence left AcceptStatement, AddStatement, AlterStatement, CallStatement, CancelStatement,
+			CloseStatement, ComputeStatement, ContinueStatement, DeleteStatement, DisplayStatement,
+			DivideStatement, EntryStatement, EntryStatement, ExitMethodStatement, ExitProgramStatement,
+			ExitStatement, GobackStatement, GotoStatement, InitializeStatement, InspectStatement,
+			InvokeStatement, MergeStatement, MoveStatement, MultiplyStatement, OpenStatement,
+			PerformProcedureStatement, ReadStatement, ReleaseStatement, ReturnStatement,
+			RewriteStatement, SetStatement, SortStatement, StartStatement, StopStatement,
+			StringStatement, SubtractStatement, UnstringStatement, WriteStatement, XmlGenerateStatement,
+			XmlParseStatement, ProcedureStyleCall, ExecStatement;
+
 
 /* The grammar */
 cobolCompilationUnit ::= cobolProgram:cp
@@ -512,8 +537,11 @@ functionProcedureDivisionOpt ::= /*empty*/
 	;
 
 functionProcedureDivision ::=
-	ProcedureDivisionHeader:pdh sectionsOpt:alls
+	ProcedureDivisionHeader:pdh 
+	{: RESULT = new ProcedureDivision(pdh, null); :}
+| 	ProcedureDivisionHeader:pdh sections:alls
 	{: RESULT = new ProcedureDivision(pdh, alls); :}
+
 	;
 
 
@@ -527,7 +555,7 @@ declaratives ::=
 	DeclarativesHeader:dh
 	declarativesSections:decls
 	DeclarativesEnd:de
-	{: RESULT = Declaratives(dh, decls,de); :}
+	{: RESULT = new Declaratives(dh, decls,de); :}
 	;
 
 
@@ -541,22 +569,16 @@ declarativesSection ::= SectionHeader:sh UseStatement:us paragraphs:p
 	{: RESULT = new Section.Declarative(sh, us, p); :}
 	;
 
-sectionsOpt ::= /*empty*/
-	{: RESULT = new Sections(); :}
-	| sections:alls
-	{: RESULT = alls; :}
-	;
-
-sections ::= sections
+sections ::= section:s
 	{: RESULT = new Sections(); RESULT.Add(s); :}
 	| sections:alls section:s
 	{: RESULT = alls; alls.Add(s); :}
 	;
 
 section ::= SectionHeader:sh 
-	{: RESULT = new Section.Section(sh, null); :}
+	{: RESULT = new Section.Standard(sh, null); :}
 	| SectionHeader:sh paragraphs:ps
-	{: RESULT = new Section.Section(sh, ps); :}
+	{: RESULT = new Section.Standard(sh, ps); :}
 	| ParagraphHeader:ph 
 	{: RESULT = new Section.Paragraph(ph, null); :}
 	| ParagraphHeader:ph paragraphs:ps
@@ -586,21 +608,15 @@ sentencesOpt ::= /*empty*/
 sentences ::= sentence:s
 	{: RESULT = new Sentences(); RESULT.Add(s); :}
 	| sentences:alls sentence:s
-	{: RESULT = alls; sentences.Add(s); :}
+	{: RESULT = alls; alls.Add(s); :}
 	;
 
 sentence ::= SentenceEnd:send
-	{: RESULT = new Sentence.Statements(null, send); :}
+	{: RESULT = new Sentence(send); :}
     | statements:stmts SentenceEnd:send
-	{: RESULT = new Sentence.Statements(stmts, send); :}
+	{: RESULT = new Sentence(stmts, send); :}
 	| ExecStatement:stmt
-	{: RESULT = new Sentence.ExecSql(stmt); :}
-	;
-
-statementsOpt ::= /*empty*/
-	{: RESULT = null; :}
-	| statements:stmts
-	{: RESULT = stmts; :}
+	{: RESULT = new Sentence(new SingleStatement.ExecStatement(stmt)); :}
 	;
 
 statements ::= statement:stmt
@@ -611,7 +627,8 @@ statements ::= statement:stmt
 
 statement ::= singleStatement:stmt
 	{: RESULT = stmt; :}
-	/*| compoundStatement*/
+	| compoundStatement:stmt
+	{: RESULT = stmt; :}
 	;
 
 singleStatement ::=
@@ -706,4 +723,110 @@ singleStatement ::=
 // -- DB2 & CICS integration --
 	| ExecStatement:stmt
 	{: RESULT = new SingleStatement.ExecStatement(stmt); :}
+	;
+	
+// Statements with optional body  
+compoundStatement ::= addStatementConditional:stmt
+	{: RESULT = stmt; :}
+	;
+
+addStatementConditional ::=
+		AddStatement:stmt AddStatementEnd:end
+		{: RESULT = new CompoundStatement.AddConditional(stmt, null, end); :}
+	|	AddStatement:stmt sizeErrorConditions:conds
+		{: RESULT = new CompoundStatement.AddConditional(stmt, conds); :}
+	|	AddStatement:stmt sizeErrorConditions:conds AddStatementEnd:end
+		{: RESULT = new CompoundStatement.AddConditional(stmt, conds, end); :}
+	;
+
+// Conditional execution of statements
+
+onAtEnd ::= AtEndCondition:cond statements:stmts
+	{: RESULT = new EndCondition.At(cond, stmts); :}
+	;
+noAtEnd ::= NotAtEndCondition statements
+	{: RESULT = new EndCondition.NotAt(cond, stmts); :}
+	;
+endConditions ::= /* empty*/ 
+	{: RESULT = new EndConditions(); :}
+	| onAtEnd:at
+	{: RESULT = new EndConditions(); RESULT.Add(at); :}
+	| noAtEnd:no_at
+	{: RESULT = new EndConditions(); RESULT.Add(no_at); :}
+	| endConditions:econds onAtEnd:at
+	{: RESULT = econds; econds.Add(at); :}
+	| endConditions:econds noAtEnd:no_at
+	{: RESULT = econds; econds.Add(no_at); :}
+	;
+
+onException ::= OnExceptionCondition:cond statement:stmts
+	{: RESULT = new ExceptionCondition.On(cond, stmts); :}
+	;
+noException ::= NotOnExceptionCondition:cond statement:stmts
+	{: RESULT = new ExceptionCondition.NotOn(cond, stmts); :}
+	;
+exceptionConditions ::= /* empty*/ 
+	{: RESULT = new ExceptionConditions(); :}
+	| onException:on
+	{: RESULT = new ExceptionConditions(); RESULT.Add(on); :}
+	| noException:not_on
+	{: RESULT = new ExceptionConditions(); RESULT.Add(not_on); :}
+	| exceptionConditions:econds onException:on
+	{: RESULT = econds; econds.Add(on); :}
+	| exceptionConditions:econds noException:not_on
+	{: RESULT = econds; econds.Add(not_on); :}
+	;
+
+
+onInvalidKey ::= InvalidKeyCondition:cond statement:stmts
+	{: RESULT = new KeyCondition.Invalid(cond, stmts); :}
+	;
+noInvalidKey ::= NotInvalidKeyCondition:cond statement:stmts
+	{: RESULT = new KeyCondition.NotInvalid(cond, stmts); :}
+	;
+keyConditions ::= /* empty*/ 
+	{: RESULT = new KeyConditions(); :}
+	| onInvalidKey:invalid
+	{: RESULT = new KeyConditions(); RESULT.Add(invalid); :}
+	| noInvalidKey:not_invalid
+	{: RESULT = new KeyConditions(); RESULT.Add(not_invalid); :}
+	| keyConditions:kconds onInvalidKey:valid
+	{: RESULT = kconds; kconds.Add(valid); :}
+	| endConditions:kconds noInvalidKey:not_invalid
+	{: RESULT = kconds; kconds.Add(not_invalid); :}
+	;
+
+onOverflow ::= OnOverflowCondition:cond statement:stmts
+	{: RESULT = new OverflowCondition.On(cond, stmts); :}
+	;
+noOverflow ::= NotOnOverflowCondition:cond statement:stmts
+	{: RESULT = new OverflowCondition.NotOn(cond, stmts); :}
+	;
+overflowConditions ::= /* empty*/ 
+	{: RESULT = new OverflowConditions(); :}
+	| onOverflow:on
+	{: RESULT = new OverflowConditions(); RESULT.Add(on); :}
+	| noOverflow:not_on
+	{: RESULT = new OverflowConditions(); RESULT.Add(not_on); :}
+	| overflowConditions:oconds onOverflow:on
+	{: RESULT = oconds; oconds.Add(on); :}
+	| overflowConditions:oconds noOverflow:not_on
+	{: RESULT = oconds; oconds.Add(not_on); :}
+	;
+
+onSizeError ::= OnSizeErrorCondition:cond statement:stmts
+	{: RESULT = new SizeErrorCondition.On(cond, stmts); :}
+	;
+noSizeError ::= NotOnSizeErrorCondition:cond statement:stmts
+	{: RESULT = new SizeErrorCondition.On(cond, stmts); :}
+	;
+sizeErrorConditions ::= 
+	  onSizeError:on
+	{: RESULT = new SizeErrorConditions(); RESULT.Add(on); :}
+	| noSizeError:not_on
+	{: RESULT = new SizeErrorConditions(); RESULT.Add(not_on); :}
+	| sizeErrorConditions:seconds onSizeError:on
+	{: RESULT = seconds; seconds.Add(on); :}
+	| sizeErrorConditions:seconds noSizeError:not_on
+	{: RESULT = seconds; seconds.Add(not_on); :}
 	;

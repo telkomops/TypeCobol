@@ -108,7 +108,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>
-    <PreBuildEvent>$(TargetDir)CSCup.exe -parser ProgramParser -symbols ProgramSymbols $(ProjectDir)\Dom\Parser\ProgramDOM.cup
+    <PreBuildEvent>$(TargetDir)CSCup.exe -expect 100 -parser ProgramParser -symbols ProgramSymbols $(ProjectDir)\Dom\Parser\ProgramDOM.cup
 mv $(TargetDir)ProgramParser.cs $(ProjectDir)Dom\parser
 mv $(TargetDir)ProgramSymbols.cs $(ProjectDir)Dom\parser</PreBuildEvent>
   </PropertyGroup>
