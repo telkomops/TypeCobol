@@ -193,6 +193,20 @@ non terminal TypeCobol.DocumentModel.Dom.SizeErrorCondition onSizeError, noSizeE
 non terminal TypeCobol.DocumentModel.Dom.SizeErrorConditions sizeErrorConditions;
 
 non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.AddConditional addStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.ConditionalExecutionStatements callStatementConditions;
+non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.CallConditional callStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.ComputeConditional computeStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.DeleteConditional deleteStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.DivideConditional divideStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.WhenConditionClauses whenConditionClauses;
+non terminal TypeCobol.DocumentModel.Dom.WhenOtherClause whenOtherClause;
+non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.EvaluateWith evaluateStatementWithBody;
+non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.IfStatement ifStatementWithBody;
+non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.InvokeConditional invokeStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.MultiplyConditional multiplyStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.Perform performStatementWithBody;
+non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.ReadConditional readStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.ConditionalExecutionStatements readStatementConditions;
 
 precedence left SentenceEnd;
 precedence left AcceptStatement, AddStatement, AlterStatement, CallStatement, CancelStatement,
@@ -727,7 +741,27 @@ singleStatement ::=
 	
 // Statements with optional body  
 compoundStatement ::= addStatementConditional:stmt
-	{: RESULT = stmt; :}
+		{: RESULT = stmt; :}
+	|	callStatementConditional:stmt
+		{: RESULT = stmt; :}
+	|	computeStatementConditional:stmt
+		{: RESULT = stmt; :}
+	|	deleteStatementConditional:stmt
+		{: RESULT = stmt; :}
+	|	evaluateStatementWithBody:stmt
+		{: RESULT = stmt; :}
+	|	ifStatementWithBody:stmt
+		{: RESULT = stmt; :}
+	|	invokeStatementConditional:stmt
+		{: RESULT = stmt; :}
+	|	divideStatementConditional:stmt
+		{: RESULT = stmt; :}
+	|	multiplyStatementConditional:stmt
+		{: RESULT = stmt; :}
+	|	performStatementWithBody:stmt
+		{: RESULT = stmt; :}
+	|	readStatementConditional:stmt
+		{: RESULT = stmt; :}
 	;
 
 addStatementConditional ::=
@@ -737,6 +771,168 @@ addStatementConditional ::=
 		{: RESULT = new CompoundStatement.AddConditional(stmt, conds); :}
 	|	AddStatement:stmt sizeErrorConditions:conds AddStatementEnd:end
 		{: RESULT = new CompoundStatement.AddConditional(stmt, conds, end); :}
+	;
+
+callStatementConditional ::=
+		CallStatement:stmt CallStatementEnd:end
+		{: RESULT = new CompoundStatement.CallConditional(stmt, null, end); :}
+	|	CallStatement:stmt callStatementConditions:conds
+		{: RESULT = new CompoundStatement.CallConditional(stmt, conds); :}
+	|	CallStatement:stmt callStatementConditions:conds CallStatementEnd:end
+		{: RESULT = new CompoundStatement.CallConditional(stmt, conds, end); :}
+	;
+
+callStatementConditions ::=
+	  onException:on
+	{: RESULT = new ConditionalExecutionStatements(); RESULT.Add(on); :}
+	| noException:not_on
+	{: RESULT = new ConditionalExecutionStatements(); RESULT.Add(not_on); :}
+	| onOverflow:on
+	{: RESULT = new ConditionalExecutionStatements(); RESULT.Add(on); :}
+	;
+
+computeStatementConditional ::=
+		ComputeStatement:stmt ComputeStatementEnd:end
+		{: RESULT = new CompoundStatement.ComputeConditional(stmt, null, end); :}
+	|	ComputeStatement:stmt sizeErrorConditions:conds
+		{: RESULT = new CompoundStatement.ComputeConditional(stmt, conds); :}
+	|	ComputeStatement:stmt sizeErrorConditions:conds ComputeStatementEnd:end
+		{: RESULT = new CompoundStatement.ComputeConditional(stmt, conds, end); :}
+	;
+
+deleteStatementConditional ::=
+		DeleteStatement:stmt DeleteStatementEnd:end
+		{: RESULT = new CompoundStatement.DeleteConditional(stmt, null, end); :}
+	|	DeleteStatement:stmt keyConditions:conds
+		{: RESULT = new CompoundStatement.DeleteConditional(stmt, conds); :}
+	|	DeleteStatement:stmt keyConditions:conds DeleteStatementEnd:end
+		{: RESULT = new CompoundStatement.DeleteConditional(stmt, conds, end); :}
+	;
+
+divideStatementConditional ::=
+		DivideStatement:stmt DivideStatementEnd:end
+		{: RESULT = new CompoundStatement.DivideConditional(stmt, null, end); :}
+	|	DivideStatement:stmt sizeErrorConditions:conds
+		{: RESULT = new CompoundStatement.DivideConditional(stmt, conds); :}
+	|	DivideStatement:stmt sizeErrorConditions:conds DivideStatementEnd:end
+		{: RESULT = new CompoundStatement.DivideConditional(stmt, conds, end); :}
+	;
+
+evaluateStatementWithBody ::=
+		EvaluateStatement:est
+		{: RESULT = new CompoundStatement.EvaluateWith(est); :}
+	|	EvaluateStatement:est EvaluateStatementEnd:ese
+		{: RESULT = new CompoundStatement.EvaluateWith(est, ese); :}
+	|	EvaluateStatement:est whenConditionClauses:wccs
+		{: RESULT = new CompoundStatement.EvaluateWith(est, wccs); :}
+	|	EvaluateStatement:est whenConditionClauses:wccs EvaluateStatementEnd:ese
+		{: RESULT = new CompoundStatement.EvaluateWith(est, wccs, ese); :}
+	|	EvaluateStatement:est whenOtherClause:woc
+		{: RESULT = new CompoundStatement.EvaluateWith(est, woc); :}
+	|	EvaluateStatement:est whenOtherClause:woc EvaluateStatementEnd:ese
+		{: RESULT = new CompoundStatement.EvaluateWith(est, woc, ese); :}
+	|	EvaluateStatement:est whenConditionClauses:wccs whenOtherClause:woc
+		{: RESULT = new CompoundStatement.EvaluateWith(est, wccs, woc); :}
+	|	EvaluateStatement:est whenConditionClauses:wccs whenOtherClause:woc EvaluateStatementEnd:ese
+		{: RESULT = new CompoundStatement.EvaluateWith(est, wccs, woc, ese); :}
+	;
+
+whenConditionClauses ::= 
+		WhenSearchCondition:wcc statements:stmts
+		{: RESULT = new WhenConditionClauses(); RESULT.Add(new WhenConditionClause(wcc, stmts)); :}
+	|	WhenCondition:wcc  statements:stmts
+		{: RESULT = new WhenConditionClauses(); RESULT.Add(new WhenConditionClause(wcc, stmts)); :}
+	|	whenConditionClauses:wccs WhenSearchCondition:wcc  statements:stmts
+		{: RESULT = wccs; wccs.Add(new WhenConditionClause(wcc, stmts)); :}
+	|	whenConditionClauses:wccs WhenCondition:wcc  statements:stmts
+		{: RESULT = wccs; wccs.Add(new WhenConditionClause(wcc, stmts)); :}
+	;
+
+whenOtherClause ::= WhenOtherCondition:woc statements:stmts
+	{: RESULT = new WhenOtherClause(woc, stmts); :}
+	;
+
+ifStatementWithBody ::=
+	IfStatement:ifs statements:thenStmts
+	{: RESULT = new CompoundStatement.IfStatement(ifs, thenStmts); :}
+	| IfStatement:ifs statements:thenStmts IfStatementEnd:end
+	{: RESULT = new CompoundStatement.IfStatement(ifs, thenStmts, end); :}
+
+	| IfStatement:ifs NextSentenceStatement:thenNext
+	{: RESULT = new CompoundStatement.IfStatement(ifs, new Statements(){new SingleStatement.NextSentenceStatement(thenNext)}); :}
+	| IfStatement:ifs NextSentenceStatement:thenNext IfStatementEnd:end
+	{: RESULT = new CompoundStatement.IfStatement(ifs, new Statements(){new SingleStatement.NextSentenceStatement(thenNext)}, end); :}
+
+	| IfStatement:ifs statements:thenStmts ElseCondition:ec statements:elseStmts
+	{: RESULT = new CompoundStatement.IfStatement(ifs, thenStmts, ec, elseStmts); :}
+	| IfStatement:ifs statements:thenStmts ElseCondition:ec NextSentenceStatement:elseNext
+	{: RESULT = new CompoundStatement.IfStatement(ifs, thenStmts, ec, new Statements(){new SingleStatement.NextSentenceStatement(elseNext)}); :}
+
+	| IfStatement:ifs statements:thenStmts ElseCondition:ec statements:elseStmts IfStatementEnd:end
+	{: RESULT = new CompoundStatement.IfStatement(ifs, thenStmts, ec, elseStmts, end); :}
+	| IfStatement:ifs statements:thenStmts ElseCondition:ec NextSentenceStatement:elseNext IfStatementEnd:end
+	{: RESULT = new CompoundStatement.IfStatement(ifs, thenStmts, ec, new Statements(){new SingleStatement.NextSentenceStatement(elseNext)}, end); :}
+
+	| IfStatement:ifs NextSentenceStatement:thenNext ElseCondition:ec statements:elseStmts
+	{: RESULT = new CompoundStatement.IfStatement(ifs, new Statements(){new SingleStatement.NextSentenceStatement(thenNext)}, ec, elseStmts); :}
+	| IfStatement:ifs NextSentenceStatement:thenNext ElseCondition:ec NextSentenceStatement:elseNext
+	{: RESULT = new CompoundStatement.IfStatement(ifs, new Statements(){new SingleStatement.NextSentenceStatement(thenNext)}, ec,
+			new Statements(){new SingleStatement.NextSentenceStatement(elseNext)}); :}
+
+	| IfStatement:ifs NextSentenceStatement:thenNext ElseCondition:ec statements:elseStmts IfStatementEnd:end
+	{: RESULT = new CompoundStatement.IfStatement(ifs, new Statements(){new SingleStatement.NextSentenceStatement(thenNext)}, ec, elseStmts, end); :}
+	| IfStatement:ifs NextSentenceStatement:thenNext ElseCondition:ec NextSentenceStatement:elseNext IfStatementEnd:end
+	{: RESULT = new CompoundStatement.IfStatement(ifs, new Statements(){new SingleStatement.NextSentenceStatement(thenNext)}, ec,
+			new Statements(){new SingleStatement.NextSentenceStatement(elseNext)}, end); :}
+	;
+
+invokeStatementConditional ::=
+		InvokeStatement:stmt InvokeStatementEnd:end
+		{: RESULT = new CompoundStatement.InvokeConditional(stmt, null, end); :}
+	|	InvokeStatement:stmt exceptionConditions:conds
+		{: RESULT = new CompoundStatement.InvokeConditional(stmt, conds, null); :}
+	|	InvokeStatement:stmt exceptionConditions:conds InvokeStatementEnd:end
+		{: RESULT = new CompoundStatement.InvokeConditional(stmt, conds, end); :}
+	;
+
+multiplyStatementConditional ::=
+		MultiplyStatement:stmt MultiplyStatementEnd:end
+		{: RESULT = new CompoundStatement.MultiplyConditional(stmt, null, end); :}
+	|	MultiplyStatement:stmt sizeErrorConditions:conds
+		{: RESULT = new CompoundStatement.MultiplyConditional(stmt, conds); :}
+	|	MultiplyStatement:stmt sizeErrorConditions:conds MultiplyStatementEnd:end
+		{: RESULT = new CompoundStatement.MultiplyConditional(stmt, conds, end); :}
+	;
+
+performStatementWithBody ::=			
+		PerformStatement:stmt
+		{: RESULT = new CompoundStatement.Perform(stmt); :}
+	|	PerformStatement:stmt PerformStatementEnd:end
+		{: RESULT = new CompoundStatement.Perform(stmt, end); :}
+	|	PerformStatement:stmt statements:stmts
+		{: RESULT = new CompoundStatement.Perform(stmt, stmts); :}
+	|	PerformStatement:stmt statements:stmts PerformStatementEnd:end
+		{: RESULT = new CompoundStatement.Perform(stmt, stmts, end); :}
+	;
+
+readStatementConditional ::=
+		ReadStatement:stmt ReadStatementEnd:end
+		{: RESULT = new CompoundStatement.ReadConditional(stmt, null, end); :}
+	|	ReadStatement:stmt readStatementConditions:conds
+		{: RESULT = new CompoundStatement.ReadConditional(stmt, conds); :}
+	|	ReadStatement:stmt readStatementConditions:conds ReadStatementEnd:end
+		{: RESULT = new CompoundStatement.ReadConditional(stmt, conds, end); :}
+	;
+
+readStatementConditions ::=
+	  onAtEnd:at
+	{: RESULT = new ConditionalExecutionStatements(); RESULT.Add(at); :}
+	| noAtEnd:not_at
+	{: RESULT = new ConditionalExecutionStatements(); RESULT.Add(not_at); :}
+	| onInvalidKey:on
+	{: RESULT = new ConditionalExecutionStatements(); RESULT.Add(on); :}
+	| noInvalidKey:not_on
+	{: RESULT = new ConditionalExecutionStatements(); RESULT.Add(not_on); :}
 	;
 
 // Conditional execution of statements
@@ -765,9 +961,7 @@ onException ::= OnExceptionCondition:cond statements:stmts
 noException ::= NotOnExceptionCondition:cond statements:stmts
 	{: RESULT = new ExceptionCondition.NotOn(cond, stmts); :}
 	;
-exceptionConditions ::= /* empty*/ 
-	{: RESULT = new ExceptionConditions(); :}
-	| onException:on
+exceptionConditions ::= onException:on
 	{: RESULT = new ExceptionConditions(); RESULT.Add(on); :}
 	| noException:not_on
 	{: RESULT = new ExceptionConditions(); RESULT.Add(not_on); :}
@@ -784,9 +978,7 @@ onInvalidKey ::= InvalidKeyCondition:cond statements:stmts
 noInvalidKey ::= NotInvalidKeyCondition:cond statements:stmts
 	{: RESULT = new KeyCondition.NotInvalid(cond, stmts); :}
 	;
-keyConditions ::= /* empty*/ 
-	{: RESULT = new KeyConditions(); :}
-	| onInvalidKey:invalid
+keyConditions ::= onInvalidKey:invalid
 	{: RESULT = new KeyConditions(); RESULT.Add(invalid); :}
 	| noInvalidKey:not_invalid
 	{: RESULT = new KeyConditions(); RESULT.Add(not_invalid); :}
@@ -802,9 +994,7 @@ onOverflow ::= OnOverflowCondition:cond statements:stmts
 noOverflow ::= NotOnOverflowCondition:cond statements:stmts
 	{: RESULT = new OverflowCondition.NotOn(cond, stmts); :}
 	;
-overflowConditions ::= /* empty*/ 
-	{: RESULT = new OverflowConditions(); :}
-	| onOverflow:on
+overflowConditions ::= onOverflow:on
 	{: RESULT = new OverflowConditions(); RESULT.Add(on); :}
 	| noOverflow:not_on
 	{: RESULT = new OverflowConditions(); RESULT.Add(not_on); :}
