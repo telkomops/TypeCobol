@@ -744,7 +744,7 @@ addStatementConditional ::=
 onAtEnd ::= AtEndCondition:cond statements:stmts
 	{: RESULT = new EndCondition.At(cond, stmts); :}
 	;
-noAtEnd ::= NotAtEndCondition statements
+noAtEnd ::= NotAtEndCondition:cond statements:stmts
 	{: RESULT = new EndCondition.NotAt(cond, stmts); :}
 	;
 endConditions ::= /* empty*/ 
@@ -759,10 +759,10 @@ endConditions ::= /* empty*/
 	{: RESULT = econds; econds.Add(no_at); :}
 	;
 
-onException ::= OnExceptionCondition:cond statement:stmts
+onException ::= OnExceptionCondition:cond statements:stmts
 	{: RESULT = new ExceptionCondition.On(cond, stmts); :}
 	;
-noException ::= NotOnExceptionCondition:cond statement:stmts
+noException ::= NotOnExceptionCondition:cond statements:stmts
 	{: RESULT = new ExceptionCondition.NotOn(cond, stmts); :}
 	;
 exceptionConditions ::= /* empty*/ 
@@ -778,10 +778,10 @@ exceptionConditions ::= /* empty*/
 	;
 
 
-onInvalidKey ::= InvalidKeyCondition:cond statement:stmts
+onInvalidKey ::= InvalidKeyCondition:cond statements:stmts
 	{: RESULT = new KeyCondition.Invalid(cond, stmts); :}
 	;
-noInvalidKey ::= NotInvalidKeyCondition:cond statement:stmts
+noInvalidKey ::= NotInvalidKeyCondition:cond statements:stmts
 	{: RESULT = new KeyCondition.NotInvalid(cond, stmts); :}
 	;
 keyConditions ::= /* empty*/ 
@@ -792,14 +792,14 @@ keyConditions ::= /* empty*/
 	{: RESULT = new KeyConditions(); RESULT.Add(not_invalid); :}
 	| keyConditions:kconds onInvalidKey:valid
 	{: RESULT = kconds; kconds.Add(valid); :}
-	| endConditions:kconds noInvalidKey:not_invalid
+	| keyConditions:kconds noInvalidKey:not_invalid
 	{: RESULT = kconds; kconds.Add(not_invalid); :}
 	;
 
-onOverflow ::= OnOverflowCondition:cond statement:stmts
+onOverflow ::= OnOverflowCondition:cond statements:stmts
 	{: RESULT = new OverflowCondition.On(cond, stmts); :}
 	;
-noOverflow ::= NotOnOverflowCondition:cond statement:stmts
+noOverflow ::= NotOnOverflowCondition:cond statements:stmts
 	{: RESULT = new OverflowCondition.NotOn(cond, stmts); :}
 	;
 overflowConditions ::= /* empty*/ 
@@ -814,11 +814,11 @@ overflowConditions ::= /* empty*/
 	{: RESULT = oconds; oconds.Add(not_on); :}
 	;
 
-onSizeError ::= OnSizeErrorCondition:cond statement:stmts
+onSizeError ::= OnSizeErrorCondition:cond statements:stmts
 	{: RESULT = new SizeErrorCondition.On(cond, stmts); :}
 	;
-noSizeError ::= NotOnSizeErrorCondition:cond statement:stmts
-	{: RESULT = new SizeErrorCondition.On(cond, stmts); :}
+noSizeError ::= NotOnSizeErrorCondition:cond statements:stmts
+	{: RESULT = new SizeErrorCondition.NotOn(cond, stmts); :}
 	;
 sizeErrorConditions ::= 
 	  onSizeError:on

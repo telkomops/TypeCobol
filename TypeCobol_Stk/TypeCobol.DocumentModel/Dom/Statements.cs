@@ -506,7 +506,7 @@ namespace TypeCobol.DocumentModel.Dom
             : base(type, conditional, stmts)
         {
         }
-        public class On : ExceptionCondition
+        public class On : OverflowCondition
         {
             public On(TypeCobol.Compiler.CodeElements.OnOverflowCondition on, Statements stmts)
                 : base(CodeElementType.OnOverflowCondition, on, stmts)
@@ -549,7 +549,7 @@ namespace TypeCobol.DocumentModel.Dom
         }
         public class On : SizeErrorCondition
         {
-            public On(TypeCobol.Compiler.CodeElements.OnOverflowCondition on, Statements stmts)
+            public On(TypeCobol.Compiler.CodeElements.OnSizeErrorCondition on, Statements stmts)
                 : base(CodeElementType.OnOverflowCondition, on, stmts)
             {
             }
@@ -557,7 +557,7 @@ namespace TypeCobol.DocumentModel.Dom
 
         public class NotOn : SizeErrorCondition
         {
-            public NotOn(TypeCobol.Compiler.CodeElements.NotOnOverflowCondition not_on, Statements stmts)
+            public NotOn(TypeCobol.Compiler.CodeElements.NotOnSizeErrorCondition not_on, Statements stmts)
                 : base(CodeElementType.NotOnOverflowCondition, not_on, stmts)
             {
             }
