@@ -53,9 +53,9 @@ namespace TypeCobol.Compiler.CodeElements
                    && this.ContinueVisitToChildren(astVisitor, RecordName, FromVariable);
         }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
 }

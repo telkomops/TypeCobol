@@ -139,9 +139,9 @@ namespace TypeCobol.Compiler.CodeElements
                    && this.ContinueVisitToChildren(astVisitor, InputParameters);
         }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
 
@@ -223,9 +223,9 @@ namespace TypeCobol.Compiler.CodeElements
                        ProgramOrProgramEntryOrProcedureOrFunctionOrTCProcedureFunction, ProcedureCall);
         }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
 

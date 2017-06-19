@@ -745,9 +745,9 @@ namespace TypeCobol.Compiler.CodeElements {
 	{
 		public DataDescriptionEntry(): base(CodeElementType.DataDescriptionEntry) { }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
 
         /// <summary>
@@ -983,9 +983,9 @@ namespace TypeCobol.Compiler.CodeElements {
                 && this.ContinueVisitToChildren(astVisitor, Filler, RedefinesDataName);
         }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
 
@@ -1054,9 +1054,9 @@ namespace TypeCobol.Compiler.CodeElements {
 
         public override int Length { get { return 1; } }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
     
@@ -1107,9 +1107,9 @@ namespace TypeCobol.Compiler.CodeElements {
                    && this.ContinueVisitToChildren(astVisitor, ConditionValues, ConditionValuesRanges);
         }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
 

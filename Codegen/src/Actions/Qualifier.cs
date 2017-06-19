@@ -375,10 +375,11 @@ namespace TypeCobol.Codegen.Actions
                 base.ConsumedTokens = consumedTokens;
             }
 
-            public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+            public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
             {
                 //The purpose will be to ignore GeneratedCodeElement
                 //v.Visit(this, data);
+                return default(R);
             }
         }
 

@@ -51,9 +51,9 @@ public class SubtractSimpleStatement: SubtractStatement {
                    && this.ContinueVisitToChildren(astVisitor, VariablesTogether, SendingAndReceivingStorageAreas);
         }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
 
@@ -98,9 +98,9 @@ public class SubtractGivingStatement: SubtractStatement {
                    && this.ContinueVisitToChildren(astVisitor, VariablesTogether, ReceivingStorageAreas);
         }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
 
@@ -139,9 +139,9 @@ public class SubtractCorrespondingStatement: SubtractStatement {
                    && this.ContinueVisitToChildren(astVisitor, GroupItem, SendingAndReceivingGroupItem, Rounded);
         }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
 
     }

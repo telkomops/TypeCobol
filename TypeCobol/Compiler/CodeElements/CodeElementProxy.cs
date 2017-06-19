@@ -294,10 +294,11 @@ namespace TypeCobol.Compiler.CodeElements
             }
         }
 
-        public override void Accept<R, D>(Compiler.CodeElements.ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(Compiler.CodeElements.ICodeElementVisitor<R, D> v, D data)
         {
             if (Target != null)
-                Target.Accept<R, D>(v, data);
+                return Target.Accept<R, D>(v, data);
+            return default(R);
         }
     }
 }

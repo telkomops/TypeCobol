@@ -119,9 +119,9 @@
                    && this.ContinueVisitToChildren(astVisitor, (IEnumerable<IVisitable>) ReceivingStorageAreas);
         }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
 
@@ -208,9 +208,9 @@
                        && this.ContinueVisitToChildren(astVisitor, (IEnumerable<IVisitable>)ReceivingIndexes);
             }
 
-            public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+            public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
             {
-                v.Visit(this, data);
+                return v.Visit(this, data);
             }
         }
 
@@ -252,9 +252,9 @@
 		        return str.ToString();
 	        }
 
-            public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+            public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
             {
-                v.Visit(this, data);
+                return v.Visit(this, data);
             }
     }
 
@@ -318,9 +318,9 @@
 		    }
 	    }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
 

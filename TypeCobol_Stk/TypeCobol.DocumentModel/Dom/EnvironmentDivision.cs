@@ -73,9 +73,9 @@ namespace TypeCobol.DocumentModel.Dom
             InputOutputSection = inputOutputSection;
         }
 
-        public override void Accept<R,D>(Visitor.CodeDomVisitor<R,D> v, D data)
+        public override R Accept<R,D>(Visitor.CodeDomVisitor<R,D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
 
         public override IEnumerator<Compiler.CodeElements.CodeElement> GetEnumerator()
@@ -140,9 +140,9 @@ namespace TypeCobol.DocumentModel.Dom
             ConfigurationParagraphs = confParagraphs;
         }
 
-        public override void Accept<R, D>(Visitor.CodeDomVisitor<R, D> v, D data)
+        public override R Accept<R, D>(Visitor.CodeDomVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
 
         public override IEnumerator<Compiler.CodeElements.CodeElement> GetEnumerator()
@@ -269,9 +269,9 @@ namespace TypeCobol.DocumentModel.Dom
             IoControlParagraph = ioCtrlParagraph;
         }
 
-        public override void Accept<R, D>(Visitor.CodeDomVisitor<R, D> v, D data)
+        public override R Accept<R, D>(Visitor.CodeDomVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
 
         public override IEnumerator<CodeElement> GetEnumerator()
@@ -319,9 +319,9 @@ namespace TypeCobol.DocumentModel.Dom
         {
         }
 
-        public override void Accept<R, D>(Visitor.CodeDomVisitor<R, D> v, D data)
+        public override R Accept<R, D>(Visitor.CodeDomVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
 
         public override IEnumerator<CodeElement> GetEnumerator()
@@ -376,9 +376,9 @@ namespace TypeCobol.DocumentModel.Dom
         {
         }
 
-        public override void Accept<R, D>(Visitor.CodeDomVisitor<R, D> v, D data)
+        public override R Accept<R, D>(Visitor.CodeDomVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
 
         public override IEnumerator<CodeElement> GetEnumerator()

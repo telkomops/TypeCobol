@@ -68,12 +68,13 @@ namespace TypeCobol.DocumentModel.Dom
         /// <typeparam name="R"></typeparam>
         /// <typeparam name="D"></typeparam>
         /// <param name="v"></param>
-        public abstract void Accept<R, D>(TypeCobol.DocumentModel.Dom.Visitor.CodeDomVisitor<R, D> v, D data);
+        public abstract R Accept<R, D>(TypeCobol.DocumentModel.Dom.Visitor.CodeDomVisitor<R, D> v, D data);
 
-        public override void Accept<R, D>(TypeCobol.Compiler.CodeElements.ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.ICodeElementVisitor<R, D> v, D data)
         {
             if (v is TypeCobol.DocumentModel.Dom.Visitor.CodeDomVisitor<R, D>)
-                Accept(v as TypeCobol.DocumentModel.Dom.Visitor.CodeDomVisitor<R, D>, data);
+                return Accept(v as TypeCobol.DocumentModel.Dom.Visitor.CodeDomVisitor<R, D>, data);
+            return default(R);
         }
 
         /// <summary>

@@ -45,9 +45,9 @@ public class DivideSimpleStatement: DivideStatement {
                    && this.ContinueVisitToChildren(astVisitor, Divisor);
         }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
 
@@ -94,9 +94,9 @@ public class DivideGivingStatement: DivideStatement {
                    && this.ContinueVisitToChildren(astVisitor, Dividend, Divisor);
         }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
 
@@ -147,9 +147,9 @@ public class DivideRemainderStatement: DivideStatement {
             return base.VisitCodeElement(astVisitor) && astVisitor.Visit(this)
                    && this.ContinueVisitToChildren(astVisitor, Divisor, Dividend, Quotient, Remainder);
         }
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
 }

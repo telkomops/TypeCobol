@@ -320,10 +320,11 @@ namespace TypeCobol.DocumentModel.Dom
 			}
         }
 
-        public override void Accept<R, D>(Visitor.CodeDomVisitor<R, D> v, D data)
+        public override R Accept<R, D>(Visitor.CodeDomVisitor<R, D> v, D data)
         {
             if (Target != null)
-                Target.Accept(v, data);
+                return Target.Accept(v, data);
+            return default(R);
         }
 
         public override IEnumerator<CodeElement> GetEnumerator()
@@ -359,10 +360,11 @@ namespace TypeCobol.DocumentModel.Dom
             this.Statements = stmts;
         }
 
-        public override void Accept<R, D>(Visitor.CodeDomVisitor<R, D> v, D data)
+        public override R Accept<R, D>(Visitor.CodeDomVisitor<R, D> v, D data)
         {
             if (Target != null)
-                Target.Accept(v, data);
+                return Target.Accept(v, data);
+            return default(R);
         }
 
         public override IEnumerator<CodeElement> GetEnumerator()
@@ -1224,10 +1226,11 @@ namespace TypeCobol.DocumentModel.Dom
             }
         }
 
-        public override void Accept<R, D>(Visitor.CodeDomVisitor<R, D> v, D data)
+        public override R Accept<R, D>(Visitor.CodeDomVisitor<R, D> v, D data)
         {
             if (Target != null)
-                Target.Accept(v, data);
+                return Target.Accept(v, data);
+            return default(R);
         }
 
         public class InvokeConditional : CompoundStatement
@@ -1443,8 +1446,8 @@ namespace TypeCobol.DocumentModel.Dom
                 set;
             }
 
-            public ReadConditional(TypeCobol.Compiler.CodeElements.ReadStatement callStatement, ConditionalExecutionStatements conditions, TypeCobol.Compiler.CodeElements.ReadStatementEnd csend = null)
-                : base(CodeElementType.ReadStatement, callStatement)
+            public ReadConditional(TypeCobol.Compiler.CodeElements.ReadStatement readStatement, ConditionalExecutionStatements conditions, TypeCobol.Compiler.CodeElements.ReadStatementEnd csend = null)
+                : base(CodeElementType.ReadStatement, readStatement)
             {
                 this.Conditions = conditions;
                 this.ReadStatementEnd = csend;
@@ -1458,6 +1461,547 @@ namespace TypeCobol.DocumentModel.Dom
                 {
                     foreach (ConditionalExecutionStatement c in this.Conditions)
                         yield return c;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Return Condtional Statement
+        /// </summary>
+        public class ReturnConditional : CompoundStatement
+        {
+            public TypeCobol.Compiler.CodeElements.ReturnStatement ReturnStatement
+            {
+                get
+                {
+                    return (TypeCobol.Compiler.CodeElements.ReturnStatement)Target;
+                }
+
+                set
+                {
+                    Target = value;
+                }
+            }
+            /// <summary>
+            /// End Conditions
+            /// </summary>
+            public EndConditions Conditions
+            {
+                get;
+                set;
+            }
+
+            public ReturnConditional(TypeCobol.Compiler.CodeElements.ReturnStatement returnStatement, EndConditions conditions, TypeCobol.Compiler.CodeElements.ReturnStatementEnd csend = null)
+                : base(CodeElementType.ReturnStatement, returnStatement)
+            {
+                this.Conditions = conditions;
+                this.ReturnStatementEnd = csend;
+            }
+
+            public TypeCobol.Compiler.CodeElements.ReturnStatementEnd ReturnStatementEnd
+            {
+                get;
+                set;
+            }
+
+            public override IEnumerator<CodeElement> GetEnumerator()
+            {
+                if (this.ReturnStatement != null)
+                    yield return this.ReturnStatement;
+                if (this.Conditions != null)
+                {
+                    foreach (EndCondition c in this.Conditions)
+                        yield return c;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Rewrite Condtional Statement
+        /// </summary>
+        public class RewriteConditional : CompoundStatement
+        {
+            public TypeCobol.Compiler.CodeElements.RewriteStatement RewriteStatement
+            {
+                get
+                {
+                    return (TypeCobol.Compiler.CodeElements.RewriteStatement)Target;
+                }
+
+                set
+                {
+                    Target = value;
+                }
+            }
+            /// <summary>
+            /// Key Conditions
+            /// </summary>
+            public KeyConditions Conditions
+            {
+                get;
+                set;
+            }
+
+            public RewriteConditional(TypeCobol.Compiler.CodeElements.RewriteStatement rewriteStatement, KeyConditions conditions, TypeCobol.Compiler.CodeElements.RewriteStatementEnd csend = null)
+                : base(CodeElementType.RewriteStatement, rewriteStatement)
+            {
+                this.Conditions = conditions;
+                this.RewriteStatementEnd = csend;
+            }
+
+            public TypeCobol.Compiler.CodeElements.RewriteStatementEnd RewriteStatementEnd
+            {
+                get;
+                set;
+            }
+
+            public override IEnumerator<CodeElement> GetEnumerator()
+            {
+                if (this.RewriteStatement != null)
+                    yield return this.RewriteStatement;
+                if (this.Conditions != null)
+                {
+                    foreach (KeyCondition c in this.Conditions)
+                        yield return c;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Start Condtional Statement
+        /// </summary>
+        public class StartConditional : CompoundStatement
+        {
+            public TypeCobol.Compiler.CodeElements.StartStatement StartStatement
+            {
+                get
+                {
+                    return (TypeCobol.Compiler.CodeElements.StartStatement)Target;
+                }
+
+                set
+                {
+                    Target = value;
+                }
+            }
+            /// <summary>
+            /// Key Conditions
+            /// </summary>
+            public KeyConditions Conditions
+            {
+                get;
+                set;
+            }
+
+            public StartConditional(TypeCobol.Compiler.CodeElements.StartStatement startStatement, KeyConditions conditions, TypeCobol.Compiler.CodeElements.StartStatementEnd csend = null)
+                : base(CodeElementType.StartStatement, startStatement)
+            {
+                this.Conditions = conditions;
+                this.StartStatementEnd = csend;
+            }
+
+            public TypeCobol.Compiler.CodeElements.StartStatementEnd StartStatementEnd
+            {
+                get;
+                set;
+            }
+
+            public override IEnumerator<CodeElement> GetEnumerator()
+            {
+                if (this.StartStatement != null)
+                    yield return this.StartStatement;
+                if (this.Conditions != null)
+                {
+                    foreach (KeyCondition c in this.Conditions)
+                        yield return c;
+                }
+            }
+        }
+
+        /// <summary>
+        /// String Condtional Statement
+        /// </summary>
+        public class StringConditional : CompoundStatement
+        {
+            public TypeCobol.Compiler.CodeElements.StringStatement StringStatement
+            {
+                get
+                {
+                    return (TypeCobol.Compiler.CodeElements.StringStatement)Target;
+                }
+
+                set
+                {
+                    Target = value;
+                }
+            }
+            /// <summary>
+            /// Overflow Conditions
+            /// </summary>
+            public OverflowConditions Conditions
+            {
+                get;
+                set;
+            }
+
+            public StringConditional(TypeCobol.Compiler.CodeElements.StringStatement stringStatement, OverflowConditions conditions, TypeCobol.Compiler.CodeElements.StringStatementEnd csend = null)
+                : base(CodeElementType.StringStatement, stringStatement)
+            {
+                this.Conditions = conditions;
+                this.StringStatementEnd = csend;
+            }
+
+            public TypeCobol.Compiler.CodeElements.StringStatementEnd StringStatementEnd
+            {
+                get;
+                set;
+            }
+
+            public override IEnumerator<CodeElement> GetEnumerator()
+            {
+                if (this.StringStatement != null)
+                    yield return this.StringStatement;
+                if (this.Conditions != null)
+                {
+                    foreach (OverflowCondition c in this.Conditions)
+                        yield return c;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Subtract Condtional Statement
+        /// </summary>
+        public class SubtractConditional : CompoundStatement
+        {
+            public TypeCobol.Compiler.CodeElements.SubtractStatement SubtractStatement
+            {
+                get
+                {
+                    return (TypeCobol.Compiler.CodeElements.SubtractStatement)Target;
+                }
+
+                set
+                {
+                    Target = value;
+                }
+            }
+            /// <summary>
+            /// SizeError Conditions
+            /// </summary>
+            public SizeErrorConditions Conditions
+            {
+                get;
+                set;
+            }
+
+            public SubtractConditional(TypeCobol.Compiler.CodeElements.SubtractStatement subtractStatement, SizeErrorConditions conditions, TypeCobol.Compiler.CodeElements.SubtractStatementEnd csend = null)
+                : base(CodeElementType.SubtractStatement, subtractStatement)
+            {
+                this.Conditions = conditions;
+                this.SubtractStatementEnd = csend;
+            }
+
+            public TypeCobol.Compiler.CodeElements.SubtractStatementEnd SubtractStatementEnd
+            {
+                get;
+                set;
+            }
+
+            public override IEnumerator<CodeElement> GetEnumerator()
+            {
+                if (this.SubtractStatement != null)
+                    yield return this.SubtractStatement;
+                if (this.Conditions != null)
+                {
+                    foreach (SizeErrorCondition c in this.Conditions)
+                        yield return c;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Unstring Condtional Statement
+        /// </summary>
+        public class UnstringConditional : CompoundStatement
+        {
+            public TypeCobol.Compiler.CodeElements.UnstringStatement UnstringStatement
+            {
+                get
+                {
+                    return (TypeCobol.Compiler.CodeElements.UnstringStatement)Target;
+                }
+
+                set
+                {
+                    Target = value;
+                }
+            }
+            /// <summary>
+            /// Overflow Conditions
+            /// </summary>
+            public OverflowConditions Conditions
+            {
+                get;
+                set;
+            }
+
+            public UnstringConditional(TypeCobol.Compiler.CodeElements.UnstringStatement unstringStatement, OverflowConditions conditions, TypeCobol.Compiler.CodeElements.UnstringStatementEnd csend = null)
+                : base(CodeElementType.UnstringStatement, unstringStatement)
+            {
+                this.Conditions = conditions;
+                this.UnstringStatementEnd = csend;
+            }
+
+            public TypeCobol.Compiler.CodeElements.UnstringStatementEnd UnstringStatementEnd
+            {
+                get;
+                set;
+            }
+
+            public override IEnumerator<CodeElement> GetEnumerator()
+            {
+                if (this.UnstringStatement != null)
+                    yield return this.UnstringStatement;
+                if (this.Conditions != null)
+                {
+                    foreach (OverflowCondition c in this.Conditions)
+                        yield return c;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Write Conditional Statement
+        /// </summary>
+        public class WriteConditional : CompoundStatement
+        {
+            public TypeCobol.Compiler.CodeElements.WriteStatement WriteStatement
+            {
+                get
+                {
+                    return (TypeCobol.Compiler.CodeElements.WriteStatement)Target;
+                }
+
+                set
+                {
+                    Target = value;
+                }
+            }
+
+            /// <summary>
+            /// Conditions: list of ExceptionCondition or KeyCondition
+            /// </summary>
+            public ConditionalExecutionStatements Conditions
+            {
+                get;
+                set;
+            }
+
+            public TypeCobol.Compiler.CodeElements.WriteStatementEnd WriteStatementEnd
+            {
+                get;
+                set;
+            }
+
+            public WriteConditional(TypeCobol.Compiler.CodeElements.WriteStatement writeStatement, ConditionalExecutionStatements conditions, TypeCobol.Compiler.CodeElements.WriteStatementEnd csend = null)
+                : base(CodeElementType.WriteStatement, writeStatement)
+            {
+                this.Conditions = conditions;
+                this.WriteStatementEnd = csend;
+            }
+
+            public override IEnumerator<CodeElement> GetEnumerator()
+            {
+                if (this.WriteStatement != null)
+                    yield return this.WriteStatement;
+                if (this.Conditions != null)
+                {
+                    foreach (ConditionalExecutionStatement c in this.Conditions)
+                        yield return c;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Search Statement with Body
+        /// </summary>
+        public class SearchStatement : CompoundStatement
+        {
+            /// <summary>
+            /// Main code element
+            /// </summary>
+            public TypeCobol.Compiler.CodeElements.SearchStatement SearchElement
+            {
+                get
+                {
+                    return (TypeCobol.Compiler.CodeElements.SearchStatement)Target;
+                }
+
+                set
+                {
+                    Target = value;
+                }
+            }
+
+            /// <summary>
+            /// On At End Condition
+            /// </summary>
+            TypeCobol.DocumentModel.Dom.EndCondition OnAtEnd
+            {
+                get;
+                set;
+            }
+
+            /// <summary>
+            /// Serach When conditions
+            /// </summary>
+            public WhenConditionClauses WhenConditionClauses
+            {
+                get;
+                set;
+            }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            public TypeCobol.Compiler.CodeElements.SearchStatementEnd SearchStatementEnd
+            {
+                get;
+                set;
+            }
+
+
+            /// <summary>
+            /// Constructor
+            /// </summary>
+            /// <param name="searchStatement"></param>
+            /// <param name="whenCondClauses"></param>
+            public SearchStatement(TypeCobol.Compiler.CodeElements.SearchStatement searchStatement, WhenConditionClauses whenCondClauses, SearchStatementEnd send = null)
+                : base(CodeElementType.SearchStatement, searchStatement)
+            {
+                this.WhenConditionClauses = whenCondClauses;
+                this.SearchStatementEnd = send;
+            }
+
+            /// <summary>
+            /// Constructor
+            /// </summary>
+            /// <param name="searchStatement"></param>
+            /// <param name="whenCondClauses"></param>
+            public SearchStatement(TypeCobol.Compiler.CodeElements.SearchStatement searchStatement, TypeCobol.DocumentModel.Dom.EndCondition onAtEnd, WhenConditionClauses whenCondClauses, SearchStatementEnd send = null)
+                : base(CodeElementType.SearchStatement, searchStatement)
+            {
+                this.OnAtEnd = onAtEnd;
+                this.WhenConditionClauses = whenCondClauses;
+                this.SearchStatementEnd = send;
+            }
+
+            public override IEnumerator<CodeElement> GetEnumerator()
+            {
+                if (this.SearchElement != null)
+                    yield return this.SearchElement;
+                if (this.OnAtEnd != null)
+                    yield return this.OnAtEnd;
+                if (this.WhenConditionClauses != null)
+                {
+                    foreach (WhenConditionClause c in this.WhenConditionClauses)
+                        yield return c;
+                }
+                if (this.SearchStatementEnd != null)
+                    yield return SearchStatementEnd;
+            }
+
+        }
+
+        public class XmlGenerateConditional : CompoundStatement
+        {
+            public TypeCobol.Compiler.CodeElements.XmlGenerateStatement XmlGenerateStatement
+            {
+                get
+                {
+                    return (TypeCobol.Compiler.CodeElements.XmlGenerateStatement)Target;
+                }
+
+                set
+                {
+                    Target = value;
+                }
+            }
+
+            public ExceptionConditions ExceptionConditions
+            {
+                get;
+                set;
+            }
+
+            public TypeCobol.Compiler.CodeElements.XmlStatementEnd XmlStatementEnd
+            {
+                get;
+                set;
+            }
+
+            public XmlGenerateConditional(TypeCobol.Compiler.CodeElements.XmlGenerateStatement XmlGenerateStatement, ExceptionConditions conditions, TypeCobol.Compiler.CodeElements.XmlStatementEnd end = null)
+                : base(CodeElementType.XmlGenerateStatement, XmlGenerateStatement)
+            {
+                this.ExceptionConditions = conditions;
+                this.XmlStatementEnd = end;
+            }
+
+            public override IEnumerator<CodeElement> GetEnumerator()
+            {
+                if (this.XmlGenerateStatement != null)
+                    yield return this.XmlGenerateStatement;
+                if (this.ExceptionConditions != null)
+                {
+                    foreach (ExceptionCondition sec in this.ExceptionConditions)
+                        yield return sec;
+                }
+            }
+        }
+
+        public class XmlParseConditional : CompoundStatement
+        {
+            public TypeCobol.Compiler.CodeElements.XmlParseStatement XmlParseStatement
+            {
+                get
+                {
+                    return (TypeCobol.Compiler.CodeElements.XmlParseStatement)Target;
+                }
+
+                set
+                {
+                    Target = value;
+                }
+            }
+
+            public ExceptionConditions ExceptionConditions
+            {
+                get;
+                set;
+            }
+
+            public TypeCobol.Compiler.CodeElements.XmlStatementEnd XmlStatementEnd
+            {
+                get;
+                set;
+            }
+
+            public XmlParseConditional(TypeCobol.Compiler.CodeElements.XmlParseStatement XmlParseStatement, ExceptionConditions conditions, TypeCobol.Compiler.CodeElements.XmlStatementEnd end = null)
+                : base(CodeElementType.XmlParseStatement, XmlParseStatement)
+            {
+                this.ExceptionConditions = conditions;
+                this.XmlStatementEnd = end;
+            }
+
+            public override IEnumerator<CodeElement> GetEnumerator()
+            {
+                if (this.XmlParseStatement != null)
+                    yield return this.XmlParseStatement;
+                if (this.ExceptionConditions != null)
+                {
+                    foreach (ExceptionCondition sec in this.ExceptionConditions)
+                        yield return sec;
                 }
             }
         }

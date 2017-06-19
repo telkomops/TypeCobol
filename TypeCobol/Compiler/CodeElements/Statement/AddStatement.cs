@@ -47,9 +47,9 @@ public class AddSimpleStatement: AddStatement {
             && this.ContinueVisitToChildren(astVisitor, VariablesTogether, SendingAndReceivingStorageAreas);
     }
 
-    public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+    public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
     {
-        v.Visit(this, data);
+        return v.Visit(this, data);
     }
 }
 
@@ -92,9 +92,9 @@ public class AddGivingStatement: AddStatement {
                    && this.ContinueVisitToChildren(astVisitor, Operand);
         }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
 
@@ -131,9 +131,9 @@ public class AddCorrespondingStatement: AddStatement {
                    && this.ContinueVisitToChildren(astVisitor, GroupItem, SendingAndReceivingGroupItem, Rounded);
         }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
 

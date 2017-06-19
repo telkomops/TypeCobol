@@ -72,9 +72,9 @@ public class SearchSerialStatement: SearchStatement {
                    && this.ContinueVisitToChildren(astVisitor, VaryingSearchIndex);
         }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
 
@@ -90,9 +90,9 @@ public class SearchBinaryStatement: SearchStatement {
             return base.VisitCodeElement(astVisitor) && astVisitor.Visit(this);
         }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
 
@@ -108,9 +108,9 @@ public class WhenSearchCondition: StatementElement {
                    && this.ContinueVisitToChildren(astVisitor, Condition);
         }
 
-        public override void Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
+        public override R Accept<R, D>(ICodeElementVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
     }
 

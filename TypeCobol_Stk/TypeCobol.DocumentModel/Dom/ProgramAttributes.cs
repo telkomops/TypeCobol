@@ -47,9 +47,9 @@ namespace TypeCobol.DocumentModel.Dom
             LibraryCopyOpt = libCopy;
         }
 
-        public override void Accept<R, D>(TypeCobol.DocumentModel.Dom.Visitor.CodeDomVisitor<R, D> v, D data)
+        public override R Accept<R, D>(TypeCobol.DocumentModel.Dom.Visitor.CodeDomVisitor<R, D> v, D data)
         {
-            v.Visit(this, data);
+            return v.Visit(this, data);
         }
 
         public override IEnumerator<Compiler.CodeElements.CodeElement> GetEnumerator()

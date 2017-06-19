@@ -100,7 +100,7 @@ namespace TypeCobol.Compiler.CodeElements
         /// <typeparam name="D"></typeparam>
         /// <param name="v"></param>
         /// <param name="data"></param>
-        public abstract void Accept<R, D>(ICodeElementVisitor<R, D> v, D data);
+        public abstract R Accept<R, D>(ICodeElementVisitor<R, D> v, D data);
 
         public virtual bool AcceptASTVisitor(IASTVisitor astVisitor)
         {
