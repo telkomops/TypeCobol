@@ -14,6 +14,21 @@ namespace TypeCobol.Compiler.CodeElements
 
 		public ExpressionNodeType NodeType { get; private set; }
 
+        /// <summary>
+        /// The Semantic data of this Code expression, usually type information.
+        /// </summary>
+        public virtual ISemanticData SemanticData { get; set; }
+
+        /// <summary>
+        /// Acceptor method for a visitior on an expression.
+        /// </summary>
+        /// <typeparam name="R">The result value type</typeparam>
+        /// <typeparam name="D">The data argument type</typeparam>
+        /// <param name="v">The visitor instance to be accepted</param>
+        /// <param name="data">The data argument</param>
+        /// <returns>The return value</returns>
+        public abstract R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IExpressionVisitor<R, D> v, D data);
+
         public virtual bool AcceptASTVisitor(IASTVisitor astVisitor) {
             return astVisitor.Visit(this);
         }
@@ -38,7 +53,7 @@ namespace TypeCobol.Compiler.CodeElements
 	/// Base class for all conditional expression nodes
 	/// </summary>
 	public abstract class ConditionalExpression : Expression {
-	    protected ConditionalExpression(ExpressionNodeType nodeType) : base(nodeType) { }
+	    protected ConditionalExpression(ExpressionNodeType nodeType) : base(nodeType) { }        
 
 	    public override bool AcceptASTVisitor(IASTVisitor astVisitor) {
 	        return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this);
@@ -65,6 +80,11 @@ namespace TypeCobol.Compiler.CodeElements
 		public SyntaxProperty<LogicalOperator> Operator { get; private set;  }
 
 		public ConditionalExpression RightOperand  { get; private set; }
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IExpressionVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
 
         public override bool AcceptASTVisitor(IASTVisitor astVisitor) {
             return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this)
@@ -121,6 +141,11 @@ namespace TypeCobol.Compiler.CodeElements
 
 		public SyntaxProperty<bool> InvertResult { get; private set; }
 
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IExpressionVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
+
         public override bool AcceptASTVisitor(IASTVisitor astVisitor) {
             return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this)
                 && this.ContinueVisitToChildren(astVisitor, DataItem, CharacterClassNameReference, DataItemContentType, InvertResult);
@@ -158,6 +183,11 @@ namespace TypeCobol.Compiler.CodeElements
 
 		public DataOrConditionStorageArea ConditionReference { get; private set; }
 
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IExpressionVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
+
         public override bool AcceptASTVisitor(IASTVisitor astVisitor)
         {
             return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this)
@@ -188,6 +218,11 @@ namespace TypeCobol.Compiler.CodeElements
 		public SyntaxProperty<RelationalOperator> Operator { get; private set; }
 
 		public ConditionOperand RightOperand { get; private set; }
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IExpressionVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
 
         public override bool AcceptASTVisitor(IASTVisitor astVisitor)
         {
@@ -233,6 +268,11 @@ namespace TypeCobol.Compiler.CodeElements
 		public SyntaxProperty<SignComparison> SignComparison { get; private set; }
 
 		public SyntaxProperty<bool> InvertResult { get; private set; }
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IExpressionVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
 
         public override bool AcceptASTVisitor(IASTVisitor astVisitor)
         {
@@ -297,6 +337,11 @@ namespace TypeCobol.Compiler.CodeElements
 		public NullPointerValue NullPointerValue { get; private set; }
 
 		public Token SelfObjectIdentifier { get; private set; }
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IExpressionVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
 
         public override bool AcceptASTVisitor(IASTVisitor astVisitor) {
             return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this)
@@ -364,6 +409,11 @@ namespace TypeCobol.Compiler.CodeElements
 		public SyntaxProperty<ArithmeticOperator> Operator { get; private set; }
 		public ArithmeticExpression RightOperand { get; private set; }
 
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IExpressionVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
+
         public override bool AcceptASTVisitor(IASTVisitor astVisitor)
         {
             return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this)
@@ -397,6 +447,11 @@ namespace TypeCobol.Compiler.CodeElements
 
 		public IntegerVariable IntegerVariable { get; private set; }
 		public NumericVariable NumericVariable { get; private set; }
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IExpressionVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
 
         public override bool AcceptASTVisitor(IASTVisitor astVisitor)
         {
