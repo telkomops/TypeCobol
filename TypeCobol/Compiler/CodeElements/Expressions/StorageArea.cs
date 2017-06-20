@@ -24,6 +24,11 @@ namespace TypeCobol.Compiler.CodeElements
 
         public StorageAreaKind Kind { get; protected set;  }
 
+        /// <summary>
+        /// The Semantic data of this Storage Area, usually type information.
+        /// </summary>
+        public virtual ISemanticData SemanticData { get; set; }
+
         [CanBeNull]
         public SymbolReference SymbolReference { get; set; }
 
@@ -65,6 +70,8 @@ namespace TypeCobol.Compiler.CodeElements
             if (SymbolReference != null) return SymbolReference.ToString();
             return base.ToString();
         }
+
+        public abstract R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IStorageAreaVisitor<R, D> v, D data);
 
         public virtual bool AcceptASTVisitor(IASTVisitor astVisitor) {
             return astVisitor.Visit(this) && this.ContinueVisitToChildren(astVisitor, SymbolReference,ReferenceModifier);
@@ -134,6 +141,11 @@ namespace TypeCobol.Compiler.CodeElements
 		}
 		private SymbolType alternativeSymbolType;
 
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IStorageAreaVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
+
         public override bool AcceptASTVisitor(IASTVisitor astVisitor) {
             return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this)
                 && this.ContinueVisitToChildren(astVisitor, Subscripts);
@@ -183,6 +195,11 @@ namespace TypeCobol.Compiler.CodeElements
             get { return false; }
         }
 
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IStorageAreaVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
+
         public override bool AcceptASTVisitor(IASTVisitor astVisitor) {
             return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this);
         }
@@ -219,6 +236,11 @@ namespace TypeCobol.Compiler.CodeElements
 		public IndexStorageArea(SymbolReference indexNameReference): base(StorageAreaKind.Index) {
 			SymbolReference = indexNameReference;
 		}
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IStorageAreaVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
 
 	    public override bool AcceptASTVisitor(IASTVisitor astVisitor) {
 	        return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this);
@@ -270,6 +292,11 @@ namespace TypeCobol.Compiler.CodeElements
             get { return OtherStorageAreaReference.GetStorageAreaThatNeedDeclaration ?? this; }
         }
 
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IStorageAreaVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
+
         public override bool AcceptASTVisitor(IASTVisitor astVisitor) {
             return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this)
                    && this.ContinueVisitToChildren(astVisitor, SpecialRegisterName, OtherStorageAreaReference, DataDescriptionEntry);
@@ -310,6 +337,11 @@ namespace TypeCobol.Compiler.CodeElements
 		/// and a reference to the same storage area
         /// </summary>
         public SpecialRegisterDescriptionEntry DataDescriptionEntry { get; private set; }
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IStorageAreaVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
 
         public override bool AcceptASTVisitor(IASTVisitor astVisitor)
         {
@@ -353,6 +385,11 @@ namespace TypeCobol.Compiler.CodeElements
 	        get { return FunctionCall.NeedDeclaration; }
 	    }
 
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IStorageAreaVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
+
 	    public override bool AcceptASTVisitor(IASTVisitor astVisitor)
         {
             return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this) 
@@ -375,6 +412,11 @@ namespace TypeCobol.Compiler.CodeElements
         public abstract Token FunctionNameToken { get; }
 	    public virtual CallSiteParameter[] Arguments { get; private set; }
 
+        /// <summary>
+        /// The Semantic data of this Function cal property, usually type information.
+        /// </summary>
+        public virtual ISemanticData SemanticData { get; set; }
+
         public virtual ParameterList AsProfile(CodeModel.SymbolTable table)
         {
             //Need to be updated in a near future
@@ -388,6 +430,16 @@ namespace TypeCobol.Compiler.CodeElements
         public virtual bool NeedDeclaration {
             get { return true; }
         }
+
+        /// <summary>
+        /// Acceptor for a Function Call properties visitor
+        /// </summary>
+        /// <typeparam name="R">The return type</typeparam>
+        /// <typeparam name="D">The data type</typeparam>
+        /// <param name="v">The visitor</param>
+        /// <param name="data">The data argument</param>
+        /// <returns>The result</returns>
+        public abstract R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IFunctionCallPropertyVisitor<R, D> v, D data);
 
         public virtual bool AcceptASTVisitor(IASTVisitor astVisitor) {
             return astVisitor.Visit(this) && FunctionNameToken.AcceptASTVisitor(astVisitor)
@@ -471,6 +523,11 @@ namespace TypeCobol.Compiler.CodeElements
             }
         }
 
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IFunctionCallPropertyVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
+
         public override bool AcceptASTVisitor(IASTVisitor astVisitor) {
             return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this) 
                 && this.ContinueVisitToChildren(astVisitor, IntrinsicFunctionName, FunctionNameToken);
@@ -495,7 +552,10 @@ namespace TypeCobol.Compiler.CodeElements
                 && this.ContinueVisitToChildren(astVisitor, UserDefinedFunctionName, FunctionNameToken);
         }
 
-        
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IFunctionCallPropertyVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }        
     }
 
 	public class ProcedureCall: FunctionCall {
@@ -543,7 +603,11 @@ namespace TypeCobol.Compiler.CodeElements
 	        };
 	        return profile;
         }
-		
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IFunctionCallPropertyVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
 
         public override bool AcceptASTVisitor(IASTVisitor astVisitor)
         {

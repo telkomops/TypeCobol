@@ -2,6 +2,14 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="TypeCobol.DocumentModel.Dom.CobolProgram">
     <Position X="1" Y="2" Width="2.75" />
+    <AssociationLine Name="ProcedureDivision" Type="TypeCobol.DocumentModel.Dom.ProcedureDivision" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1" Y="2.809" />
+        <Point X="0.625" Y="2.809" />
+        <Point X="0.625" Y="8.822" />
+        <Point X="1.25" Y="8.822" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAABAAAAAAEAgAAAAAAAgAIAAAAAABAAg=</HashCode>
       <FileName>Dom\CobolProgram.cs</FileName>
@@ -10,8 +18,9 @@
       <Property Name="ProgramAttributes" />
       <Property Name="EnvironmentDivision" />
       <Property Name="DataDivision" />
-      <Property Name="NestedPrograms" />
       <Property Name="ProcedureDivision" />
+      <Property Name="NestedPrograms" />
+      <Property Name="ProgramEnd" />
     </ShowAsAssociation>
   </Class>
   <Class Name="TypeCobol.DocumentModel.Dom.EnvironmentDivision">
@@ -86,7 +95,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="TypeCobol.Compiler.CodeElements.IOControlParagraphHeader" Collapsed="true">
-    <Position X="19.25" Y="6.25" Width="2.5" />
+    <Position X="19.5" Y="6.25" Width="2.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="TypeCobol.Compiler.CodeElements.SentenceEnd" Collapsed="true">
@@ -98,7 +107,7 @@
     <TypeIdentifier />
   </Class>
   <Class Name="TypeCobol.Compiler.CodeElements.ProgramEnd" Collapsed="true">
-    <Position X="3.25" Y="1" Width="1.5" />
+    <Position X="3.75" Y="1" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="TypeCobol.Compiler.CodeElements.ProgramIdentification">
@@ -111,12 +120,20 @@
   </Class>
   <Class Name="TypeCobol.DocumentModel.Dom.DataDivision">
     <Position X="5.25" Y="7.5" Width="3.25" />
+    <AssociationLine Name="FileSection" Type="TypeCobol.DocumentModel.Dom.FileSection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.5" Y="8.688" />
+        <Point X="10.837" Y="8.688" />
+        <Point X="10.837" Y="11.322" />
+        <Point X="19.5" Y="11.322" />
+      </Path>
+    </AssociationLine>
     <AssociationLine Name="LinkageSection" Type="TypeCobol.DocumentModel.Dom.LinkageSection" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="8.5" Y="9.25" />
-        <Point X="8.875" Y="9.25" />
-        <Point X="8.875" Y="11.2" />
-        <Point X="10.25" Y="11.2" />
+        <Point X="8.5" Y="9.101" />
+        <Point X="10.375" Y="9.101" />
+        <Point X="10.375" Y="11.95" />
+        <Point X="10.75" Y="11.95" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -124,6 +141,7 @@
       <FileName>Dom\DataDivision.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
+      <Property Name="FileSection" />
       <Property Name="WorkingStorageSection" />
       <Property Name="LocalStorageSection" />
       <Property Name="LinkageSection" />
@@ -138,22 +156,27 @@
   </Class>
   <Class Name="TypeCobol.DocumentModel.Dom.ProcedureDivision">
     <Position X="1.25" Y="8.25" Width="2.5" />
-    <NestedTypes>
-      <Class Name="TypeCobol.DocumentModel.Dom.ProcedureDivision.Element" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Dom\ProcedureDivision.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="TypeCobol.DocumentModel.Dom.ProcedureDivision.Elements" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Dom\ProcedureDivision.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-    </NestedTypes>
+    <AssociationLine Name="Elements" Type="TypeCobol.DocumentModel.Dom.ProcedureDivisionElement" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.875" Y="10.319" />
+        <Point X="2.927" Y="10.694" />
+        <Point X="2.927" Y="14.25" />
+        <Point X="4.135" Y="14.25" />
+        <Point X="4.135" Y="17.375" />
+        <Point X="6.625" Y="17.375" />
+        <Point X="6.625" Y="17.75" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AIAAAAAAAAAAABAQAABAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <HashCode>AIAAAAAAAAAAABAQAABQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Dom\ProcedureDivision.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Declaratives" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Elements" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="TypeCobol.DocumentModel.Dom.WorkingStorageSection">
     <Position X="3.25" Y="11.5" Width="3" />
@@ -163,18 +186,18 @@
     </TypeIdentifier>
   </Class>
   <Class Name="TypeCobol.DocumentModel.Dom.LocalStorageSection">
-    <Position X="6.75" Y="11.5" Width="3" />
+    <Position X="6.75" Y="11.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>Dom\DataDivision.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TypeCobol.DocumentModel.Dom.LinkageSection">
-    <Position X="10.25" Y="11" Width="2.5" />
+    <Position X="10.75" Y="11.75" Width="2.5" />
     <AssociationLine Name="DataDefinitionEntries" Type="TypeCobol.DocumentModel.Dom.DataDefinitionEntry" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="12.75" Y="12.1" />
-        <Point X="16.375" Y="12.1" />
+        <Point X="13.25" Y="12.85" />
+        <Point X="16.375" Y="12.85" />
         <Point X="16.375" Y="14.5" />
       </Path>
     </AssociationLine>
@@ -272,12 +295,22 @@
       <FileName>Dom\DataDivision.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TypeCobol.DocumentModel.Dom.FileDescription" Collapsed="true">
-    <Position X="19.25" Y="17.75" Width="1.5" />
+  <Class Name="TypeCobol.DocumentModel.Dom.FileDescription">
+    <Position X="23.25" Y="11" Width="3.25" />
+    <AssociationLine Name="DataDefinitionEntries" Type="TypeCobol.DocumentModel.Dom.DataDefinitionEntry" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="24.875" Y="13.069" />
+        <Point X="24.875" Y="16.938" />
+        <Point X="18.75" Y="16.938" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAgBAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
       <FileName>Dom\DataDivision.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="DataDefinitionEntries" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="TypeCobol.DocumentModel.Dom.FileDescriptionEntries">
     <Position X="19.25" Y="18.75" Width="2" />
@@ -286,11 +319,611 @@
       <FileName>Dom\DataDivision.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TypeCobol.DocumentModel.Dom.FileSection" Collapsed="true">
-    <Position X="19.25" Y="16.75" Width="1.5" />
+  <Class Name="TypeCobol.DocumentModel.Dom.FileSection">
+    <Position X="19.5" Y="10.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAABAAAAAAAQAAAQAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Dom\DataDivision.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="FileDescriptionEntries" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.Declaratives">
+    <Position X="0.5" Y="12.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAACBAAAAAABAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Dom\ProcedureDivision.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Sections" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.Section">
+    <Position X="1.25" Y="16" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="TypeCobol.DocumentModel.Dom.Section.Standard">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\ProcedureDivision.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.Section.Paragraph">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\ProcedureDivision.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.Section.Sentences">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\ProcedureDivision.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.Section.Declarative">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\ProcedureDivision.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\ProcedureDivision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.ProcedureDivisionElement">
+    <Position X="5.5" Y="17.75" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="TypeCobol.DocumentModel.Dom.ProcedureDivisionElement.Function">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\ProcedureDivision.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.ProcedureDivisionElement.Section">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\ProcedureDivision.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\ProcedureDivision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.Statement">
+    <Position X="28.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.Statements">
+    <Position X="47.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement">
+    <Position X="27" Y="10.75" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.EntryStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.InspectStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.SubtractStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.ProcedureStyleCall" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.NextSentenceStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.MergeStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.ReleaseStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.ExitProgramStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.UnstringStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.AlterStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.ComputeStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.CancelStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.RewriteStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.MultiplyStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.OpenStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.XmlGenerateStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.AcceptStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.InvokeStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.StringStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.CallStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.ContinueStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.WriteStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.DisplayStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.PerformProcedureStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.StopStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.GobackStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.AddStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.CloseStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.ExitStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.SortStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.DeleteStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.DivideStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.XmlParseStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.GotoStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.ExitMethodStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.ReturnStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.ExecStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.SetStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.StartStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.InitializeStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.MoveStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SingleStatement.ReadStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.ConditionalExecutionStatement">
+    <Position X="38.75" Y="10" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAABAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.ConditionalExecutionStatements">
+    <Position X="46.25" Y="11.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.EndCondition">
+    <Position X="32.25" Y="13.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="TypeCobol.DocumentModel.Dom.EndCondition.At">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.EndCondition.NotAt" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.EndConditions">
+    <Position X="49" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.ExceptionCondition">
+    <Position X="38.5" Y="13.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="TypeCobol.DocumentModel.Dom.ExceptionCondition.On" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.ExceptionCondition.NotOn" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.ExceptionConditions">
+    <Position X="50.75" Y="11.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.KeyCondition">
+    <Position X="44.75" Y="13.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="TypeCobol.DocumentModel.Dom.KeyCondition.Invalid" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.KeyCondition.NotInvalid" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.KeyConditions" Collapsed="true">
+    <Position X="47.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.OverflowCondition">
+    <Position X="36.5" Y="13.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="TypeCobol.DocumentModel.Dom.OverflowCondition.On" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.OverflowCondition.NotOn" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.OverflowConditions" Collapsed="true">
+    <Position X="49" Y="13" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.SizeErrorCondition">
+    <Position X="42.75" Y="13.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="TypeCobol.DocumentModel.Dom.SizeErrorCondition.On" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.SizeErrorCondition.NotOn" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.SizeErrorConditions">
+    <Position X="51.5" Y="13" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.WhenConditionClause">
+    <Position X="34.25" Y="13.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAKAAAACAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.WhenConditionClauses">
+    <Position X="49" Y="14" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.WhenOtherClause">
+    <Position X="40.5" Y="13.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement">
+    <Position X="29.75" Y="10.5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.ComputeConditional" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.XmlGenerateConditional" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.InvokeConditional" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.WriteConditional" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.SubtractConditional" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.RewriteConditional" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.ReadConditional" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.IfStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.CallConditional" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.StartConditional" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.DivideConditional" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.DeleteConditional" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.UnstringConditional" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.AddConditional" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.EvaluateWith" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.Perform" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.MultiplyConditional" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.SearchStatement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.StringConditional" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.ReturnConditional" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.CompoundStatement.XmlParseConditional" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\Statements.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\Statements.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

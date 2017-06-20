@@ -1,0 +1,745 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TypeCobol.Compiler.CodeElements.AcceptStatement" Collapsed="true">
+    <Position X="6.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\AcceptStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.AcceptFromInputDeviceStatement" Collapsed="true">
+    <Position X="5.25" Y="12" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAACAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\AcceptStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.AcceptFromSystemDateStatement" Collapsed="true">
+    <Position X="8.5" Y="12" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAEAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\AcceptStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.AddStatement" Collapsed="true">
+    <Position X="10.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\AddStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.AddSimpleStatement" Collapsed="true">
+    <Position X="8.5" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAgAAAAAAAAAAAAAAACAAwAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\AddStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.AddGivingStatement" Collapsed="true">
+    <Position X="10.75" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAgAAEAAAAAAAAAAAAAAAwAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\AddStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.AddCorrespondingStatement" Collapsed="true">
+    <Position X="13" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAgAAgAAAQAAAAAAAAAAAAAAQAAAACAAAAAAAAg=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\AddStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.AlterStatement" Collapsed="true">
+    <Position X="30.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AJAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\AlterStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.AlterGotoInstruction" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAACBAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\AlterStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.CallStatement" Collapsed="true">
+    <Position X="32.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIAAAAAAAAAAAAQAAAAAAAAAAAAgQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\CallStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ProcedureStyleCallStatement" Collapsed="true">
+    <Position X="37.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAABQAACAAAAAAAACAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\CallStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.CancelStatement" Collapsed="true">
+    <Position X="34.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AKAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\CancelStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.CloseStatement" Collapsed="true">
+    <Position X="37.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\CloseStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.CloseFileInstruction" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="36" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAACAAEAAIAAAAACAAAAABAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\CloseStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ComputeStatement" Collapsed="true">
+    <Position X="15.25" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAoAAEAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\ComputeStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.RoundedResult" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAEAAEAAAACAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\ComputeStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.AbstractArithmeticStatement" Collapsed="true">
+    <Position X="14" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAABAAAACAAAACAAQAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\ComputeStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ContinueStatement" Collapsed="true">
+    <Position X="39.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\ContinueStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.DeleteStatement" Collapsed="true">
+    <Position X="41.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\DeleteStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.DisplayStatement" Collapsed="true">
+    <Position X="29" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAgAAEQAAAAAAEAAAAQAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\DisplayStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.DivideStatement" Collapsed="true">
+    <Position X="4" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\DivideStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.DivideSimpleStatement" Collapsed="true">
+    <Position X="1" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIgAAAAAAgAAAAAAAAAAAAAAACAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\DivideStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.DivideGivingStatement" Collapsed="true">
+    <Position X="3.75" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIgAAAAAAgAAEAAAAAAAAAAAAAAAQAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\DivideStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.DivideRemainderStatement" Collapsed="true">
+    <Position X="6" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIgAAAAAAgAAAAAAAAAAAAAAAAAAwAAAAAAAAABAAEA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\DivideStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.EntryStatement" Collapsed="true">
+    <Position X="32.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAAAAAAAAAgQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\EntryStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.EvaluateStatement" Collapsed="true">
+    <Position X="37.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\EvaluateStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.EvaluateSelectionSubject" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="36" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\EvaluateStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.WhenCondition" Collapsed="true">
+    <Position X="34.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAABAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\EvaluateStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.EvaluateSelectionObject" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="34.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAIAAAAAAACgAAAAAAAAAAAAAQQIAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\EvaluateStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.WhenOtherCondition" Collapsed="true">
+    <Position X="36" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\EvaluateStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ExecStatement" Collapsed="true">
+    <Position X="39.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAACAAAAAQAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\ExecStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ExitMethodStatement" Collapsed="true">
+    <Position X="41.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\ExitMethodStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ExitProgramStatement" Collapsed="true">
+    <Position X="29" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\ExitProgramStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ExitStatement" Collapsed="true">
+    <Position X="30.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\ExitStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.GobackStatement" Collapsed="true">
+    <Position X="32.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\GobackStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.GotoStatement" Collapsed="true">
+    <Position X="11.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\GotoStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.GotoSimpleStatement" Collapsed="true">
+    <Position X="10" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAEAAAAAAAAAAAAQAAAACAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\GotoStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.GotoConditionalStatement" Collapsed="true">
+    <Position X="12.25" Y="6" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAEAAAAAEAAAAAAAAAAAAQAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\GotoStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.IfStatement" Collapsed="true">
+    <Position X="34.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAACAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\IfStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ElseCondition" Collapsed="true">
+    <Position X="30.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\IfStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.NextSentenceStatement" Collapsed="true">
+    <Position X="30.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\IfStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.IfStatementEnd" Collapsed="true">
+    <Position X="36" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\IfStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.InitializeStatement" Collapsed="true">
+    <Position X="39.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAEAAAAAAAAAAAAQAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\InitializeStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.InitializeReplacingInstruction" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="37.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAACAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\InitializeStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.InspectStatement" Collapsed="true">
+    <Position X="1.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAAABAAAACAQAACAAQAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\InspectStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.InspectTallyingStatement" Collapsed="true">
+    <Position X="0.5" Y="12" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAACAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\InspectStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.InspectReplacingStatement" Collapsed="true">
+    <Position X="0.5" Y="13.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAQIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\InspectStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.InspectConvertingStatement" Collapsed="true">
+    <Position X="2.75" Y="12" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAEAAAAYAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\InspectStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.InvokeStatement" Collapsed="true">
+    <Position X="41.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIAAAAAAAAAAAAQAABAAAAAAAAAAQAAAAYACgAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\InvokeStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.MergeStatement" Collapsed="true">
+    <Position X="29" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAQAAAIAAAACAAQAAQABAAAARAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\MergeStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SortingKey" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="37.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAACAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\MergeStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.MoveStatement" Collapsed="true">
+    <Position X="6.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAABAAAACAQAACAAQAAAAEEAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\MoveStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.MoveSimpleStatement" Collapsed="true">
+    <Position X="5.25" Y="9" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAIAAAAEAQAAAAAQAAAAAEAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\MoveStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.MoveCorrespondingStatement" Collapsed="true">
+    <Position X="7.75" Y="9" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAABAAAAAAAQAAAAAQAAAAAEAg=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\MoveStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.MultiplyStatement" Collapsed="true">
+    <Position X="25.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAQAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\MultiplyStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.MultiplySimpleStatement" Collapsed="true">
+    <Position X="24.25" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAgAAAAAAAAAAAAAAACAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\MultiplyStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.MultiplyGivingStatement" Collapsed="true">
+    <Position X="26.5" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAgAAEIAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\MultiplyStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.OpenStatement" Collapsed="true">
+    <Position X="34.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAABAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\OpenStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.OpenFileInstruction" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAEAAAAgAAAAAAAQABAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\OpenStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.PerformProcedureStatement" Collapsed="true">
+    <Position X="10.5" Y="9" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAgAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\PerformProcedureStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.PerformStatement" Collapsed="true">
+    <Position X="10.5" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAABEAABAAAAAAAAAAAgAAAAAAQAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\PerformStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.PerformLoopDescription" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="36" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAKAAACAAAAABAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\PerformStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ReadStatement" Collapsed="true">
+    <Position X="39.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAACAAAEAAAAAAAAAAAAAAAQAAAAAAAAgBAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\ReadStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ReleaseStatement" Collapsed="true">
+    <Position X="41.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAEAABAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\ReleaseStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ReturnStatement" Collapsed="true">
+    <Position X="29" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIgAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\ReturnStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.RewriteStatement" Collapsed="true">
+    <Position X="30.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAEAABAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\RewriteStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SearchStatement" Collapsed="true">
+    <Position X="1.5" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SearchStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SearchSerialStatement" Collapsed="true">
+    <Position X="2.75" Y="9" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SearchStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SearchBinaryStatement" Collapsed="true">
+    <Position X="0.5" Y="9" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SearchStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.WhenSearchCondition" Collapsed="true">
+    <Position X="37.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAACAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SearchStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SetStatement" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAACAQAAAAAQAAAAEAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SetStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SetStatementForAssignment" Collapsed="true">
+    <Position X="0.5" Y="6" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAEAAEAAAAAIAAAAAAQAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SetStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SetSendingVariable" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="34.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAACEEgAACAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SetStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SetStatementForIndexes" Collapsed="true">
+    <Position X="3" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAEAAEgAAAAIAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SetStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SetStatementForSwitches" Collapsed="true">
+    <Position X="5.25" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAEAAAAAAAAAAAAQCAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SetStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SetUPSISwitchInstruction" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="36" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAQAABAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SetStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SetStatementForConditions" Collapsed="true">
+    <Position X="7.5" Y="6" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAEABgAAAAAAAAAQAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SetStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SortStatement" Collapsed="true">
+    <Position X="39.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAQAAAIACAACAAQAAQABAACARAAAQ=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SortStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.StartStatement" Collapsed="true">
+    <Position X="41.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAACAAAAAAAQAAAAAAAAQAAAAAAAAABAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\StartStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.StopStatement" Collapsed="true">
+    <Position X="29" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAgAAAAAAAAAgAIAAAAAAAQAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\StopStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.StringStatement" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAEAAAAABACAACAQAACAAQACAgEAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\StringStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SubtractStatement" Collapsed="true">
+    <Position X="19.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SubstractStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SubtractSimpleStatement">
+    <Position X="16.5" Y="3.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAgAAAAAAAAAAAAAAACAAwAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SubstractStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SubtractGivingStatement" Collapsed="true">
+    <Position X="19.25" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAgAAEAAAAAAAAAAAAAAAwAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SubstractStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SubtractCorrespondingStatement" Collapsed="true">
+    <Position X="21.5" Y="3.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAgAAgAAAQAAAAAAAAAAAAAAQAAAACAAAAAAAAg=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SubstractStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.UnstringStatement" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAEAAAAAAAAEAgAAABAAAACAQIACAAQAEAgEAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\UnstringStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.WriteStatement" Collapsed="true">
+    <Position X="39.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIACAAAIEAAAAAAAAAAAAAAAAAAgQAAAEAAMAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\WriteStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.XmlGenerateStatement" Collapsed="true">
+    <Position X="41.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EIAQAAgAAAAAAAAAAAAAAAAAgAAAYAQCAAAAiAgAIAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\XmlGenerateStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.XmlNameMapping" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\XmlGenerateStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.XmlTypeMapping" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="34.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAABAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\XmlGenerateStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.XmlSuppressDirective" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAACAAAAAAAAQAAAAAAAAABAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\XmlGenerateStatement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.XmlParseStatement" Collapsed="true">
+    <Position X="30.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAQAIAAAAAAAAAAAiwACAAQAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\XmlParseStatement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="TypeCobol.Compiler.CodeElements.ArithmeticStatement" Collapsed="true">
+    <Position X="29" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\ComputeStatement.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TypeCobol.Compiler.CodeElements.VariableWriter" Collapsed="true">
+    <Position X="32.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\Interfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TypeCobol.Compiler.CodeElements.FunctionCaller" Collapsed="true">
+    <Position X="30.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\Interfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="TypeCobol.Compiler.CodeElements.SystemDateFormat" Collapsed="true">
+    <Position X="37.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgBAAAgCAAAAAAAAAAQAIIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\AcceptStatement.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.InitializeDataCategory" Collapsed="true">
+    <Position X="30.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAABAAAAAAAACABAAIAAIABAAAAAAAMAAAAQA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\InitializeStatement.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.SortingDirection" Collapsed="true">
+    <Position X="36" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\MergeStatement.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.OpenMode" Collapsed="true">
+    <Position X="32.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAEAAAAAAAAAAAAAQCAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\OpenStatement.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.PerformIterationType" Collapsed="true">
+    <Position X="34.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAEAAAAAAAAAAAAAIAAAAAAAEAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\PerformStatement.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.TerminationConditionTestTime" Collapsed="true">
+    <Position X="39.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\PerformStatement.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.IndexIncrementDirection" Collapsed="true">
+    <Position X="29" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SetStatement.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.UPSISwitchPosition" Collapsed="true">
+    <Position X="41.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Compiler\CodeElements\Statement\SetStatement.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

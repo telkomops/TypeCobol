@@ -178,8 +178,8 @@ non terminal TypeCobol.DocumentModel.Dom.Section.Declarative declarativesSection
 non terminal TypeCobol.DocumentModel.Dom.Declaratives declaratives, declarativesOpt;
 non terminal TypeCobol.DocumentModel.Dom.FunctionDeclaration functionDeclaration;
 non terminal TypeCobol.DocumentModel.Dom.ProcedureDivision functionProcedureDivision, functionProcedureDivisionOpt;
-non terminal TypeCobol.DocumentModel.Dom.ProcedureDivision.Element functionOrSectionDeclaration;
-non terminal TypeCobol.DocumentModel.Dom.ProcedureDivision.Elements functionOrSectionDeclarations;
+non terminal TypeCobol.DocumentModel.Dom.ProcedureDivisionElement functionOrSectionDeclaration;
+non terminal TypeCobol.DocumentModel.Dom.ProcedureDivisionElements functionOrSectionDeclarations;
 
 non terminal TypeCobol.DocumentModel.Dom.EndCondition onAtEnd, noAtEnd;
 non terminal TypeCobol.DocumentModel.Dom.EndConditions endConditions;
@@ -526,20 +526,20 @@ procedureDivision ::=
 	{:
 		RESULT = new ProcedureDivision(pdh); 
 		RESULT.Declaratives = decls;
-		RESULT.ProcedureElements = elems;
+		RESULT.Elements = elems;
 	:}
 	;
 
 functionOrSectionDeclarations ::= /*empty*/
-	{: RESULT = new ProcedureDivision.Elements(); :}
+	{: RESULT = new ProcedureDivisionElements(); :}
 	| functionOrSectionDeclarations:elems functionOrSectionDeclaration:elem
 	{: RESULT = elems; elems.Add(elem); :}
 	;
 
 functionOrSectionDeclaration ::= functionDeclaration:fd
-	{: RESULT = new ProcedureDivision.Element.Function(fd); :}
+	{: RESULT = new ProcedureDivisionElement.Function(fd); :}
 	| section:s
-	{: RESULT = new ProcedureDivision.Element.Section(s); :}
+	{: RESULT = new ProcedureDivisionElement.Section(s); :}
 	;
 
 functionDeclaration ::=

@@ -39,7 +39,7 @@ namespace TypeCobol.DocumentModel.Dom
         /// <summary>
         /// The elments inside this Procedure Division : Functions or Sections...
         /// </summary>
-        public Elements ProcedureElements
+        public ProcedureDivisionElements Elements
         {
             get;
             set;
@@ -72,10 +72,10 @@ namespace TypeCobol.DocumentModel.Dom
         {
             if (sections != null)
             {
-                this.ProcedureElements = new Elements();
+                this.Elements = new ProcedureDivisionElements();
                 foreach (Section s in sections)
                 {
-                    this.ProcedureElements.Add(new Element.Section(s));
+                    this.Elements.Add(new ProcedureDivisionElement.Section(s));
                 }
             }
         }
@@ -91,83 +91,87 @@ namespace TypeCobol.DocumentModel.Dom
                 yield return this.ProcedureDivisionHeader;
             if (this.Declaratives != null)
                 yield return this.Declaratives;
-            if (this.ProcedureElements != null)
+            if (this.Elements != null)
             {
-                foreach (Element e in this.ProcedureElements)
+                foreach (ProcedureDivisionElement e in this.Elements)
                 {
                     yield return e.Target;
                 }
             }
         }
 
-        /// <summary>
-        /// An Element inside the Procedure division
-        /// </summary>
-        public class Element : CodeElementProxy<CodeElement>
+    }
+
+    /// <summary>
+    /// An Element inside the Procedure division
+    /// </summary>
+    public class ProcedureDivisionElement : CodeElementProxy<CodeElement>
+    {
+        public ProcedureDivisionElement(CodeElement element)
+            : base(element)
         {
-            public Element(CodeElement element) : base(element)
-            {
-            }
+        }
 
-            /// <summary>
-            /// A Function Declaration
-            /// </summary>
-            public class Function : Element
+        /// <summary>
+        /// A Function Declaration
+        /// </summary>
+        public class Function : ProcedureDivisionElement
+        {
+            FunctionDeclaration FunctionDeclaration
             {
-                FunctionDeclaration FunctionDeclaration
+                get
                 {
-                    get
-                    {
-                        return (FunctionDeclaration)base.Target;
-                    }
-                    set
-                    {
-                        base.Target = value;
-                    }
+                    return (FunctionDeclaration)base.Target;
                 }
-                /// <summary>
-                /// Cosntrcutor
-                /// </summary>
-                /// <param name="funDecl"></param>
-                public Function(FunctionDeclaration funDecl) : base(funDecl)
+                set
                 {
+                    base.Target = value;
                 }
             }
-
             /// <summary>
-            /// A Section Declaration
+            /// Cosntrcutor
             /// </summary>
-            public class Section : Element
+            /// <param name="funDecl"></param>
+            public Function(FunctionDeclaration funDecl)
+                : base(funDecl)
             {
-                public TypeCobol.DocumentModel.Dom.Section SectionDeclaration
-                {
-                    get
-                    {
-                        return (TypeCobol.DocumentModel.Dom.Section)base.Target;
-                    }
-                    set
-                    {
-                        base.Target = value;
-                    }
-                }
-                /// <summary>
-                /// Cosntructor.
-                /// </summary>
-                /// <param name="section"></param>
-                public Section(TypeCobol.DocumentModel.Dom.Section section) : base(section)
-                {
-                }
             }
         }
 
         /// <summary>
-        /// The List of Elements inside the Procedure Division.
+        /// A Section Declaration
         /// </summary>
-        public class Elements : List<Element>
+        public class Section : ProcedureDivisionElement
         {
-            public Elements()
+            public TypeCobol.DocumentModel.Dom.Section SectionDeclaration
+            {
+                get
+                {
+                    return (TypeCobol.DocumentModel.Dom.Section)base.Target;
+                }
+                set
+                {
+                    base.Target = value;
+                }
+            }
+            /// <summary>
+            /// Cosntructor.
+            /// </summary>
+            /// <param name="section"></param>
+            public Section(TypeCobol.DocumentModel.Dom.Section section)
+                : base(section)
             {
             }
+        }
+    }
+
+    /// <summary>
+    /// The List of Elements inside the Procedure Division.
+    /// </summary>
+    public class ProcedureDivisionElements : List<ProcedureDivisionElement>
+    {
+        public ProcedureDivisionElements()
+        {
         }
     }
 

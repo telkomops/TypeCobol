@@ -26,10 +26,25 @@ namespace TypeCobol.Compiler.CodeElements {
 		    StorageArea = storageArea;
 	    }
 
+        /// <summary>
+        /// The Semantic data of this Variable, usually type information.
+        /// </summary>
+        public virtual ISemanticData SemanticData { get; set; }
+
 	    public StorageDataType DataType { get; private set; }
 
         [CanBeNull]
         public StorageArea StorageArea { get; private set; }
+
+        /// <summary>
+        /// Acceptor for a Variable visitor
+        /// </summary>
+        /// <typeparam name="R">The return type</typeparam>
+        /// <typeparam name="D">The data type</typeparam>
+        /// <param name="v">The visitor</param>
+        /// <param name="data">The data argument</param>
+        /// <returns>The result</returns>
+        public abstract R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IVariableVisitor<R, D> v, D data);
 
         /// <summary>
         /// Checks which kind of data is stored in the variable :
@@ -71,6 +86,11 @@ namespace TypeCobol.Compiler.CodeElements {
 
 	    public IntegerValue Value { get; private set; }
 
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IVariableVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
+
 	    public override string ToString() {
 		    if (Value != null) return Value.ToString();
 		    return base.ToString();
@@ -87,6 +107,11 @@ namespace TypeCobol.Compiler.CodeElements {
 	    public NumericVariable(NumericValue value): base(StorageDataType.Numeric, null) { Value = value; }
 
 	    public NumericValue Value { get; private set; }
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IVariableVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
 
         public override string ToString() {
 		    if (Value != null) return Value.ToString();
@@ -105,6 +130,11 @@ namespace TypeCobol.Compiler.CodeElements {
 	    public CharacterVariable(CharacterValue value): base(StorageDataType.Character, null) { Value = value; }
 
 	    public CharacterValue Value { get; private set; }
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IVariableVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
 
         public override string ToString() {
 		    if (Value != null) return Value.ToString();
@@ -127,6 +157,11 @@ namespace TypeCobol.Compiler.CodeElements {
 
 	    public AlphanumericValue Value { get; private set; }
 	    public RepeatedCharacterValue RepeatedCharacterValue { get; private set; }
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IVariableVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
 
         public override string ToString() {
 		    if (RepeatedCharacterValue != null) return RepeatedCharacterValue.Value;
@@ -151,6 +186,11 @@ namespace TypeCobol.Compiler.CodeElements {
 	    public SymbolReference SymbolReference { get; private set; }
 
         public override SymbolReference MainSymbolReference { get { return SymbolReference ?? base.MainSymbolReference; } }
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IVariableVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
 
         public override string ToString() { return MainSymbolReference.ToString(); }
 
@@ -182,6 +222,11 @@ namespace TypeCobol.Compiler.CodeElements {
 	    public bool IsLiteral { get { return NumericValue != null || AlphanumericValue != null; } }
 
         public override SymbolReference MainSymbolReference { get { return SymbolReference ?? base.MainSymbolReference; } }
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IVariableVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
 
         public override string ToString() {
 		    if (NumericValue != null) return NumericValue.Value.ToString();
@@ -272,6 +317,12 @@ namespace TypeCobol.Compiler.CodeElements {
             return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this)
                 && this.ContinueVisitToChildren(astVisitor, (IEnumerable<IVisitable>) SendingStorageAreas);
         }
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.IVariableVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
+
     }
     
     public enum DataSourceType

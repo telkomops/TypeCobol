@@ -96,6 +96,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Code\Scopes.cd" />
     <None Include="Dom\CobolDomClassDiagram.cd" />
     <None Include="Dom\Parser\ProgramDOM.cup">
       <Generator>..\bin\%24%28Configuration%29\CSCup.exe</Generator>

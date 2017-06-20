@@ -20,7 +20,7 @@ namespace TypeCobol.Compiler.CodeElements
         public virtual ISemanticData SemanticData { get; set; }
 
         /// <summary>
-        /// Acceptor method for a visitior on an expression.
+        /// Acceptor method for a visitor on an expression.
         /// </summary>
         /// <typeparam name="R">The result value type</typeparam>
         /// <typeparam name="D">The data argument type</typeparam>

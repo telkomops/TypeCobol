@@ -33,6 +33,11 @@ namespace TypeCobol.Compiler.CodeElements
         }
 
         /// <summary>
+        /// The Semantic data of this Symbol Information, usually type information.
+        /// </summary>
+        public virtual ISemanticData SemanticData { get; set; }
+
+        /// <summary>
         /// Token defining the name of the symbol in source text
         /// </summary>
         public SyntaxValue<string> NameLiteral { get; private set; }
@@ -49,6 +54,8 @@ namespace TypeCobol.Compiler.CodeElements
         /// Type of the symbol
         /// </summary>
         public SymbolType Type { get; private set; }
+
+        public abstract R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.ISymbolInformationVisitor<R, D> v, D data);
 
         public virtual bool IsOrCanBeOfType(SymbolType symbolType)
         {
@@ -107,6 +114,10 @@ namespace TypeCobol.Compiler.CodeElements
 		public SymbolDefinition(SyntaxValue<string> nameLiteral, SymbolType type)
 			: base(nameLiteral, SymbolRole.SymbolDefinition, type) { }
 
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.ISymbolInformationVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
         public override bool AcceptASTVisitor(IASTVisitor astVisitor)
         {
             return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this);
@@ -158,6 +169,11 @@ namespace TypeCobol.Compiler.CodeElements
             get { return _uri ?? (_uri = new URI(Name)); }
         }
 
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.ISymbolInformationVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
+
         public override bool AcceptASTVisitor(IASTVisitor astVisitor)
         {
             return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this);
@@ -200,6 +216,11 @@ namespace TypeCobol.Compiler.CodeElements
         public override bool IsOrCanBeOnlyOfTypes(params SymbolType[] symbolTypes)
         {
             return !CandidateTypes.Except(symbolTypes).Any();
+        }
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.ISymbolInformationVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
         }
 
         public override bool AcceptASTVisitor(IASTVisitor astVisitor) {
@@ -293,6 +314,11 @@ namespace TypeCobol.Compiler.CodeElements
 			return refs;
 		}
 
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.ISymbolInformationVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
+
 	    public override bool AcceptASTVisitor(IASTVisitor astVisitor) {
 	        return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this)
                 && this.ContinueVisitToChildren(astVisitor, Head, Tail);
@@ -344,6 +370,11 @@ namespace TypeCobol.Compiler.CodeElements
 	public class TypeCobolQualifiedSymbolReference: QualifiedSymbolReference {
 		public TypeCobolQualifiedSymbolReference(SymbolReference head, SymbolReference tail): base(head, tail) { }
 
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.ISymbolInformationVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
+
 	    public override bool AcceptASTVisitor(IASTVisitor astVisitor) {
 	        return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this);
 	    }
@@ -357,6 +388,11 @@ namespace TypeCobol.Compiler.CodeElements
         public SymbolDefinitionOrReference(SyntaxValue<string> nameLiteral, SymbolType type) :
             base(nameLiteral, SymbolRole.SymbolDefinitionOrReference, type)
         { }
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.ISymbolInformationVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
 
         public override bool AcceptASTVisitor(IASTVisitor astVisitor)
         {
@@ -375,6 +411,11 @@ namespace TypeCobol.Compiler.CodeElements
         public ExternalName(SyntaxValue<string> nameLiteral, SymbolType type) :
             base(nameLiteral, SymbolRole.ExternalName, type)
         { }
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.ISymbolInformationVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
 
         public override bool AcceptASTVisitor(IASTVisitor astVisitor)
         {
@@ -400,6 +441,11 @@ namespace TypeCobol.Compiler.CodeElements
 
 		public override string Name { get { return LibraryName.Name+'.'+TextName.Name; } }
 
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.ISymbolInformationVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
+
         public override bool AcceptASTVisitor(IASTVisitor astVisitor) {
             return base.AcceptASTVisitor(astVisitor) && astVisitor.Visit(this)
                 && this.ContinueVisitToChildren(astVisitor, TextName, LibraryName);
@@ -417,6 +463,11 @@ namespace TypeCobol.Compiler.CodeElements
             base(nameLiteral, candidateTypes)
         {
             Role = SymbolRole.ExternalNameOrSymbolReference;
+        }
+
+        public override R Accept<R, D>(TypeCobol.Compiler.CodeElements.Expressions.ISymbolInformationVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
         }
 
         public override bool AcceptASTVisitor(IASTVisitor astVisitor)
