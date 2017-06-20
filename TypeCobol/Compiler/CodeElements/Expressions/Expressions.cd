@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TypeCobol.Compiler.CodeElements.Expression">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAACAAAAAAAAAAAAAACAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="NodeType" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ConditionalExpression">
+    <Position X="5.25" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.LogicalOperation">
+    <Position X="11.5" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAEAAAACAAAAAAAIAgAAAAAAAAAIAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ClassCondition">
+    <Position X="0.5" Y="4" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAACAAAAAAAABEAAAACAAAAAAAAAAAICAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ConditionNameConditionOrSwitchStatusCondition">
+    <Position X="5" Y="4" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAEAEAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.RelationCondition">
+    <Position X="13.5" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAEAAAACAAAAAAAIAgAAAAAAAAAIAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SignCondition">
+    <Position X="3" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AYAAAAAAAAAAAABEAAAACAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ConditionOperand">
+    <Position X="8.75" Y="4" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAIAAAACEEAAACAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Variable" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ArithmeticExpression">
+    <Position X="15" Y="1.75" Width="1.75" />
+    <InheritanceLine Type="TypeCobol.Compiler.CodeElements.Expression" FixedFromPoint="true">
+      <Path>
+        <Point X="8.938" Y="2.44" />
+        <Point X="8.938" Y="2.95" />
+        <Point X="14.625" Y="2.95" />
+        <Point X="14.625" Y="2.463" />
+        <Point X="15" Y="2.463" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ArithmeticOperatorExtension" Collapsed="true">
+    <Position X="18.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ArithmeticOperation">
+    <Position X="15.5" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAEAAAACAAAAAAAIAgAAAAAAAAAIAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.NumericVariableOperand">
+    <Position X="18" Y="4.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAEAEAACAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.Literal" Collapsed="true">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.FigurativeConstant" Collapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.Variable">
+    <Position X="8.25" Y="7.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQBAAAAEAAAACAAAAAAAAAAAEAABAEAAACA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Variable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.VariableBase">
+    <Position X="12.75" Y="7.25" Width="2.25" />
+    <AssociationLine Name="StorageArea" Type="TypeCobol.Compiler.CodeElements.StorageArea" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.25" Y="9.19" />
+        <Point X="13.25" Y="10.736" />
+        <Point X="10.207" Y="10.736" />
+        <Point X="10.207" Y="13.875" />
+        <Point X="10.76" Y="13.875" />
+        <Point X="10.76" Y="14.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAEAAAACAAAAAAAAAAAAAAAAAAAECA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Variable.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="DataType" />
+      <Property Name="StorageArea" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.IntegerVariable">
+    <Position X="19.25" Y="11.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAACAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Variable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.NumericVariable">
+    <Position X="25" Y="11.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAACAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Variable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.CharacterVariable">
+    <Position X="10.5" Y="11.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAACAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Variable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.AlphanumericVariable">
+    <Position X="13.5" Y="11.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAACAAAAAAAAAAAEAAgAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Variable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SymbolReferenceVariable">
+    <Position X="21.75" Y="11.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAEAAAACAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Variable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.VariableOrExpression">
+    <Position X="6.75" Y="11.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Variable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.BooleanValueOrExpression" BaseTypeListCollapsed="true">
+    <Position X="21.5" Y="5.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAgAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Variable.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ReceivingStorageArea">
+    <Position X="16.75" Y="11.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAACAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Variable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.StorageArea">
+    <Position X="9" Y="14.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAQAQBAAAAEAAAACIAAAAAAAAAAIAAgAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\StorageArea.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Kind" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ReferenceModifier" BaseTypeListCollapsed="true">
+    <Position X="30.5" Y="14.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAACABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\StorageArea.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.DataOrConditionStorageArea">
+    <Position X="13.25" Y="18.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAEAAAACAAAAAAAAAAAAQAAAAAABAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\StorageArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.IntrinsicStorageArea">
+    <Position X="19" Y="18.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\StorageArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SubscriptExpression" BaseTypeListCollapsed="true">
+    <Position X="25.25" Y="14.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAEAAAACAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\StorageArea.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.IndexStorageArea">
+    <Position X="10.25" Y="18.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\StorageArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.StorageAreaPropertySpecialRegister">
+    <Position X="16" Y="18.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAMAAAACBAAAAAAAAEAAAAgAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\StorageArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.FilePropertySpecialRegister">
+    <Position X="21.75" Y="18.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAACAAAAAAAAAEQAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\StorageArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.FunctionCallResult">
+    <Position X="7.5" Y="18.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAIAAAACAAAAAAAAAAAAAAgAAAAEAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\StorageArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.FunctionCall">
+    <Position X="15" Y="14.5" Width="2" />
+    <NestedTypes>
+      <Class Name="TypeCobol.Compiler.CodeElements.FunctionCall.FunctionCallParameterList" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Compiler\CodeElements\Expressions\StorageArea.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAACCAAAAAAAIAAAIQAgAAABAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\StorageArea.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Type" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.IntrinsicFunctionCall">
+    <Position X="22" Y="14.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>ACAAIAAAAAAAAAAAAAACCAAAAAAAIAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\StorageArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.UserDefinedFunctionCall">
+    <Position X="18.5" Y="14.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAACCAAAAAAAIAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\StorageArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ProcedureCall">
+    <Position X="12.5" Y="14.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAABAIAAAAQAAAACCAAAAAAAIAAAICAAAAABAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\StorageArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.GroupCorrespondingImpact" BaseTypeListCollapsed="true">
+    <Position X="27.75" Y="14.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAGAgCAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\StorageArea.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SymbolInformation">
+    <Position X="21.75" Y="21.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAIAAAEkAAACAQAIAAAAIAAAQAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SymbolDefinition">
+    <Position X="19.5" Y="23.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SymbolReference">
+    <Position X="24.25" Y="23.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAQAACAAAACAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.AmbiguousSymbolReference">
+    <Position X="21" Y="25.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAIAAIAAAAACAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.QualifiedSymbolReference">
+    <Position X="26.75" Y="25.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AEIAAEAAAAAIAZAUCAAADAQAIAQAAAAECAACgABQIAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.TypeCobolQualifiedSymbolReference">
+    <Position X="23" Y="30.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SymbolDefinitionOrReference">
+    <Position X="27.25" Y="23.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ExternalName">
+    <Position X="17.5" Y="22" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.QualifiedTextName">
+    <Position X="17.25" Y="25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACEAAAACAQACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ExternalNameOrSymbolReference">
+    <Position X="21.5" Y="28.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.Expressions.AbstractQualifiedName" Collapsed="true">
+    <Position X="12.5" Y="23" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AHIAAEAAAAAAAJBQiAAARAQAAAAAAJAACAACAABQIAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\QualifiedName.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.Expressions.URI" Collapsed="true">
+    <Position X="12.5" Y="24.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEJBEAAAAQAQAEAAAABAAAAAgAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\QualifiedName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="TypeCobol.Compiler.CodeElements.Expressions.QualifiedName" Collapsed="true">
+    <Position X="15" Y="23" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAIBAAAAAQAAAAAAAABAAAAACAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\QualifiedName.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="TypeCobol.Compiler.CodeElements.ExpressionNodeType">
+    <Position X="10.75" Y="0.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIAQAAAAAAAAAAEBAAAAAQAAQAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.LogicalOperator" Collapsed="true">
+    <Position X="18.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAgIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.DataItemContentType" Collapsed="true">
+    <Position X="20.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAACAAKAAAAAAAAAARAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.RelationalOperator" Collapsed="true">
+    <Position X="20.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAABAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAIAAgACA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.SignComparison" Collapsed="true">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.ArithmeticOperator" Collapsed="true">
+    <Position X="18.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAQAAAAAAAAABAAABAAAAAAABACAAABJAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.StorageDataType">
+    <Position X="16.25" Y="7.75" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAACAAAAAAAAIAgACAAAAAgAAAAECgAAACAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Variable.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.DataSourceType" Collapsed="true">
+    <Position X="23.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAEAEAQEAAAAAAAAAAAAIAQAAAAAAAAAAAQA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\Variable.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.StorageAreaKind">
+    <Position X="5.25" Y="14.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAQAAABAAAAAAAAAAAAAAAAgAAAAAEQAQAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\StorageArea.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.FunctionCallType">
+    <Position X="25.25" Y="17.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\StorageArea.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.SymbolRole" Collapsed="true">
+    <Position X="29" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAQAAAAAAAACAABAIAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

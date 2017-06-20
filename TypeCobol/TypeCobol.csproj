@@ -143,6 +143,8 @@
   <ItemGroup>
     <None Include="App.config" />
     <EmbeddedResource Include="Compiler\Diagnostics\Resources\DiagnosticMessages.csv" />
+    <None Include="Compiler\CodeElements\Entry\DataEntries.cd" />
+    <None Include="Compiler\CodeElements\Expressions\Expressions.cd" />
     <None Include="Documentation\Architecture\Initial requirements.docx" />
     <None Include="Documentation\Architecture\TypeCobolStats_14_04_2015.xlsx" />
     <None Include="Documentation\Reference\DB2 11 for zOs - Application Programming and SQL Guide.pdf" />

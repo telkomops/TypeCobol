@@ -104,6 +104,20 @@ namespace TypeCobol.DocumentModel.Dom
         }
         public class DataDefinition : StorageEntry
         {
+            /// <summary>
+            /// Get the Data Definition entry.
+            /// </summary>
+            public DataDefinitionEntry DataDefinitionEntry
+            {
+                get
+                {
+                    return (DataDefinitionEntry)Target;
+                }
+                set
+                {
+                    Target = value;
+                }
+            }
             public DataDefinition(DataDefinitionEntry dde) : base(dde)
             {
             }
@@ -111,6 +125,18 @@ namespace TypeCobol.DocumentModel.Dom
 
         public class ExecSql : StorageEntry
         {
+            public ExecSqlStatement ExecSqlStatement
+            {
+                get
+                {
+                    return (ExecSqlStatement)Target;
+                }
+                set
+                {
+                    Target = value;
+                }
+            }
+
             public ExecSql(ExecSqlStatement ess)
                 : base(ess)
             {
@@ -197,11 +223,11 @@ namespace TypeCobol.DocumentModel.Dom
             public DataDescription(DataDescriptionEntry entry) : base(entry)
             {
             }
-            public DataDefinitionEntry DataDefinitionEntry
+            public DataDescriptionEntry DataDescriptionEntry
             {
                 get
                 {
-                    return (DataDefinitionEntry)Target;
+                    return (DataDescriptionEntry)Target;
                 }
             }
         }

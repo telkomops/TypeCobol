@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TypeCobol.Compiler.CodeElements.DataDefinitionEntry">
+    <Position X="4.5" Y="1" Width="2.25" />
+    <AssociationLine Name="DataName" Type="TypeCobol.Compiler.CodeElements.SymbolDefinition" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="3.312" />
+        <Point X="7.125" Y="3.312" />
+        <Point X="7.125" Y="2.875" />
+        <Point X="15.125" Y="2.875" />
+        <Point X="15.125" Y="3.963" />
+        <Point X="14.75" Y="3.963" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAIAAAAAAAAAAARAAAEgQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Entry\DataDescriptionEntry.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="DataName" />
+      <Property Name="DataType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.CommonDataDescriptionAndDataRedefines">
+    <Position X="8" Y="3.25" Width="3.25" />
+    <InheritanceLine Type="TypeCobol.Compiler.CodeElements.DataDefinitionEntry" FixedToPoint="true">
+      <Path>
+        <Point X="5.625" Y="3.713" />
+        <Point X="5.625" Y="4.125" />
+        <Point X="8" Y="4.125" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>ECAIgiACAACACAIACAAAgABEIAGQBAAAAAAAAQCBIAA=</HashCode>
+      <FileName>Compiler\CodeElements\Entry\DataDescriptionEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.DataDescriptionEntry">
+    <Position X="4.75" Y="6.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAQAAAAAAAAAAAAAAAAAQAAAAAAAAAAACAA=</HashCode>
+      <FileName>Compiler\CodeElements\Entry\DataDescriptionEntry.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SpecialRegisterDescriptionEntry">
+    <Position X="5.75" Y="10" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Entry\DataDescriptionEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.FunctionCallResultDescriptionEntry">
+    <Position X="1.5" Y="6.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Compiler\CodeElements\Entry\DataDescriptionEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ParameterDescriptionEntry">
+    <Position X="0.75" Y="10" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Entry\DataDescriptionEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.DataTypeDescriptionEntry">
+    <Position X="3.5" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAABAAAgAAAAAAQAAQAAIAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Entry\DataDescriptionEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.DataRedefinesEntry">
+    <Position X="8.5" Y="10" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Entry\DataDescriptionEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.DataRenamesEntry">
+    <Position X="1.25" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAABAAAAAAAABAAAAAQAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Entry\DataDescriptionEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.DataConditionEntry">
+    <Position X="1.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAIAAAAAAAAAAABAAAACQAAAAAAAAgAAAQA=</HashCode>
+      <FileName>Compiler\CodeElements\Entry\DataDescriptionEntry.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ValuesRange" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAACAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Entry\DataDescriptionEntry.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.TableSortingKey" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAQAAEAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Entry\DataDescriptionEntry.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.NamedCodeElement">
+    <Position X="8.25" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\CodeElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SymbolDefinition">
+    <Position X="12" Y="3.25" Width="2.75" />
+    <InheritanceLine Type="TypeCobol.Compiler.CodeElements.SymbolInformation" FixedToPoint="true">
+      <Path>
+        <Point X="13.375" Y="6" />
+        <Point X="13.375" Y="5.05" />
+        <Point X="13.203" Y="5.05" />
+        <Point X="13.203" Y="4.675" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.DataType">
+    <Position X="15.75" Y="0.75" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ABBCAgAIAQgAACAEgAAACgYKAAAIAMQRACBRAAAEAjA=</HashCode>
+      <FileName>Compiler\CodeElements\Entry\DataType.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SymbolInformation">
+    <Position X="11.75" Y="6" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAIAAAEkAAACAQAIAAAAIAAAQAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Type" />
+      <Property Name="Role" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.CodeElement" Collapsed="true">
+    <Position X="11.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CIAAAAQgAAgAIAYGAABBCBEAABAAQIAAEQACCAEhEJA=</HashCode>
+      <FileName>Compiler\CodeElements\CodeElement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SymbolReference">
+    <Position X="15.75" Y="13.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAQAACAAAACAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.AmbiguousSymbolReference" Collapsed="true">
+    <Position X="11.75" Y="13.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAIAAIAAAAACAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.QualifiedSymbolReference">
+    <Position X="18" Y="17.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AEIAAEAAAAAIAZAUCAAADAQAIAQAAAAECAACgABQIAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.TypeCobolQualifiedSymbolReference">
+    <Position X="14.5" Y="17.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.SymbolDefinitionOrReference">
+    <Position X="9.25" Y="12.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ExternalName">
+    <Position X="18.5" Y="13.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.QualifiedTextName">
+    <Position X="21.25" Y="13.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACEAAAACAQACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.Compiler.CodeElements.ExternalNameOrSymbolReference">
+    <Position X="11.5" Y="15.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="TypeCobol.Compiler.CodeElements.SortDirection" Collapsed="true">
+    <Position X="18.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAABAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Entry\DataDescriptionEntry.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.SignPosition" Collapsed="true">
+    <Position X="20.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAECAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Entry\DataDescriptionEntry.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.DataUsage" Collapsed="true">
+    <Position X="18.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAIQAAAAAAQAAAAAAQAIAAAABAAAQEEABAEEAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Entry\DataDescriptionEntry.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.SymbolType">
+    <Position X="15.5" Y="7.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>ACEQAAQAACCACQCAAAgAAAAACAEiAAIALAOiAAhAAAE=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TypeCobol.Compiler.CodeElements.SymbolRole">
+    <Position X="15.75" Y="5.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAQAAAAAAAACAABAIAAAAAAAAA=</HashCode>
+      <FileName>Compiler\CodeElements\Expressions\SymbolName.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

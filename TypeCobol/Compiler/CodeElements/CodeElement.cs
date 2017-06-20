@@ -96,10 +96,10 @@ namespace TypeCobol.Compiler.CodeElements
         /// <summary>
         /// Abstract Visitor method
         /// </summary>
-        /// <typeparam name="R"></typeparam>
-        /// <typeparam name="D"></typeparam>
-        /// <param name="v"></param>
-        /// <param name="data"></param>
+        /// <typeparam name="R">Return value type</typeparam>
+        /// <typeparam name="D">Data argument type</typeparam>
+        /// <param name="v">The viisitor</param>
+        /// <param name="data">The data argument</param>
         public abstract R Accept<R, D>(ICodeElementVisitor<R, D> v, D data);
 
         public virtual bool AcceptASTVisitor(IASTVisitor astVisitor)

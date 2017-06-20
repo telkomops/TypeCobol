@@ -17,6 +17,13 @@ namespace TypeCobol.DocumentModel.File
     public class FileCompilationUnit : CompilationUnit
     {
         /// <summary>
+        /// Last snapshot of the compilation unit viewed as a complete Cobol program or class, after parsing the code elements.
+        /// Only one of the two properties Program or Class can be not null.
+        /// Tread-safe : accessible from any thread, returns an immutable object tree.
+        /// </summary> 
+        public TypeCobol.DocumentModel.Dom.CobolProgram ProgramClassDOMSnapshot { get; protected set; }
+
+        /// <summary>
         /// Initializes a new compilation document from a list of text lines.
         /// This method does not scan the inserted text lines to produce tokens.
         /// You must explicitely call UpdateTokensLines() to start an initial scan of the document.
@@ -63,7 +70,7 @@ namespace TypeCobol.DocumentModel.File
                     }
                     else
                     {//EXPERIMENTAL FASHION
-                        TypeCobol.DocumentModel.Dom.CobolProgram cobolProgram = ParseCodeDom(((ImmutableList<CodeElementsLine>)codeElementsDocument.Lines));
+                        ProgramClassDOMSnapshot = ParseCodeDom(((ImmutableList<CodeElementsLine>)codeElementsDocument.Lines));
                     }
 
                     // Stop perf measurement

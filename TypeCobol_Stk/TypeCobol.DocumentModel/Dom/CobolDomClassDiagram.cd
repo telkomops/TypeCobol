@@ -1,18 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="TypeCobol.DocumentModel.Dom.CobolProgram">
-    <Position X="2.75" Y="2.25" Width="2.75" />
+    <Position X="1" Y="2" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AIAAAAAAAAAAABAAAAAAEAgAAAAAAAAAAAAAAAABAAg=</HashCode>
+      <HashCode>AIAAAAAAAAAAABAAAAAAEAgAAAAAAAgAIAAAAAABAAg=</HashCode>
       <FileName>Dom\CobolProgram.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="ProgramAttributes" />
       <Property Name="EnvironmentDivision" />
+      <Property Name="DataDivision" />
+      <Property Name="NestedPrograms" />
+      <Property Name="ProcedureDivision" />
     </ShowAsAssociation>
   </Class>
   <Class Name="TypeCobol.DocumentModel.Dom.EnvironmentDivision">
-    <Position X="6.25" Y="3.75" Width="2.75" />
+    <Position X="7" Y="3.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AKAAAQAAAAAAABAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Dom\EnvironmentDivision.cs</FileName>
@@ -29,20 +32,24 @@
       <HashCode>AIAAAAAAAAAAgBAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Dom\ProgramAttributes.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ProgramIdentification" />
+      <Property Name="LibraryCopyOpt" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="TypeCobol.DocumentModel.Dom.ConfigurationSection">
-    <Position X="11" Y="4.75" Width="2.75" />
+    <Position X="11" Y="3" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AIAEAAAAAAAAABAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Dom\EnvironmentDivision.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TypeCobol.Compiler.CodeElements.EnvironmentDivisionHeader">
-    <Position X="11" Y="7.25" Width="2.5" />
+    <Position X="11" Y="5.5" Width="2.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="TypeCobol.DocumentModel.Dom.InputOutputSection">
-    <Position X="11" Y="9" Width="2.5" />
+    <Position X="11" Y="7.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAEBAAAEAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Dom\EnvironmentDivision.cs</FileName>
@@ -54,7 +61,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="TypeCobol.DocumentModel.Dom.FileControlParagraph">
-    <Position X="15" Y="9" Width="2.5" />
+    <Position X="15.75" Y="9" Width="2.5" />
     <TypeIdentifier>
       <HashCode>BKAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Dom\EnvironmentDivision.cs</FileName>
@@ -64,11 +71,11 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="TypeCobol.Compiler.CodeElements.InputOutputSectionHeader">
-    <Position X="15" Y="11.5" Width="2.5" />
+    <Position X="13" Y="9.5" Width="2.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="TypeCobol.DocumentModel.Dom.IoControlParagraph">
-    <Position X="15" Y="6.25" Width="2.25" />
+    <Position X="15.25" Y="6.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAACAAABAAAAAAAAAAAAAAAAAAAAACAAAAAEA=</HashCode>
       <FileName>Dom\EnvironmentDivision.cs</FileName>
@@ -87,7 +94,7 @@
     <TypeIdentifier />
   </Class>
   <Class Name="TypeCobol.Compiler.CodeElements.FileControlParagraphHeader" Collapsed="true">
-    <Position X="19.5" Y="9" Width="2.25" />
+    <Position X="20.25" Y="9" Width="2.25" />
     <TypeIdentifier />
   </Class>
   <Class Name="TypeCobol.Compiler.CodeElements.ProgramEnd" Collapsed="true">
@@ -95,12 +102,196 @@
     <TypeIdentifier />
   </Class>
   <Class Name="TypeCobol.Compiler.CodeElements.ProgramIdentification">
-    <Position X="13.75" Y="1.25" Width="2.25" />
+    <Position X="17.75" Y="1.25" Width="2.25" />
     <TypeIdentifier />
   </Class>
   <Class Name="TypeCobol.Compiler.CodeElements.LibraryCopyCodeElement">
-    <Position X="11" Y="2.75" Width="2" />
+    <Position X="14.25" Y="2.25" Width="2" />
     <TypeIdentifier />
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.DataDivision">
+    <Position X="5.25" Y="7.5" Width="3.25" />
+    <AssociationLine Name="LinkageSection" Type="TypeCobol.DocumentModel.Dom.LinkageSection" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.5" Y="9.25" />
+        <Point X="8.875" Y="9.25" />
+        <Point X="8.875" Y="11.2" />
+        <Point X="10.25" Y="11.2" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BIAAAAAAACAAABAAAAACAAAAAgAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\DataDivision.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="WorkingStorageSection" />
+      <Property Name="LocalStorageSection" />
+      <Property Name="LinkageSection" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.NestedPrograms">
+    <Position X="5" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\CobolProgram.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.ProcedureDivision">
+    <Position X="1.25" Y="8.25" Width="2.5" />
+    <NestedTypes>
+      <Class Name="TypeCobol.DocumentModel.Dom.ProcedureDivision.Element" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\ProcedureDivision.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.ProcedureDivision.Elements" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\ProcedureDivision.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAABAQAABAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Dom\ProcedureDivision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.WorkingStorageSection">
+    <Position X="3.25" Y="11.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAABAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Dom\DataDivision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.LocalStorageSection">
+    <Position X="6.75" Y="11.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Dom\DataDivision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.LinkageSection">
+    <Position X="10.25" Y="11" Width="2.5" />
+    <AssociationLine Name="DataDefinitionEntries" Type="TypeCobol.DocumentModel.Dom.DataDefinitionEntry" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.75" Y="12.1" />
+        <Point X="16.375" Y="12.1" />
+        <Point X="16.375" Y="14.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAEAAABAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Dom\DataDivision.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="DataDefinitionEntries" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.StorageSection">
+    <Position X="4.5" Y="14.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\DataDivision.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="StorageEntries" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.StorageEntry">
+    <Position X="9.25" Y="14.5" Width="3.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="TypeCobol.DocumentModel.Dom.StorageEntry.DataDefinition">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\DataDivision.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.StorageEntry.ExecSql">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\DataDivision.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\DataDivision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.StorageEntries">
+    <Position X="13.5" Y="16" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\DataDivision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.ExecSqlStatement">
+    <Position X="19.25" Y="13.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAACAAAFAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\DataDivision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.DataDefinitionEntry">
+    <Position X="15.75" Y="14.5" Width="3" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="TypeCobol.DocumentModel.Dom.DataDefinitionEntry.DataDescription">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\DataDivision.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.DataDefinitionEntry.DataRedefines">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\DataDivision.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.DataDefinitionEntry.DataRenames">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\DataDivision.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TypeCobol.DocumentModel.Dom.DataDefinitionEntry.DataCondition">
+        <TypeIdentifier>
+          <NewMemberFileName>Dom\DataDivision.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\DataDivision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.DataDefinitionEntries">
+    <Position X="13.5" Y="14.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\DataDivision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.FileDescription" Collapsed="true">
+    <Position X="19.25" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAgBAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Dom\DataDivision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.FileDescriptionEntries">
+    <Position X="19.25" Y="18.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\DataDivision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TypeCobol.DocumentModel.Dom.FileSection" Collapsed="true">
+    <Position X="19.25" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAABAAAAAAAQAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dom\DataDivision.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
