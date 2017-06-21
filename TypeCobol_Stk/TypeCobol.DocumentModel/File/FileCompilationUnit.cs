@@ -7,10 +7,12 @@ using TypeCobol.Compiler;
 using TypeCobol.Compiler.AntlrUtils;
 using TypeCobol.Compiler.CodeModel;
 using TypeCobol.Compiler.Concurrency;
+using TypeCobol.Compiler.Diagnostics;
 using TypeCobol.Compiler.Directives;
 using TypeCobol.Compiler.Parser;
 using TypeCobol.Compiler.Preprocessor;
 using TypeCobol.Compiler.Text;
+using TypeCobol.DocumentModel.Dom.Scanner;
 
 namespace TypeCobol.DocumentModel.File
 {
@@ -83,10 +85,26 @@ namespace TypeCobol.DocumentModel.File
         {
             TypeCobol.DocumentModel.Dom.Scanner.CodeElementTokenizer scanner = new TypeCobol.DocumentModel.Dom.Scanner.CodeElementTokenizer(Lines);
             TypeCobol.DocumentModel.Dom.Parser.ProgramParser pp = new TypeCobol.DocumentModel.Dom.Parser.ProgramParser(scanner);
-            TUVienna.CS_CUP.Runtime.Symbol symbol = pp.parse();
-            TypeCobol.DocumentModel.Dom.CobolProgram cobolProgram = (TypeCobol.DocumentModel.Dom.CobolProgram)symbol.value;
-            return cobolProgram;
+            try 
+            {
+                TUVienna.CS_CUP.Runtime.Symbol symbol = pp.parse();
+                TypeCobol.DocumentModel.Dom.CobolProgram cobolProgram = (TypeCobol.DocumentModel.Dom.CobolProgram)symbol.value;
+                return cobolProgram;
+            }
+            catch (Exception ex)
+            {
+                CodeElementTokenizer cet = (CodeElementTokenizer)pp.getScanner();
+                var lastSymbol = cet.LastSymbol;
+                if (lastSymbol != null)
+                {
+                    TypeCobol.Compiler.CodeElements.CodeElement ce = (TypeCobol.Compiler.CodeElements.CodeElement)lastSymbol.value;
+                    if (ce.Diagnostics == null) 
+                        ce.Diagnostics = new List<Diagnostic>();
+                    var code = TypeCobol.Compiler.Diagnostics.MessageCode.ImplementationError;
+                    ce.Diagnostics.Add(new ParserDiagnostic(ex.ToString(), null, null, code));
+                }
+            }
+            return null;
         }
     }    
-
 }

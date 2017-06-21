@@ -59,6 +59,15 @@ namespace TypeCobol.DocumentModel.Dom.Scanner
         }
 
         /// <summary>
+        /// The Last Symbol return by the Tokenizer. This one can be used for reporting errors.
+        /// </summary>
+        public TUVienna.CS_CUP.Runtime.Symbol LastSymbol
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// Enumerator all Symbol from the CodeElementLines
         /// </summary>
         /// <returns>An Enumerator on Symbols</returns>
@@ -72,6 +81,7 @@ namespace TypeCobol.DocumentModel.Dom.Scanner
                     foreach(Compiler.CodeElements.CodeElement ce in cel.CodeElements)
                     {
                         TUVienna.CS_CUP.Runtime.Symbol symbol = new TUVienna.CS_CUP.Runtime.Symbol(((int)ce.Type) + CS_CUP_START_TOKEN - 1, ce);
+                        LastSymbol = symbol;
                         yield return symbol;
                     }
                 }
