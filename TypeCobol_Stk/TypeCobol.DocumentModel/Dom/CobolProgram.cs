@@ -67,6 +67,17 @@ namespace TypeCobol.DocumentModel.Dom
         {
         }
 
+        /// <summary>
+        /// Get this program name.
+        /// </summary>
+        public String Name
+        {
+            get
+            {
+                return ProgramAttributes.ProgramIdentification.ProgramName.Name;
+            }
+        }
+
         public override R Accept<R,D>(TypeCobol.DocumentModel.Dom.Visitor.CodeDomVisitor<R,D> v, D data)
         {
             return v.Visit(this, data);

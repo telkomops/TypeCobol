@@ -77,11 +77,14 @@
     <Compile Include="Dom\ProgramAttributes.cs" />
     <Compile Include="Dom\Scanner\CodeElementTokenizer.cs" />
     <Compile Include="Dom\Statements.cs" />
-    <Compile Include="Dom\Visitor\BaseCdeDomVisitor.cs" />
+    <Compile Include="Dom\Visitor\BaseCodeDomVisitor.cs" />
     <Compile Include="Dom\Visitor\CodeDomVisitor.cs" />
     <Compile Include="File\FileCompilationUnit.cs" />
     <Compile Include="File\FileParser.cs" />
     <Compile Include="File\FileParserCompiler.cs" />
+    <Compile Include="Phase\Context.cs" />
+    <Compile Include="Phase\Enter.cs" />
+    <Compile Include="Phase\StorageEnter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\ComplertionProto.cs" />
   </ItemGroup>

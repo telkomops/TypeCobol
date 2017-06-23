@@ -27,6 +27,22 @@ namespace TypeCobol.DocumentModel.Code.Symbols
         }
 
         /// <summary>
+        /// Enter a Program in this namespace
+        /// </summary>
+        /// <param name="name">Program's name</param>
+        /// <returns>The ProgramSymbol</returns>
+        public ProgramSymbol EnterProgram(String name)
+        {
+            ProgramSymbol prgSym = Programs.Lookup(name);
+            if (prgSym == null) 
+            {
+                prgSym = new ProgramSymbol(name);
+                Programs.Enter(prgSym);
+            }
+            return prgSym;
+        }
+
+        /// <summary>
         /// All types and variables declared in this namespace.
         /// </summary>
         public TypeCobolScope<TypedefSymbol> Types

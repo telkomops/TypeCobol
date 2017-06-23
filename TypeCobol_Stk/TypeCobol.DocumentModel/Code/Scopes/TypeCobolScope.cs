@@ -41,7 +41,7 @@ namespace TypeCobol.DocumentModel.Code.Scopes
          */
         public void EnterIfNotExist(T sym)
         {
-            TypeCobolSymbol symbol = lookup(sym.Name);
+            TypeCobolSymbol symbol = Lookup(sym.Name);
             if (symbol != null)
                 Enter(sym);
         }
@@ -51,7 +51,7 @@ namespace TypeCobol.DocumentModel.Code.Scopes
         /// </summary>
         /// <param name="name">The Symbol's name</param>
         /// <returns>The Symbol if it exist, null otherwise</returns>
-        public T lookup(String name)
+        public T Lookup(String name)
         {
             T symbol = null;
             if (symbols != null)

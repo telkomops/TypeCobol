@@ -4,14 +4,14 @@
     <Position X="1" Y="2" Width="2.75" />
     <AssociationLine Name="ProcedureDivision" Type="TypeCobol.DocumentModel.Dom.ProcedureDivision" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="1" Y="2.809" />
-        <Point X="0.625" Y="2.809" />
+        <Point X="1" Y="2.939" />
+        <Point X="0.625" Y="2.939" />
         <Point X="0.625" Y="8.822" />
         <Point X="1.25" Y="8.822" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AIAAAAAAAAAAABAAAAAAEAgAAAAAAAgAIAAAAAABAAg=</HashCode>
+      <HashCode>AIAAAAAAAAAAABAAAAAAEAwAAAAAAAgAIAAAAAABAAg=</HashCode>
       <FileName>Dom\CobolProgram.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
