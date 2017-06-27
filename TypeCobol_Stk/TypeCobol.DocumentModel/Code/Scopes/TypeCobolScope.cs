@@ -8,7 +8,7 @@ using TypeCobol.DocumentModel.Code.Symbols;
 namespace TypeCobol.DocumentModel.Code.Scopes
 {
     /// <summary>
-    /// A Cobol Scope which contains Cobol Symbols declared withina Scope
+    /// A Cobol Scope which contains Cobol Symbols declared within a Scope
     /// </summary>
     public class TypeCobolScope<T> where T : TypeCobolSymbol
     {

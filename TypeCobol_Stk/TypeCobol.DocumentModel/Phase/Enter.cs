@@ -21,6 +21,32 @@ namespace TypeCobol.DocumentModel.Phase
     public class Enter : CodeDomVisitor<Context<TypeCobolSymbol>, Context<TypeCobolSymbol>>
     {
         /// <summary>
+        /// Diagnostics encountered during Enter Phases.
+        /// </summary>
+        public List<Diagnostic> Diagnostics
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Add an error diagnostic.
+        /// </summary>
+        /// <param name="diag"></param>
+        public void AddDiagnostic(Diagnostic diag)
+        {
+            if (Diagnostics == null)
+                Diagnostics = new List<Diagnostic>();
+            Diagnostics.Add(diag);
+        }
+
+        /// <summary>
+        /// A Dictionary mapping programs and namespaces to the context current at the points of their definitions.        
+        /// </summary>
+        Dictionary<TypeCobolSymbol, Context<TypeCobolSymbol>> TypeCtxs =
+                new Dictionary<TypeCobolSymbol, Context<TypeCobolSymbol>>();
+
+        /// <summary>
         /// Main method: enter all programs in a list of tolevel program elements.
         /// </summary>
         /// <param name="programs">The list of program to pbe processed</param>
@@ -37,9 +63,38 @@ namespace TypeCobol.DocumentModel.Phase
         /// <param name="ctx"></param>
         /// <returns></returns>
         public virtual Context<TypeCobolSymbol> Visit(FunctionDeclaration that, Context<TypeCobolSymbol> ctx) 
-        { 
-            //return visitCodeElement(that, data); 
-            return null;
+        {
+            TypeCobolSymbol owner = ctx.Info;
+            IScope enclScope = EnterSymbolScope(ctx) as IScope;
+            TypeCobolScope<FunctionSymbol> funScope = enclScope.Functions;
+            FunctionSymbol f = null;
+            if (enclScope == null)
+            {//Hum.. the enclosing symbol is not a Scope ==> This is a fatal error.
+                throw new System.ApplicationException(string.Format("Fatal Error No Enclosing Scope for Function '{0}'", that.Name));
+            }
+            if (funScope == null)
+            {//Hum.. the enclosing symbol has no Function Scope ==> This is a fatal error.
+                throw new System.ApplicationException(string.Format("Fatal Error No Enclosing Function Scope for Function '{0}'", that.Name));
+            }
+            if (funScope.Lookup(that.Name) != null)
+            {
+                string message = string.Format("Duplicate Function name '{0}' in symbol '{1}'.", that.Name, owner.Name);
+                TypeCobol.Compiler.AntlrUtils.ParserDiagnostic diag = new TypeCobol.Compiler.AntlrUtils.ParserDiagnostic(message, that.StartIndex + 1, that.StopIndex + 1, that.ConsumedTokens[0].Line, null, MessageCode.SemanticTCErrorInParser);
+                AddDiagnostic(diag);
+            }
+            f = new FunctionSymbol(that.Name);
+            //Create a type for this function
+            f.Type = new FunctionType(f);
+
+            // The Semantic Data of the Program is the Symbol
+            that.SemanticData = f;
+            if (funScope != null && f != null)
+                funScope.Enter(f);
+            //Setup a context for Function body in TypeCtxs table,
+            //to be retrieved later in StorageEnter and Checking phasses.
+            Context<TypeCobolSymbol> funCtx = FunctionContext(that, ctx);
+            TypeCtxs[f] = funCtx;
+            return funCtx;
         }
 
         /// <summary>
@@ -65,6 +120,55 @@ namespace TypeCobol.DocumentModel.Phase
         }
 
         /// <summary>
+        /// Create a new context for a Program bodies
+        /// 
+        /// </summary>
+        /// <param name="program">The program to create the new context</param>
+        /// <param name="ctx">The context current outside the program definition</param>
+        /// <returns>The new program's context</returns>
+        public Context<TypeCobolSymbol> ProgramContext(CobolProgram program, Context<TypeCobolSymbol> ctx)
+        {
+            Context<TypeCobolSymbol> prgCtx = ctx.Dup(program, program.SemanticData as TypeCobolSymbol);
+            prgCtx.EnclosingProgram = program;
+            prgCtx.Outer = ctx;
+            return prgCtx;
+        }
+
+        /// <summary>
+        /// Create a new context for a Function bodies
+        /// 
+        /// </summary>
+        /// <param name="fun">The function to create the new context</param>
+        /// <param name="ctx">The context current outside the function definition</param>
+        /// <returns>The new function's context</returns>
+        public Context<TypeCobolSymbol> FunctionContext(FunctionDeclaration fun, Context<TypeCobolSymbol> ctx)
+        {
+            Context<TypeCobolSymbol> prgCtx = ctx.Dup(fun, fun.SemanticData as TypeCobolSymbol);
+            prgCtx.EnclosingFunction = fun;
+            prgCtx.Outer = ctx;
+            return prgCtx;
+        }
+
+        /// <summary>
+        /// The Symbol scope in which a member definition in the context is to be entered
+        /// This is usually the context's symbol scope, except for Program contexts,
+        /// where members go in the program member symbol scope.
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <returns></returns>
+        TypeCobolSymbol EnterSymbolScope(Context<TypeCobolSymbol> ctx)
+        {
+            if (ctx.Element.Type == (TypeCobol.Compiler.CodeElements.CodeElementType)CodeDomType.CobolProgram)
+            {
+                return ((ProgramSymbol)((CobolProgram)ctx.Element).SemanticData);
+            }
+            else
+            {
+                return ctx.Info;
+            }
+        }
+
+        /// <summary>
         /// Visit a Cobol Program.
         /// </summary>
         /// <param name="that"></param>
@@ -73,20 +177,54 @@ namespace TypeCobol.DocumentModel.Phase
         public virtual Context<TypeCobolSymbol> Visit(CobolProgram that, Context<TypeCobolSymbol> ctx) 
         {
             TypeCobolSymbol owner = ctx.Info;
-            ProgramSymbol p;
+            IScope enclScope = EnterSymbolScope(ctx) as IScope;
+            TypeCobolScope<ProgramSymbol> prgScope = enclScope.Programs;
+            ProgramSymbol p = null;
             if (owner.Kind == TypeCobolSymbol.Kinds.Global || owner.Kind == TypeCobolSymbol.Kinds.Namespace)
             {//We are seeing a toplevel program.
                 NamespaceSymbol ns = owner as NamespaceSymbol;
                 if (ns.Programs.Lookup(that.Name) != null)
                 {
                     string message = string.Format("Duplicate Program name{0}.", that.Name);
-                    TypeCobol.Compiler.Parser.DiagnosticUtils.AddError(that, message, MessageCode.SemanticTCErrorInParser);
+                    TypeCobol.Compiler.AntlrUtils.ParserDiagnostic diag = new TypeCobol.Compiler.AntlrUtils.ParserDiagnostic(message, that.StartIndex + 1, that.StopIndex + 1, that.ConsumedTokens[0].Line, null, MessageCode.SemanticTCErrorInParser);
+                    AddDiagnostic(diag);
                 }
                 else
                 {
-                    p = ns.EnterProgram(that.Name);
+                    p = new ProgramSymbol(that.Name);                    
+                    //Create a type for this program
+                    p.Type = new ProgramType(p);
                 }
             }
+            else
+            {//This is a nested Program.
+                if (enclScope == null)
+                {//Hum.. the enclosing symbol is not a Scope ==> This is a fatal error.
+                    throw new System.ApplicationException(string.Format("Fatal Error No Enclosing Scope for Program '{0}'", that.Name));
+                }                
+                if (prgScope == null)
+                {//Hum.. the enclosing symbol has no Program Scope ==> This is a fatal error.
+                    throw new System.ApplicationException(string.Format("Fatal Error No Enclosing Program Scope for Program '{0}'", that.Name));
+                }
+                if (prgScope.Lookup(that.Name) != null)
+                {
+                    string message = string.Format("Duplicate Program name '{0}' in symbol '{1}'.", that.Name, owner.Name);
+                    TypeCobol.Compiler.AntlrUtils.ParserDiagnostic diag = new TypeCobol.Compiler.AntlrUtils.ParserDiagnostic(message, that.StartIndex + 1, that.StopIndex + 1, that.ConsumedTokens[0].Line, null, MessageCode.SemanticTCErrorInParser);
+                    AddDiagnostic(diag);
+                }
+                p = new ProgramSymbol(that.Name);
+                //Create a type for this program
+                p.Type = new ProgramType(p);                
+            }
+            // The Semantic Data of the Program is the Symbol
+            that.SemanticData = p;
+            if (prgScope != null && p != null)
+                prgScope.Enter(p);
+            //Setup a context for Program body in TypeCtxs table,
+            //to be retrieved later in StorageEnter and Checking phasses.
+            Context<TypeCobolSymbol> prgCtx = ProgramContext(that, ctx);
+            TypeCtxs[p] = prgCtx;
+
             //Visit NestedPrograms.
             if (that.NestedPrograms != null)
             {
@@ -95,12 +233,12 @@ namespace TypeCobol.DocumentModel.Phase
                     nested.Accept(this, ctx);
                 }
             }
-            else
-            {
-            }
             //Visit Procedure Division for functions.
-            that.ProcedureDivision.Accept(this, ctx);
-            return visitCodeElement(that, ctx); 
+            if (that.ProcedureDivision != null)
+            {
+                that.ProcedureDivision.Accept(this, ctx);
+            }
+            return prgCtx; 
         }
 
         /// <summary>

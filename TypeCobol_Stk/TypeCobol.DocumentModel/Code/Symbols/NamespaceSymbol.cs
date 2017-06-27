@@ -11,7 +11,7 @@ namespace TypeCobol.DocumentModel.Code.Symbols
     /// Symbol that represents a Namespace. A namespace can only contains 
     /// types, variables, programs oe namespaces.
     /// </summary>
-    public class NamespaceSymbol : TypeCobolSymbol
+    public class NamespaceSymbol : TypeCobolSymbol, IScope
     {
         /// <summary>
         /// Named constructor.
@@ -76,6 +76,42 @@ namespace TypeCobol.DocumentModel.Code.Symbols
         {
             get;
             set;
+        }
+
+
+        public TypeCobolScope<VariableSymbol> FileData
+        {
+            get { return null; }
+        }
+
+        public TypeCobolScope<VariableSymbol> WorkingStorageData
+        {
+            get { return null; }
+        }
+
+        public TypeCobolScope<VariableSymbol> LocalStorageData
+        {
+            get { return null; }
+        }
+
+        public TypeCobolScope<VariableSymbol> LinkageStorageData
+        {
+            get { return null; }
+        }
+
+        public TypeCobolScope<SectionSymbol> Sections
+        {
+            get { return null; }
+        }
+
+        public TypeCobolScope<ParagraphSymbol> Paragraphs
+        {
+            get { return null; }
+        }
+
+        public TypeCobolScope<FunctionSymbol> Functions
+        {
+            get { return null; }
         }
     }
 }

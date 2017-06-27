@@ -4,10 +4,9 @@
     <Position X="4.25" Y="3" Width="1.75" />
     <InheritanceLine Type="TypeCobol.DocumentModel.Code.Symbols.NamespaceSymbol" ManuallyRouted="true" FixedFromPoint="true">
       <Path>
-        <Point X="3.438" Y="1.925" />
-        <Point X="3.438" Y="2.625" />
-        <Point X="5.125" Y="2.625" />
-        <Point X="5.125" Y="3" />
+        <Point X="3.438" Y="3.53" />
+        <Point X="3.438" Y="3.616" />
+        <Point X="4.25" Y="3.616" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -43,15 +42,16 @@
   <Class Name="TypeCobol.DocumentModel.Code.Symbols.NamespaceSymbol">
     <Position X="1.75" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AiAAAAEAAAAAAAAAAAAAAQAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <HashCode>AiAAAAEAAAAAAAAAAAAAAQIAAAAoAAAAAERAgAAAAAA=</HashCode>
       <FileName>Code\Symbols\NamespaceSymbol.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Variables" />
-      <Property Name="Namespaces" />
-      <Property Name="Programs" />
       <Property Name="Types" />
+      <Property Name="Variables" />
+      <Property Name="Programs" />
+      <Property Name="Namespaces" />
     </ShowAsAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="TypeCobol.DocumentModel.Code.Symbols.ParagraphSymbol">
     <Position X="6.75" Y="3.75" Width="2.25" />
@@ -66,6 +66,7 @@
       <HashCode>AiAAAAAAAAAAAAAAAAAAAAIAAAAoAAAAAEBAgAAAAAA=</HashCode>
       <FileName>Code\Symbols\ProgramSymbol.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="TypeCobol.DocumentModel.Code.Symbols.SectionSymbol">
     <Position X="4.25" Y="4.5" Width="1.5" />

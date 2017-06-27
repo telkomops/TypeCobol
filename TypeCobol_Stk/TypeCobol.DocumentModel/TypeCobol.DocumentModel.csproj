@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\Scopes\GlobalSymbolTable.cs" />
+    <Compile Include="Code\Scopes\IScope.cs" />
     <Compile Include="Code\Scopes\TypeCobolScope.cs" />
     <Compile Include="Code\Symbols\NamespaceSymbol.cs" />
     <Compile Include="Code\Symbols\ParagraphSymbol.cs" />

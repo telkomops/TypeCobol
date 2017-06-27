@@ -10,7 +10,7 @@ namespace TypeCobol.DocumentModel.Code.Symbols
     /// <summary>
     /// Reprsents a Program Symbol
     /// </summary>
-    public class ProgramSymbol : TypeCobolSymbol
+    public class ProgramSymbol : TypeCobolSymbol, IScope
     {
         /// <summary>
         /// Named constructor.

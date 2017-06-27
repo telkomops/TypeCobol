@@ -21,6 +21,16 @@ namespace TypeCobol.DocumentModel.Code.Types
         }
 
         /// <summary>
+        /// Symbol constructor
+        /// </summary>
+        /// <param name="fun"></param>
+        public FunctionType(FunctionSymbol fun)
+            : base(Tags.Function)
+        {
+            base.Symbol = fun;
+        }
+
+        /// <summary>
         /// Full constructor
         /// </summary>
         /// <param name="parameters">Function's parameters</param>

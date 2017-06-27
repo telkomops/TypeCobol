@@ -21,6 +21,16 @@ namespace TypeCobol.DocumentModel.Code.Types
         }
 
         /// <summary>
+        /// Symbol Constructor
+        /// <param name="prgSym">The Program Symbol</param>
+        /// </summary>
+        public ProgramType(ProgramSymbol prgSym)
+            : this(Tags.Program)
+        {
+            base.Symbol = prgSym;
+        }
+
+        /// <summary>
         /// Constructor
         /// </summary>
         protected ProgramType(Tags tag)
