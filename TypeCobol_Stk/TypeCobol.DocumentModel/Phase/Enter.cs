@@ -14,7 +14,7 @@ namespace TypeCobol.DocumentModel.Phase
 {
     /// <summary>
     /// This is the Enter Phase, it consist of registering symbols for all definitions
-    /// that were found into thei enclosing scope.
+    /// that were found into their enclosing scope.
     /// 1) All Programs and functions are registered with the corresponding scope.
     /// 2) Programs and function storage areas are visited for creating data symbols.
     /// </summary>
@@ -41,7 +41,7 @@ namespace TypeCobol.DocumentModel.Phase
         }
 
         /// <summary>
-        /// A Dictionary mapping programs and namespaces to the context current at the points of their definitions.        
+        /// A Dictionary mapping programs, functions and namespaces to the context current at the points of their definitions.        
         /// </summary>
         Dictionary<TypeCobolSymbol, Context<TypeCobolSymbol>> TypeCtxs =
                 new Dictionary<TypeCobolSymbol, Context<TypeCobolSymbol>>();
@@ -86,7 +86,7 @@ namespace TypeCobol.DocumentModel.Phase
             //Create a type for this function
             f.Type = new FunctionType(f);
 
-            // The Semantic Data of the Program is the Symbol
+            // The Semantic Data of the Function is the Symbol
             that.SemanticData = f;
             if (funScope != null && f != null)
                 funScope.Enter(f);
@@ -116,7 +116,7 @@ namespace TypeCobol.DocumentModel.Phase
                     }
                 }
             }
-            return null; 
+            return ctx; 
         }
 
         /// <summary>
@@ -151,8 +151,8 @@ namespace TypeCobol.DocumentModel.Phase
 
         /// <summary>
         /// The Symbol scope in which a member definition in the context is to be entered
-        /// This is usually the context's symbol scope, except for Program contexts,
-        /// where members go in the program member symbol scope.
+        /// This is usually the context's symbol scope, except for Program and Function contexts,
+        /// where members go in the program or function member symbol scope.
         /// </summary>
         /// <param name="ctx"></param>
         /// <returns></returns>
@@ -161,6 +161,10 @@ namespace TypeCobol.DocumentModel.Phase
             if (ctx.Element.Type == (TypeCobol.Compiler.CodeElements.CodeElementType)CodeDomType.CobolProgram)
             {
                 return ((ProgramSymbol)((CobolProgram)ctx.Element).SemanticData);
+            }
+            else if (ctx.Element.Type == (TypeCobol.Compiler.CodeElements.CodeElementType)CodeDomType.FunctionDeclaration)
+            {
+                return ((FunctionSymbol)((FunctionDeclaration)ctx.Element).SemanticData);
             }
             else
             {

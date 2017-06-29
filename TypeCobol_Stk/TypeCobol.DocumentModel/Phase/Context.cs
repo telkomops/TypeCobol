@@ -9,7 +9,7 @@ using TypeCobol.DocumentModel.Dom;
 namespace TypeCobol.DocumentModel.Phase
 {
     /// <summary>
-    /// This clas represents a Checking or Attribution context, parameterized with Context information.
+    /// This class represents a Checking or Attribution context, parameterized with Context information.
     /// </summary>
     public class Context<I> : IEnumerable<Context<I>>
     {

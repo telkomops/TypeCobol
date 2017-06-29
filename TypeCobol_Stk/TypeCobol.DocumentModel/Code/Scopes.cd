@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="TypeCobol.DocumentModel.Code.Scopes.GlobalSymbolTable">
-    <Position X="4.25" Y="3" Width="1.75" />
+    <Position X="4.75" Y="3" Width="1.75" />
     <InheritanceLine Type="TypeCobol.DocumentModel.Code.Symbols.NamespaceSymbol" ManuallyRouted="true" FixedFromPoint="true">
       <Path>
-        <Point X="3.438" Y="3.53" />
-        <Point X="3.438" Y="3.616" />
-        <Point X="4.25" Y="3.616" />
+        <Point X="4" Y="2.875" />
+        <Point X="4.375" Y="2.875" />
+        <Point X="4.375" Y="3.616" />
+        <Point X="4.75" Y="3.616" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -27,8 +28,8 @@
       <Path>
         <Point X="3.75" Y="14.283" />
         <Point X="4.292" Y="14.283" />
-        <Point X="4.292" Y="10.125" />
-        <Point X="7" Y="10.125" />
+        <Point X="4.292" Y="9.901" />
+        <Point X="7.25" Y="9.901" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -51,7 +52,6 @@
       <Property Name="Programs" />
       <Property Name="Namespaces" />
     </ShowAsAssociation>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="TypeCobol.DocumentModel.Code.Symbols.ParagraphSymbol">
     <Position X="6.75" Y="3.75" Width="2.25" />
@@ -66,7 +66,6 @@
       <HashCode>AiAAAAAAAAAAAAAAAAAAAAIAAAAoAAAAAEBAgAAAAAA=</HashCode>
       <FileName>Code\Symbols\ProgramSymbol.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="TypeCobol.DocumentModel.Code.Symbols.SectionSymbol">
     <Position X="4.25" Y="4.5" Width="1.5" />
@@ -89,19 +88,6 @@
         </TypeIdentifier>
       </Enum>
     </NestedTypes>
-    <AssociationLine Name="Type" Type="TypeCobol.DocumentModel.Code.Types.TypeCobolType" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="2.625" Y="7.487" />
-        <Point X="2.625" Y="7.862" />
-        <Point X="4" Y="7.862" />
-        <Point X="4" Y="8.434" />
-        <Point X="6.75" Y="8.434" />
-        <Point X="6.75" Y="8.25" />
-        <Point X="8.875" Y="8.25" />
-        <Point X="8.875" Y="8.812" />
-        <Point X="8.5" Y="8.812" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAIACAAABAAAAAAAAAAASAAACAAAAAAQAAAEAAAAA=</HashCode>
       <FileName>Code\Symbols\TypeCobolSymbol.cs</FileName>
@@ -117,8 +103,8 @@
       <Path>
         <Point X="5.75" Y="6.75" />
         <Point X="6.125" Y="6.75" />
-        <Point X="6.125" Y="5.866" />
-        <Point X="7" Y="5.866" />
+        <Point X="6.125" Y="5.75" />
+        <Point X="7" Y="5.75" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -138,8 +124,8 @@
     <AssociationLine Name="ElementType" Type="TypeCobol.DocumentModel.Code.Types.TypeCobolType" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="5.062" Y="12" />
-        <Point X="5.062" Y="10.443" />
-        <Point X="7" Y="10.443" />
+        <Point X="5.062" Y="10.175" />
+        <Point X="7.25" Y="10.175" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -187,6 +173,8 @@
         <Point X="10" Y="8.25" />
         <Point X="9.75" Y="8.25" />
         <Point X="9.75" Y="8.115" />
+        <Point X="8.083" Y="8.115" Type="JumpStart" />
+        <Point X="7.917" Y="8.115" Type="JumpEnd" />
         <Point X="5.75" Y="8.115" />
       </Path>
     </AssociationLine>
@@ -200,19 +188,12 @@
   </Class>
   <Class Name="TypeCobol.DocumentModel.Code.Types.RecordType">
     <Position X="14.25" Y="11.5" Width="1.5" />
-    <InheritanceLine Type="TypeCobol.DocumentModel.Code.Types.TypeCobolType" ManuallyRouted="true" FixedToPoint="true">
-      <Path>
-        <Point X="7.75" Y="10.699" />
-        <Point X="7.75" Y="11.625" />
-        <Point X="9.25" Y="11.625" />
-        <Point X="9.25" Y="12" />
-        <Point X="14.25" Y="12" />
-      </Path>
-    </InheritanceLine>
     <AssociationLine Name="Fields" Type="TypeCobol.DocumentModel.Code.Symbols.VariableSymbol" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="15.406" Y="11.5" />
         <Point X="15.406" Y="7" />
+        <Point X="8.083" Y="7" Type="JumpStart" />
+        <Point X="7.917" Y="7" Type="JumpEnd" />
         <Point X="5.75" Y="7" />
       </Path>
     </AssociationLine>
@@ -225,7 +206,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="TypeCobol.DocumentModel.Code.Types.TypeCobolType">
-    <Position X="7" Y="8.5" Width="1.5" />
+    <Position X="7.25" Y="8.5" Width="1.5" />
     <NestedTypes>
       <Enum Name="TypeCobol.DocumentModel.Code.Types.TypeCobolType.Tags" Collapsed="true">
         <TypeIdentifier>
@@ -233,10 +214,24 @@
         </TypeIdentifier>
       </Enum>
     </NestedTypes>
+    <AssociationLine Name="Symbol" Type="TypeCobol.DocumentModel.Code.Symbols.TypeCobolSymbol" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.25" Y="8.775" />
+        <Point X="6" Y="8.775" />
+        <Point X="6" Y="8.5" />
+        <Point X="3.5" Y="8.5" />
+        <Point X="3.5" Y="8.25" />
+        <Point X="3.125" Y="8.25" />
+        <Point X="3.125" Y="7.487" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAEAACAA=</HashCode>
       <FileName>Code\Types\TypeCobolType.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Symbol" />
+    </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="TypeCobol.DocumentModel.Code.Types.TypedefType">

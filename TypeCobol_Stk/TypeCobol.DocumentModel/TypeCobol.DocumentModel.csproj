@@ -51,6 +51,7 @@
     <Compile Include="Code\Scopes\GlobalSymbolTable.cs" />
     <Compile Include="Code\Scopes\IScope.cs" />
     <Compile Include="Code\Scopes\TypeCobolScope.cs" />
+    <Compile Include="Code\Symbols\AbstractScope.cs" />
     <Compile Include="Code\Symbols\NamespaceSymbol.cs" />
     <Compile Include="Code\Symbols\ParagraphSymbol.cs" />
     <Compile Include="Code\Symbols\SectionSymbol.cs" />
@@ -102,6 +103,7 @@
   <ItemGroup>
     <None Include="Code\Scopes.cd" />
     <None Include="Dom\CobolDomClassDiagram.cd" />
+    <None Include="Dom\DOM.cd" />
     <None Include="Dom\Parser\ProgramDOM.cup">
       <Generator>..\bin\%24%28Configuration%29\CSCup.exe</Generator>
     </None>
