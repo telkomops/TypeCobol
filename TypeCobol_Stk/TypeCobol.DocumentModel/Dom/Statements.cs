@@ -594,79 +594,133 @@ namespace TypeCobol.DocumentModel.Dom
         }
     }
 
-    public class WhenConditionClause : ConditionalExecutionStatement
+    /// <summary>
+    /// The When Search Condition Clause
+    /// </summary>
+    public class WhenSearchConditionClause : CodeElementGroup
     {
-
         /// <summary>
-        /// Is this a WhenSearchCondition ?
-        /// </summary>
-        public bool IsWhenSearchCondition
-        {
-            get
-            {
-                return Target is TypeCobol.Compiler.CodeElements.WhenSearchCondition;
-            }
-        }
-
-        /// <summary>
-        /// Is this a WhenCondition ?
-        /// </summary>
-        public bool IsWhenCondition
-        {
-            get
-            {
-                return Target is TypeCobol.Compiler.CodeElements.WhenSearchCondition;
-            }
-        }
-
-        /// <summary>
-        /// Getter on the WhenSearchCondition if any, null otherwise
+        /// When Search Condition
         /// </summary>
         public TypeCobol.Compiler.CodeElements.WhenSearchCondition WhenSearchCondition
         {
             get
             {
-                return IsWhenSearchCondition ? Target as TypeCobol.Compiler.CodeElements.WhenSearchCondition : null;
+                return (TypeCobol.Compiler.CodeElements.WhenSearchCondition)base.Target;
             }
             set
             {
-                Target = value;
+                base.Target = value;
             }
         }
 
         /// <summary>
-        /// Getter on the WhenCondition if any, null otherwise
+        /// Statements
         /// </summary>
-        public TypeCobol.Compiler.CodeElements.WhenCondition WhenCondition
+        public Statements Statements
         {
-            get
+            get;
+            set;
+        }
+
+        public WhenSearchConditionClause(TypeCobol.Compiler.CodeElements.WhenSearchCondition condition, Statements statements)
+            : base((TypeCobol.Compiler.CodeElements.CodeElementType)CodeDomType.WhenSearchConditionClause, condition)
+        {
+
+        }
+
+        public override R Accept<R, D>(Visitor.CodeDomVisitor<R, D> v, D data)
+        {
+            return v.Visit(this, data);
+        }
+
+        public override IEnumerator<CodeElement> GetEnumerator()
+        {
+            if (this.WhenSearchCondition != null)
+                yield return this.WhenSearchCondition;
+            if (this.Statements != null)
             {
-                return IsWhenCondition ? Target as TypeCobol.Compiler.CodeElements.WhenCondition : null;
+                foreach (var stmt in Statements)
+                {
+                    yield return stmt;
+                }
             }
-            set
-            {
-                Target = value;
-            }
+        }
+    }
+
+    /// <summary>
+    /// The list of WhenSearchConditionClause
+    /// </summary>
+    public class WhenSearchConditionClauses : List<WhenSearchConditionClause>
+    {
+        public WhenSearchConditionClauses()
+        {
+        }
+    }
+
+    /// <summary>
+    /// A List of TypeCobol.Compiler.CodeElements.WhenSearchCondition and TypeCobol.Compiler.CodeElements.WhenCondition.
+    /// </summary>
+    public class WhenEvaluateConditions : List<CodeElement>
+    {
+        public WhenEvaluateConditions()
+        {
+        }
+    }
+
+    public class WhenConditionClause : CodeElementGroup
+    {
+        /// <summary>
+        /// The list of evaluation conditions.
+        /// </summary>
+        public WhenEvaluateConditions WhenEvaluateConditions
+        {
+            get;
+            set;
         }
 
         /// <summary>
-        /// When Condition Clause code element constructor
+        /// Associated statements
+        /// </summary>
+        public Statements Statements
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// When Condition Clause constructor
         /// </summary>
         /// <param name="conditional">The conditional code element</param>
-        public WhenConditionClause(TypeCobol.Compiler.CodeElements.WhenSearchCondition conditional, Statements stmts)
-            : base(CodeElementType.WhenSearchCondition, conditional, stmts)
+        public WhenConditionClause(WhenEvaluateConditions conditions, Statements stmts)
+            : base(CodeDomType.WhenConditionClause)
         {
+            this.WhenEvaluateConditions = conditions;
+            this.Statements = stmts;
         }
 
-        /// <summary>
-        /// When Condition Clause code element constructor
-        /// </summary>
-        /// <param name="conditional">The conditional code element</param>
-        public WhenConditionClause(TypeCobol.Compiler.CodeElements.WhenCondition conditional, Statements stmts)
-            : base(CodeElementType.WhenCondition, conditional, stmts)
+        public override R Accept<R, D>(Visitor.CodeDomVisitor<R, D> v, D data)
         {
+            return v.Visit(this, data);
         }
 
+        public override IEnumerator<CodeElement> GetEnumerator()
+        {
+            if (this.WhenEvaluateConditions != null)
+            {
+                foreach (var wec in WhenEvaluateConditions)
+                {
+                    yield return wec;
+                }
+            }
+            if (this.Statements != null)
+            {
+                foreach (var stmt in this.Statements)
+                {
+                    yield return stmt;
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -1856,7 +1910,7 @@ namespace TypeCobol.DocumentModel.Dom
             /// <summary>
             /// Serach When conditions
             /// </summary>
-            public WhenConditionClauses WhenConditionClauses
+            public WhenSearchConditionClauses WhenSearchConditionClauses
             {
                 get;
                 set;
@@ -1877,10 +1931,10 @@ namespace TypeCobol.DocumentModel.Dom
             /// </summary>
             /// <param name="searchStatement"></param>
             /// <param name="whenCondClauses"></param>
-            public SearchStatement(TypeCobol.Compiler.CodeElements.SearchStatement searchStatement, WhenConditionClauses whenCondClauses, SearchStatementEnd send = null)
+            public SearchStatement(TypeCobol.Compiler.CodeElements.SearchStatement searchStatement, WhenSearchConditionClauses whenSearchCondClauses, SearchStatementEnd send = null)
                 : base(CodeElementType.SearchStatement, searchStatement)
             {
-                this.WhenConditionClauses = whenCondClauses;
+                this.WhenSearchConditionClauses = whenSearchCondClauses;
                 this.SearchStatementEnd = send;
             }
 
@@ -1889,11 +1943,11 @@ namespace TypeCobol.DocumentModel.Dom
             /// </summary>
             /// <param name="searchStatement"></param>
             /// <param name="whenCondClauses"></param>
-            public SearchStatement(TypeCobol.Compiler.CodeElements.SearchStatement searchStatement, TypeCobol.DocumentModel.Dom.EndCondition onAtEnd, WhenConditionClauses whenCondClauses, SearchStatementEnd send = null)
+            public SearchStatement(TypeCobol.Compiler.CodeElements.SearchStatement searchStatement, TypeCobol.DocumentModel.Dom.EndCondition onAtEnd, WhenSearchConditionClauses whenSearchCondClauses, SearchStatementEnd send = null)
                 : base(CodeElementType.SearchStatement, searchStatement)
             {
                 this.OnAtEnd = onAtEnd;
-                this.WhenConditionClauses = whenCondClauses;
+                this.WhenSearchConditionClauses = whenSearchCondClauses;
                 this.SearchStatementEnd = send;
             }
 
@@ -1903,9 +1957,9 @@ namespace TypeCobol.DocumentModel.Dom
                     yield return this.SearchElement;
                 if (this.OnAtEnd != null)
                     yield return this.OnAtEnd;
-                if (this.WhenConditionClauses != null)
+                if (this.WhenSearchConditionClauses != null)
                 {
-                    foreach (WhenConditionClause c in this.WhenConditionClauses)
+                    foreach (WhenSearchConditionClause c in this.WhenSearchConditionClauses)
                         yield return c;
                 }
                 if (this.SearchStatementEnd != null)

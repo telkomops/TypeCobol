@@ -186,6 +186,8 @@ namespace TypeCobol.DocumentModel.Dom.Visitor
         public virtual R Visit(Section.Sentences that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(Section.Declarative that, D data) { return visitCodeElement(that, data); }
         public virtual R Visit(Declaratives that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(WhenConditionClause that, D data) { return visitCodeElement(that, data); }
+        public virtual R Visit(WhenSearchConditionClause that, D data) { return visitCodeElement(that, data); }        
         public virtual R Visit(FunctionDeclaration that, D data) { return visitCodeElement(that, data); }
 
         //Expressions

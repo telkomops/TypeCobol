@@ -28,6 +28,15 @@ namespace TypeCobol.DocumentModel.Code.Types
         }
 
         /// <summary>
+        /// Type's flags
+        /// </summary>
+        public enum Flag
+        {
+            Strong = 0x01 << 0,
+            Weak = 0x01 << 1
+        }
+
+        /// <summary>
         /// Getter on type tag.
         /// </summary>
         public Tags Tag
@@ -43,6 +52,15 @@ namespace TypeCobol.DocumentModel.Code.Types
         protected TypeCobolType(Tags tag)
         {
             this.Tag = tag;
+        }
+
+        /// <summary>
+        /// Types's Flags.
+        /// </summary>
+        public Flag Flags
+        {
+            get;
+            set;
         }
 
         /// <summary>

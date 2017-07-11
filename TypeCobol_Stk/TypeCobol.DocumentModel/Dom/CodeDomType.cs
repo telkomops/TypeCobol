@@ -38,6 +38,8 @@ namespace TypeCobol.DocumentModel.Dom
                 SectionDeclarative,
                 Declaratives,
                 Sentence,
+                WhenConditionClause,
+                WhenSearchConditionClause,
                 FunctionDeclaration,
                 //Statement
                     AddStatementConditional,

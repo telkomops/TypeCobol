@@ -192,44 +192,54 @@ non terminal TypeCobol.DocumentModel.Dom.OverflowConditions overflowConditions;
 non terminal TypeCobol.DocumentModel.Dom.SizeErrorCondition onSizeError, noSizeError;
 non terminal TypeCobol.DocumentModel.Dom.SizeErrorConditions sizeErrorConditions;
 
-non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.AddConditional addStatementConditional;
+//non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.AddConditional addStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.Statement addStatementConditional;
 non terminal TypeCobol.DocumentModel.Dom.ConditionalExecutionStatements callStatementConditions;
-non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.CallConditional callStatementConditional;
-non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.ComputeConditional computeStatementConditional;
-non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.DeleteConditional deleteStatementConditional;
-non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.DivideConditional divideStatementConditional;
-non terminal TypeCobol.DocumentModel.Dom.WhenConditionClauses whenConditionClauses, whenSearchConditionClauses;
+//non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.CallConditional callStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.Statement callStatementConditional;
+//non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.ComputeConditional computeStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.Statement computeStatementConditional;
+//non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.DeleteConditional deleteStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.Statement deleteStatementConditional;
+//non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.DivideConditional divideStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.Statement divideStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.WhenConditionClause whenConditionClause;
+non terminal TypeCobol.DocumentModel.Dom.WhenConditionClauses whenConditionClauses;
+non terminal TypeCobol.DocumentModel.Dom.WhenSearchConditionClauses whenSearchConditionClauses;
 non terminal TypeCobol.DocumentModel.Dom.WhenOtherClause whenOtherClause;
-non terminal TypeCobol.DocumentModel.Dom.WhenConditionClause whenSearchConditionClause;
+non terminal TypeCobol.DocumentModel.Dom.WhenSearchConditionClause whenSearchConditionClause;
+non terminal TypeCobol.Compiler.CodeElements.CodeElement whenEvaluateCondition;
+non terminal TypeCobol.DocumentModel.Dom.WhenEvaluateConditions whenEvaluateConditions;
 non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.EvaluateWith evaluateStatementWithBody;
 non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.IfStatement ifStatementWithBody;
-non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.InvokeConditional invokeStatementConditional;
-non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.MultiplyConditional multiplyStatementConditional;
+//non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.InvokeConditional invokeStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.Statement invokeStatementConditional;
+//non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.MultiplyConditional multiplyStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.Statement multiplyStatementConditional;
 non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.Perform performStatementWithBody;
-non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.ReadConditional readStatementConditional;
+//non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.ReadConditional readStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.Statement readStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.ConditionalExecutionStatement rwStatementCondition;
 non terminal TypeCobol.DocumentModel.Dom.ConditionalExecutionStatements rwStatementConditions;
-non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.ReturnConditional returnStatementConditional;
-non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.RewriteConditional rewriteStatementConditional;
-non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.StartConditional startStatementConditional;
-non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.StringConditional stringStatementConditional;
-non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.SubtractConditional subtractStatementConditional;
-non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.UnstringConditional unstringStatementConditional;
+//non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.ReturnConditional returnStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.Statement returnStatementConditional;
+//non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.RewriteConditional rewriteStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.Statement rewriteStatementConditional;
+//non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.StartConditional startStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.Statement startStatementConditional;
+//non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.StringConditional stringStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.Statement stringStatementConditional;
+//non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.SubtractConditional subtractStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.Statement subtractStatementConditional;
+//non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.UnstringConditional unstringStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.Statement unstringStatementConditional;
 non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.SearchStatement searchStatementWithBody;
-non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.WriteConditional writeStatementConditional;
-non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.XmlGenerateConditional xmlGenerateStatementConditional;
-non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.XmlParseConditional xmlParseStatementConditional;
-
-precedence left SentenceEnd;
-precedence left AcceptStatement, AddStatement, AlterStatement, CallStatement, CancelStatement,
-			CloseStatement, ComputeStatement, ContinueStatement, DeleteStatement, DisplayStatement,
-			DivideStatement, EntryStatement, EntryStatement, ExitMethodStatement, ExitProgramStatement,
-			ExitStatement, GobackStatement, GotoStatement, InitializeStatement, InspectStatement,
-			InvokeStatement, MergeStatement, MoveStatement, MultiplyStatement, OpenStatement,
-			PerformProcedureStatement, ReadStatement, ReleaseStatement, ReturnStatement,
-			RewriteStatement, SetStatement, SortStatement, StartStatement, StopStatement,
-			StringStatement, SubtractStatement, UnstringStatement, WriteStatement, XmlGenerateStatement,
-			XmlParseStatement, ProcedureStyleCall, ExecStatement;
-
+//non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.WriteConditional writeStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.Statement writeStatementConditional;
+//non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.XmlGenerateConditional xmlGenerateStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.Statement xmlGenerateStatementConditional;
+//non terminal TypeCobol.DocumentModel.Dom.CompoundStatement.XmlParseConditional xmlParseStatementConditional;
+non terminal TypeCobol.DocumentModel.Dom.Statement xmlParseStatementConditional;
 
 /* The grammar */
 cobolCompilationUnit ::= cobolProgram:cp
@@ -590,8 +600,11 @@ declarativesSections ::= declarativesSection:ds
 	{: RESULT = decls; decls.Add(ds); :}
 	;
 
-declarativesSection ::= SectionHeader:sh UseStatement:us paragraphs:p
-	{: RESULT = new Section.Declarative(sh, us, p); :}
+declarativesSection ::= 
+	SectionHeader:sh UseStatement:us
+	{: RESULT = new Section.Declarative(sh, us, null); :}
+	| SectionHeader:sh UseStatement:us paragraphs:p
+	{: RESULT = new Section.Declarative(sh, us, p); :}	
 	;
 
 sections ::= section:s
@@ -640,6 +653,7 @@ sentence ::= SentenceEnd:send
 	{: RESULT = new Sentence(send); :}
     | statements:stmts SentenceEnd:send
 	{: RESULT = new Sentence(stmts, send); :}
+	//JCM RESOLVE THIS TODO
 	| ExecStatement:stmt
 	{: RESULT = new Sentence(new SingleStatement.ExecStatement(stmt)); :}
 	;
@@ -662,16 +676,16 @@ singleStatement ::=
 	| EntryStatement:stmt
 	{: RESULT = new SingleStatement.EntryStatement(stmt); :}
 // -- arithmetic --
-	| AddStatement:stmt
-	{: RESULT = new SingleStatement.AddStatement(stmt); :}
-	| ComputeStatement:stmt
-	{: RESULT = new SingleStatement.ComputeStatement(stmt); :}
-	| DivideStatement:stmt
-	{: RESULT = new SingleStatement.DivideStatement(stmt); :}
-	| MultiplyStatement:stmt
-	{: RESULT = new SingleStatement.MultiplyStatement(stmt); :}
-	| SubtractStatement:stmt
-	{: RESULT = new SingleStatement.SubtractStatement(stmt); :}
+	//| AddStatement:stmt
+	//{: RESULT = new SingleStatement.AddStatement(stmt); :}
+	//| ComputeStatement:stmt
+	//{: RESULT = new SingleStatement.ComputeStatement(stmt); :}
+	//| DivideStatement:stmt
+	//{: RESULT = new SingleStatement.DivideStatement(stmt); :}
+	//| MultiplyStatement:stmt
+	//{: RESULT = new SingleStatement.MultiplyStatement(stmt); :}
+	//| SubtractStatement:stmt
+	//{: RESULT = new SingleStatement.SubtractStatement(stmt); :}
 // -- data movement --
 	| AcceptStatement:stmt // (DATE, DAY, DAY-OF-WEEK, TIME)
 	{: RESULT = new SingleStatement.AcceptStatement(stmt); :} 
@@ -683,14 +697,14 @@ singleStatement ::=
 	{: RESULT = new SingleStatement.MoveStatement(stmt); :}
 	| SetStatement:stmt
 	{: RESULT = new SingleStatement.SetStatement(stmt); :}
-	| StringStatement:stmt
-	{: RESULT = new SingleStatement.StringStatement(stmt); :}
-	| UnstringStatement:stmt
-	{: RESULT = new SingleStatement.UnstringStatement(stmt); :}
-	| XmlGenerateStatement:stmt
-	{: RESULT = new SingleStatement.XmlGenerateStatement(stmt); :}
-	| XmlParseStatement:stmt
-	{: RESULT = new SingleStatement.XmlParseStatement(stmt); :}
+	//| StringStatement:stmt
+	//{: RESULT = new SingleStatement.StringStatement(stmt); :}
+	//| UnstringStatement:stmt
+	//{: RESULT = new SingleStatement.UnstringStatement(stmt); :}
+	//| XmlGenerateStatement:stmt
+	//{: RESULT = new SingleStatement.XmlGenerateStatement(stmt); :}
+	//| XmlParseStatement:stmt
+	//{: RESULT = new SingleStatement.XmlParseStatement(stmt); :}
 // -- ending --
 	| StopStatement:stmt
 	{: RESULT = new SingleStatement.StopStatement(stmt); :}
@@ -703,28 +717,28 @@ singleStatement ::=
 // -- input-output --
 	| CloseStatement:stmt
 	{: RESULT = new SingleStatement.CloseStatement(stmt); :}
-	| DeleteStatement:stmt
-	{: RESULT = new SingleStatement.DeleteStatement(stmt); :}
+	//| DeleteStatement:stmt
+	//{: RESULT = new SingleStatement.DeleteStatement(stmt); :}
 	| DisplayStatement:stmt
 	{: RESULT = new SingleStatement.DisplayStatement(stmt); :}
 	| OpenStatement:stmt
 	{: RESULT = new SingleStatement.OpenStatement(stmt); :}
-	| ReadStatement:stmt
-	{: RESULT = new SingleStatement.ReadStatement(stmt); :}
-	| RewriteStatement:stmt
-	{: RESULT = new SingleStatement.RewriteStatement(stmt); :}
-	| StartStatement:stmt
-	{: RESULT = new SingleStatement.StartStatement(stmt); :}
+	//| ReadStatement:stmt
+	//{: RESULT = new SingleStatement.ReadStatement(stmt); :}
+	//| RewriteStatement:stmt
+	//{: RESULT = new SingleStatement.RewriteStatement(stmt); :}
+	//| StartStatement:stmt
+	//{: RESULT = new SingleStatement.StartStatement(stmt); :}
 //	StopStatement // literal
-	| WriteStatement:stmt
-	{: RESULT = new SingleStatement.WriteStatement(stmt); :}
+	//| WriteStatement:stmt
+	//{: RESULT = new SingleStatement.WriteStatement(stmt); :}
 // -- ordering --
 	| MergeStatement:stmt
 	{: RESULT = new SingleStatement.MergeStatement(stmt); :}
 	| ReleaseStatement:stmt
 	{: RESULT = new SingleStatement.ReleaseStatement(stmt); :}
-	| ReturnStatement:stmt
-	{: RESULT = new SingleStatement.ReturnStatement(stmt); :}
+	//| ReturnStatement:stmt
+	//{: RESULT = new SingleStatement.ReturnStatement(stmt); :}
 	| SortStatement:stmt
 	{: RESULT = new SingleStatement.SortStatement(stmt); :}
 // -- procedure-branching --
@@ -737,14 +751,14 @@ singleStatement ::=
 	| PerformProcedureStatement:stmt
 	{: RESULT = new SingleStatement.PerformProcedureStatement(stmt); :}
 // -- program or method linkage --
-	| CallStatement:stmt
-	{: RESULT = new SingleStatement.CallStatement(stmt); :}
+	//| CallStatement:stmt
+	//{: RESULT = new SingleStatement.CallStatement(stmt); :}
 	| ProcedureStyleCall:stmt
 	{: RESULT = new SingleStatement.ProcedureStyleCall(stmt); :}
 	| CancelStatement:stmt
 	{: RESULT = new SingleStatement.CancelStatement(stmt); :}
-	| InvokeStatement:stmt
-	{: RESULT = new SingleStatement.InvokeStatement(stmt); :}
+	//| InvokeStatement:stmt
+	//{: RESULT = new SingleStatement.InvokeStatement(stmt); :}
 // -- DB2 & CICS integration --
 	| ExecStatement:stmt
 	{: RESULT = new SingleStatement.ExecStatement(stmt); :}
@@ -796,7 +810,9 @@ compoundStatement ::= addStatementConditional:stmt
 	;
 
 addStatementConditional ::=
-		AddStatement:stmt AddStatementEnd:end
+		AddStatement:stmt
+		{: RESULT = new SingleStatement.AddStatement(stmt); :}
+	|	AddStatement:stmt AddStatementEnd:end
 		{: RESULT = new CompoundStatement.AddConditional(stmt, null, end); :}
 	|	AddStatement:stmt sizeErrorConditions:conds
 		{: RESULT = new CompoundStatement.AddConditional(stmt, conds); :}
@@ -805,7 +821,9 @@ addStatementConditional ::=
 	;
 
 callStatementConditional ::=
-		CallStatement:stmt CallStatementEnd:end
+		CallStatement:stmt
+		{: RESULT = new SingleStatement.CallStatement(stmt); :}
+	|	CallStatement:stmt CallStatementEnd:end
 		{: RESULT = new CompoundStatement.CallConditional(stmt, null, end); :}
 	|	CallStatement:stmt callStatementConditions:conds
 		{: RESULT = new CompoundStatement.CallConditional(stmt, conds); :}
@@ -823,7 +841,9 @@ callStatementConditions ::=
 	;
 
 computeStatementConditional ::=
-		ComputeStatement:stmt ComputeStatementEnd:end
+		ComputeStatement:stmt
+		{: RESULT = new SingleStatement.ComputeStatement(stmt); :}
+	|	ComputeStatement:stmt ComputeStatementEnd:end
 		{: RESULT = new CompoundStatement.ComputeConditional(stmt, null, end); :}
 	|	ComputeStatement:stmt sizeErrorConditions:conds
 		{: RESULT = new CompoundStatement.ComputeConditional(stmt, conds); :}
@@ -832,7 +852,9 @@ computeStatementConditional ::=
 	;
 
 deleteStatementConditional ::=
-		DeleteStatement:stmt DeleteStatementEnd:end
+		DeleteStatement:stmt
+		{: RESULT = new SingleStatement.DeleteStatement(stmt); :}
+	|	DeleteStatement:stmt DeleteStatementEnd:end
 		{: RESULT = new CompoundStatement.DeleteConditional(stmt, null, end); :}
 	|	DeleteStatement:stmt keyConditions:conds
 		{: RESULT = new CompoundStatement.DeleteConditional(stmt, conds); :}
@@ -841,7 +863,9 @@ deleteStatementConditional ::=
 	;
 
 divideStatementConditional ::=
-		DivideStatement:stmt DivideStatementEnd:end
+		DivideStatement:stmt
+		{: RESULT = new SingleStatement.DivideStatement(stmt); :}
+	|	DivideStatement:stmt DivideStatementEnd:end
 		{: RESULT = new CompoundStatement.DivideConditional(stmt, null, end); :}
 	|	DivideStatement:stmt sizeErrorConditions:conds
 		{: RESULT = new CompoundStatement.DivideConditional(stmt, conds); :}
@@ -869,14 +893,29 @@ evaluateStatementWithBody ::=
 	;
 
 whenConditionClauses ::= 
-		WhenSearchCondition:wcc statements:stmts
-		{: RESULT = new WhenConditionClauses(); RESULT.Add(new WhenConditionClause(wcc, stmts)); :}
-	|	WhenCondition:wcc  statements:stmts
-		{: RESULT = new WhenConditionClauses(); RESULT.Add(new WhenConditionClause(wcc, stmts)); :}
-	|	whenConditionClauses:wccs WhenSearchCondition:wcc  statements:stmts
-		{: RESULT = wccs; wccs.Add(new WhenConditionClause(wcc, stmts)); :}
-	|	whenConditionClauses:wccs WhenCondition:wcc  statements:stmts
-		{: RESULT = wccs; wccs.Add(new WhenConditionClause(wcc, stmts)); :}
+		whenConditionClause:wcc
+		{: RESULT = new WhenConditionClauses(); RESULT.Add(wcc); :}
+	|	whenConditionClauses:wccs whenConditionClause:wcc
+		{: RESULT = wccs; wccs.Add(wcc); :}
+	;
+
+whenConditionClause ::= whenEvaluateConditions:wecs statements:stmts
+	{: RESULT = new WhenConditionClause(wecs, stmts); :}
+	;
+
+whenEvaluateCondition ::= WhenSearchCondition:wec
+	{: RESULT = wec; :}
+	| WhenCondition:wec
+	{: RESULT = wec; :}
+	;
+
+whenEvaluateConditions ::= whenEvaluateCondition:wec
+	{: 
+		RESULT = new TypeCobol.DocumentModel.Dom.WhenEvaluateConditions(); 
+		RESULT.Add(wec);
+	:}
+	| whenEvaluateConditions:wecs whenEvaluateCondition:wec
+	{: RESULT = wecs; wecs.Add(wec); :}
 	;
 
 whenOtherClause ::= WhenOtherCondition:woc statements:stmts
@@ -918,7 +957,9 @@ ifStatementWithBody ::=
 	;
 
 invokeStatementConditional ::=
-		InvokeStatement:stmt InvokeStatementEnd:end
+		InvokeStatement:stmt
+		{: RESULT = new SingleStatement.InvokeStatement(stmt); :}
+	|	InvokeStatement:stmt InvokeStatementEnd:end
 		{: RESULT = new CompoundStatement.InvokeConditional(stmt, null, end); :}
 	|	InvokeStatement:stmt exceptionConditions:conds
 		{: RESULT = new CompoundStatement.InvokeConditional(stmt, conds, null); :}
@@ -927,7 +968,9 @@ invokeStatementConditional ::=
 	;
 
 multiplyStatementConditional ::=
-		MultiplyStatement:stmt MultiplyStatementEnd:end
+		MultiplyStatement:stmt
+		{: RESULT = new SingleStatement.MultiplyStatement(stmt); :}
+	|	MultiplyStatement:stmt MultiplyStatementEnd:end
 		{: RESULT = new CompoundStatement.MultiplyConditional(stmt, null, end); :}
 	|	MultiplyStatement:stmt sizeErrorConditions:conds
 		{: RESULT = new CompoundStatement.MultiplyConditional(stmt, conds); :}
@@ -947,7 +990,9 @@ performStatementWithBody ::=
 	;
 
 readStatementConditional ::=
-		ReadStatement:stmt ReadStatementEnd:end
+		ReadStatement:stmt
+		{: RESULT = new SingleStatement.ReadStatement(stmt); :}
+	|	ReadStatement:stmt ReadStatementEnd:end
 		{: RESULT = new CompoundStatement.ReadConditional(stmt, null, end); :}
 	|	ReadStatement:stmt rwStatementConditions:conds
 		{: RESULT = new CompoundStatement.ReadConditional(stmt, conds); :}
@@ -955,19 +1000,28 @@ readStatementConditional ::=
 		{: RESULT = new CompoundStatement.ReadConditional(stmt, conds, end); :}
 	;
 
-rwStatementConditions ::=
+rwStatementCondition ::=
 	  onAtEnd:at
-	{: RESULT = new ConditionalExecutionStatements(); RESULT.Add(at); :}
+	{: RESULT = at; :}
 	| noAtEnd:not_at
-	{: RESULT = new ConditionalExecutionStatements(); RESULT.Add(not_at); :}
+	{: RESULT = not_at; :}
 	| onInvalidKey:on
-	{: RESULT = new ConditionalExecutionStatements(); RESULT.Add(on); :}
+	{: RESULT = on; :}
 	| noInvalidKey:not_on
-	{: RESULT = new ConditionalExecutionStatements(); RESULT.Add(not_on); :}
+	{: RESULT = not_on; :}
+	;
+
+rwStatementConditions ::=
+		rwStatementCondition:rwsc
+		{: RESULT = new ConditionalExecutionStatements(); RESULT.Add(rwsc); :}
+	|	rwStatementConditions:rwscs rwStatementCondition:rwsc
+		{: RESULT = rwscs; rwscs.Add(rwsc); :}
 	;
 
 returnStatementConditional ::=
-		ReturnStatement:stmt ReturnStatementEnd:end
+		ReturnStatement:stmt
+		{: RESULT = new SingleStatement.ReturnStatement(stmt); :}
+	|	ReturnStatement:stmt ReturnStatementEnd:end
 		{: RESULT = new CompoundStatement.ReturnConditional(stmt, null, end); :}
 	|	ReturnStatement:stmt endConditions:conds
 		{: RESULT = new CompoundStatement.ReturnConditional(stmt, conds); :}
@@ -976,7 +1030,9 @@ returnStatementConditional ::=
 	;
 
 rewriteStatementConditional ::=
-		RewriteStatement:stmt RewriteStatementEnd:end
+		RewriteStatement:stmt
+		{: RESULT = new SingleStatement.RewriteStatement(stmt); :}
+	|	RewriteStatement:stmt RewriteStatementEnd:end
 		{: RESULT = new CompoundStatement.RewriteConditional(stmt, null, end); :}
 	|	RewriteStatement:stmt keyConditions:conds
 		{: RESULT = new CompoundStatement.RewriteConditional(stmt, conds); :}
@@ -997,19 +1053,21 @@ searchStatementWithBody ::=
 
 whenSearchConditionClause ::= 
 		WhenSearchCondition:wsc statements:stmts
-		{: RESULT = new WhenConditionClause(wsc, stmts); :}
+		{: RESULT = new WhenSearchConditionClause(wsc, stmts); :}
 	|	WhenSearchCondition:wsc NextSentenceStatement:next
-		{: RESULT = new WhenConditionClause(wsc, new Statements(){new SingleStatement.NextSentenceStatement(next)}); :}
+		{: RESULT = new WhenSearchConditionClause(wsc, new Statements(){new SingleStatement.NextSentenceStatement(next)}); :}
 	;
 
 whenSearchConditionClauses ::= whenSearchConditionClause:wscc
-		{: RESULT = new WhenConditionClauses(); RESULT.Add(wscc); :}
+		{: RESULT = new WhenSearchConditionClauses(); RESULT.Add(wscc); :}
 	|	whenSearchConditionClauses:wsccs whenSearchConditionClause:wscc
 		{: RESULT = wsccs; wsccs.Add(wscc); :}
 	;
 
 startStatementConditional ::=
-		StartStatement:stmt StartStatementEnd:end
+		StartStatement:stmt
+		{: RESULT = new SingleStatement.StartStatement(stmt); :}
+	|	StartStatement:stmt StartStatementEnd:end
 		{: RESULT = new CompoundStatement.StartConditional(stmt, null, end); :}
 	|	StartStatement:stmt keyConditions:conds
 		{: RESULT = new CompoundStatement.StartConditional(stmt, conds); :}
@@ -1018,7 +1076,9 @@ startStatementConditional ::=
 	;
 
 stringStatementConditional ::=
-		StringStatement:stmt StringStatementEnd:end
+		StringStatement:stmt
+		{: RESULT = new SingleStatement.StringStatement(stmt); :}
+	|	StringStatement:stmt StringStatementEnd:end
 		{: RESULT = new CompoundStatement.StringConditional(stmt, null, end); :}
 	|	StringStatement:stmt overflowConditions:conds
 		{: RESULT = new CompoundStatement.StringConditional(stmt, conds); :}
@@ -1027,7 +1087,9 @@ stringStatementConditional ::=
 	;
 
 subtractStatementConditional ::=
-		SubtractStatement:stmt SubtractStatementEnd:end
+		SubtractStatement:stmt
+		{: RESULT = new SingleStatement.SubtractStatement(stmt); :}
+	|	SubtractStatement:stmt SubtractStatementEnd:end
 		{: RESULT = new CompoundStatement.SubtractConditional(stmt, null, end); :}
 	|	SubtractStatement:stmt sizeErrorConditions:conds
 		{: RESULT = new CompoundStatement.SubtractConditional(stmt, conds); :}
@@ -1036,7 +1098,9 @@ subtractStatementConditional ::=
 	;
 
 unstringStatementConditional ::=
-		UnstringStatement:stmt UnstringStatementEnd:end
+		UnstringStatement:stmt
+		{: RESULT = new SingleStatement.UnstringStatement(stmt); :}
+	|	UnstringStatement:stmt UnstringStatementEnd:end
 		{: RESULT = new CompoundStatement.UnstringConditional(stmt, null, end); :}
 	|	UnstringStatement:stmt overflowConditions:conds
 		{: RESULT = new CompoundStatement.UnstringConditional(stmt, conds); :}
@@ -1045,7 +1109,9 @@ unstringStatementConditional ::=
 	;
 
 writeStatementConditional ::=
-		WriteStatement:stmt WriteStatementEnd:end
+		WriteStatement:stmt
+		{: RESULT = new SingleStatement.WriteStatement(stmt); :}
+	|	WriteStatement:stmt WriteStatementEnd:end
 		{: RESULT = new CompoundStatement.WriteConditional(stmt, null, end); :}
 	|	WriteStatement:stmt rwStatementConditions:conds
 		{: RESULT = new CompoundStatement.WriteConditional(stmt, conds); :}
@@ -1054,7 +1120,9 @@ writeStatementConditional ::=
 	;
 
 xmlGenerateStatementConditional ::=
-		XmlGenerateStatement:stmt XmlStatementEnd:end
+		XmlGenerateStatement:stmt
+		{: RESULT = new SingleStatement.XmlGenerateStatement(stmt); :}
+	|	XmlGenerateStatement:stmt XmlStatementEnd:end
 		{: RESULT = new CompoundStatement.XmlGenerateConditional(stmt, null, end); :}
 	|	XmlGenerateStatement:stmt exceptionConditions:conds
 		{: RESULT = new CompoundStatement.XmlGenerateConditional(stmt, conds, null); :}
@@ -1063,7 +1131,9 @@ xmlGenerateStatementConditional ::=
 	;
 
 xmlParseStatementConditional ::=
-		XmlParseStatement:stmt XmlStatementEnd:end
+		XmlParseStatement:stmt
+		{: RESULT = new SingleStatement.XmlParseStatement(stmt); :}
+	|	XmlParseStatement:stmt XmlStatementEnd:end
 		{: RESULT = new CompoundStatement.XmlParseConditional(stmt, null, end); :}
 	|	XmlParseStatement:stmt exceptionConditions:conds
 		{: RESULT = new CompoundStatement.XmlParseConditional(stmt, conds, null); :}
