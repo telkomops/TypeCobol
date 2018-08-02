@@ -1,9 +1,19 @@
 ﻿using Antlr4.Runtime.Tree;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using TUVienna.CS_CUP.Runtime;
 using TypeCobol.Compiler.AntlrUtils;
 using TypeCobol.Compiler.CodeElements;
+using TypeCobol.Compiler.Concurrency;
 using TypeCobol.Compiler.Parser.Generated;
+using TypeCobol.Compiler.Scanner;
+using TypeCobol.Compiler.SqlParser;
+using TypeCobol.Compiler.CupCommon;
+using TypeCobol.Compiler.CupParser.NodeBuilder;
+using TypeCobol.Compiler.SqlScanner;
+using TypeCobol.Compiler.Text;
 
 namespace TypeCobol.Compiler.Parser
 {
@@ -385,14 +395,51 @@ namespace TypeCobol.Compiler.Parser
 		 // EXEC STATEMENT //
 		////////////////////
 
-		internal CodeElement CreateExecStatement(CodeElementsParser.ExecStatementContext context) {
-			var statement = new ExecStatement();
-			statement.ExecTranslatorName = CobolWordsBuilder.CreateExecTranslatorName(context.execTranslatorName());
-			statement.CodeLines = BuildObjectArrayFromParserRules(context.alphanumericValue8(), ctx => CobolWordsBuilder.CreateAlphanumericValue(ctx));
-			return statement;
-		}
+	    internal CodeElement CreateExecStatement(CodeElementsParser.ExecStatementContext context)
+	    {
+	        var statement = new ExecStatement();
+	        statement.ExecTranslatorName = CobolWordsBuilder.CreateExecTranslatorName(context.execTranslatorName());
+	        statement.CodeLines = BuildObjectArrayFromParserRules(context.alphanumericValue8(),
+	            ctx => CobolWordsBuilder.CreateAlphanumericValue(ctx));
 
-		  ////////////////////
+	        string separator = Environment.NewLine;
+	        TextReader reader = new StringReader(string.Join(separator, statement.CodeLines.Select(elem => elem.Value)));
+	        SqlScanner.SqlScanner scanner = new SqlScanner.SqlScanner(reader);
+	        List<SqlToken> recognizedSqlSymbols = new List<SqlToken>();
+
+	        SqlToken symbol;
+	        do
+	        {
+	            symbol = scanner.GetToken();
+	            recognizedSqlSymbols.Add(symbol);
+
+	        } while (symbol.TokenType != TokenType.EOF);
+
+	        statement.RecognizedSqlSymbols =
+	            recognizedSqlSymbols.Where(elem => elem.TokenType != TokenType.EOF).ToArray();
+
+	        //instanciate the tokenizer over the recognized symbols
+	        var sqlTokenizer = new SqlTokenizer(statement.RecognizedSqlSymbols,
+	            statement.RecognizedSqlSymbols.FirstOrDefault());
+	        //Init a CUP compiler directive parser
+	        SqlErrorStrategy cupCobolErrorStrategy = new SqlErrorStrategy();
+
+	        //pass tokenizer to built parser;
+	        SqlParser.SqlParser parser =
+	            new SqlParser.SqlParser(sqlTokenizer) {ErrorReporter = cupCobolErrorStrategy};
+	        try
+	        {
+	            var symbolParsed = parser.parse();
+	        }
+	        catch (Exception ex)
+	        {
+	            Console.WriteLine(ex.Message);
+	        }
+
+	        return statement;
+	    }
+
+	    ////////////////////
 		 // GOTO STATEMENT //
 		////////////////////
 

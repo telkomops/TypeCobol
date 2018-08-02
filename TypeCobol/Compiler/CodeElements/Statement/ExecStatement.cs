@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TypeCobol.Compiler.SqlScanner;
 
 namespace TypeCobol.Compiler.CodeElements
 {
@@ -26,6 +27,11 @@ namespace TypeCobol.Compiler.CodeElements
         /// </summary>
         public AlphanumericValue[] CodeLines { get; set; }
 
+        /// <summary>
+        /// Symbols recognized by the SQL scanner
+        /// </summary>
+        public SqlToken[] RecognizedSqlSymbols { get; set; }
+        
         public override bool VisitCodeElement(IASTVisitor astVisitor)
         {
             return base.VisitCodeElement(astVisitor) && astVisitor.Visit(this)

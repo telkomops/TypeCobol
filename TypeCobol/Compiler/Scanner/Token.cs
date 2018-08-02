@@ -12,9 +12,9 @@ namespace TypeCobol.Compiler.Scanner
     /// </summary>
     public class Token : Antlr4.Runtime.IToken, IVisitable
     {
-        private ITokensLine tokensLine;
-        private int startIndex;
-        private int stopIndex;
+        internal ITokensLine tokensLine;
+        internal int startIndex;
+        internal int stopIndex;
 
 		/// <summary>Empty constructor for mock.</summary>
 		public Token() { }

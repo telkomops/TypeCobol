@@ -1,0 +1,166 @@
+﻿namespace TypeCobol.Compiler.SqlParser;
+
+using TUVienna.CS_CUP.Runtime;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using TypeCobol.Compiler.CodeElements;
+using TypeCobol.Compiler.CupParser.NodeBuilder;
+using TypeCobol.Compiler.CupParser;
+using TypeCobol.Compiler.SqlScanner;
+
+action code {:
+	//Current program identification
+	TypeCobol.Compiler.CodeElements.ProgramIdentification programIdentification;
+	//Curerent library copy;
+	TypeCobol.Compiler.CodeElements.LibraryCopyCodeElement libraryCopy;
+:};
+
+parser code {:
+	// The Program Class Builder instance.
+	public IProgramClassBuilder Builder
+	{
+		get;
+		set;
+	}
+	// The Error Reporter instance
+	public CupCommon.ICupParserErrorReporter ErrorReporter
+	{
+		get;
+		set;
+	}
+
+	// Test wheither or not this parser is a trial parser
+	public bool IsTrial
+	{
+		get;
+		set;
+	}
+
+  // get the current state of the parser.
+  public int getParserState() 
+  {
+	return ((Symbol)stack.Peek()).parse_state;	
+  }
+
+  //get the parser stack.
+  public Stack getParserStack() 
+  {
+	return stack;	
+  }
+
+    public override void report_fatal_error(
+    string   message, 
+    object   info)
+	{
+		if(ErrorReporter != null) {
+			if (ErrorReporter.ReportFatalError(this, getParserStack(), message, info))
+			{
+				return;
+			}
+		}
+		base.report_fatal_error(message, info);
+	}
+
+	public override void report_error(string message, object info)
+	{
+		if(ErrorReporter != null) {
+			if (ErrorReporter.ReportError(this, getParserStack(), message, info))
+			{
+				return;
+			}
+		}
+		base.report_error(message, info);
+	}
+
+	public override void syntax_error(Symbol cur_token)
+	{
+		if(ErrorReporter != null) {
+			if (ErrorReporter.SyntaxError(this, getParserStack(), cur_token))
+			{
+				return;
+			}
+		}
+		base.syntax_error(cur_token);
+	}
+
+	public override void unrecovered_syntax_error(Symbol cur_token)
+	{
+		if(ErrorReporter != null) {
+			if (ErrorReporter.UnrecoveredSyntaxError(this, getParserStack(), cur_token))
+			{
+				return;
+			}
+		}
+		base.unrecovered_syntax_error(cur_token);
+	}
+
+	public void ReportScannerDirectiveError()
+	{
+		ErrorReporter.SyntaxError(this, getParserStack(), ((SqlTokenizer)getScanner()).LastStopSymbol);
+	}
+:};
+
+terminal  SQL_KW_ADD, SQL_KW_AGGREGATE, SQL_KW_ALL, SQL_KW_ALTER, SQL_KW_ANALYTIC, SQL_KW_AND, SQL_KW_ANTI, SQL_KW_API_VERSION,
+  SQL_KW_ARRAY, SQL_KW_AS, SQL_KW_ASC, SQL_KW_AVRO, SQL_KW_BETWEEN, SQL_KW_BIGINT, SQL_KW_BINARY, SQL_KW_BLOCKSIZE,
+  SQL_KW_BOOLEAN, SQL_KW_BY, SQL_KW_CACHED, SQL_KW_CASCADE, SQL_KW_CASE, SQL_KW_CAST, SQL_KW_CHANGE,
+  SQL_KW_CHAR, SQL_KW_CLASS, SQL_KW_CLOSE_FN, SQL_KW_COLUMN, SQL_KW_COLUMNS, SQL_KW_COMMENT, SQL_KW_COMPRESSION,
+  SQL_KW_COMPUTE, SQL_KW_CREATE, SQL_KW_CROSS, SQL_KW_CURRENT, SQL_KW_DATA, SQL_KW_DATABASE, SQL_KW_DATABASES,
+  SQL_KW_DATE, SQL_KW_DATETIME, SQL_KW_DECIMAL, SQL_KW_DEFAULT, SQL_KW_DELETE, SQL_KW_DELIMITED, SQL_KW_DESC,
+  SQL_KW_DESCRIBE, SQL_KW_DISTINCT, SQL_KW_DIV, SQL_KW_DOUBLE, SQL_KW_DROP, SQL_KW_ELSE,
+  SQL_KW_ENCODING, SQL_KW_END, SQL_KW_ESCAPED, SQL_KW_EXISTS, SQL_KW_EXPLAIN, SQL_KW_EXTENDED, SQL_KW_EXTERNAL,
+  SQL_KW_FALSE, SQL_KW_FIELDS, SQL_KW_FILEFORMAT, SQL_KW_FILES, SQL_KW_FINALIZE_FN, SQL_KW_FIRST, SQL_KW_FLOAT,
+  SQL_KW_FOLLOWING, SQL_KW_FOR, SQL_KW_FORMAT, SQL_KW_FORMATTED, SQL_KW_FROM, SQL_KW_FULL, SQL_KW_FUNCTION,
+  SQL_KW_FUNCTIONS, SQL_KW_GRANT, SQL_KW_GROUP, SQL_KW_HASH, SQL_KW_IGNORE, SQL_KW_HAVING, SQL_KW_IF, SQL_KW_ILIKE,
+  SQL_KW_IN, SQL_KW_INCREMENTAL, SQL_KW_INIT_FN, SQL_KW_INNER, SQL_KW_INPATH, SQL_KW_INSERT, SQL_KW_INT,
+  SQL_KW_INTERMEDIATE, SQL_KW_INTERVAL, SQL_KW_INTO, SQL_KW_INVALIDATE, SQL_KW_IREGEXP, SQL_KW_IS, SQL_KW_JOIN,
+  SQL_KW_KUDU, SQL_KW_LAST, SQL_KW_LEFT, SQL_KW_LIKE, SQL_KW_LIMIT, SQL_KW_LINES, SQL_KW_LOAD, SQL_KW_LOCATION, SQL_KW_MAP,
+  SQL_KW_MERGE_FN, SQL_KW_METADATA, SQL_KW_NOT, SQL_KW_NULL, SQL_KW_NULLS, SQL_KW_OFFSET, SQL_KW_ON, SQL_KW_OR, SQL_KW_ORC,
+  SQL_KW_ORDER, SQL_KW_OUTER, SQL_KW_OVER, SQL_KW_OVERWRITE, SQL_KW_PARQUET, SQL_KW_PARQUETFILE, SQL_KW_PARTITION,
+  SQL_KW_PARTITIONED, SQL_KW_PARTITIONS, SQL_KW_PRECEDING, SQL_KW_PREPARE_FN, SQL_KW_PRIMARY, SQL_KW_PRODUCED,
+  SQL_KW_PURGE, SQL_KW_RANGE, SQL_KW_RCFILE, SQL_KW_RECOVER, SQL_KW_REFRESH, SQL_KW_REGEXP, SQL_KW_RENAME,
+  SQL_KW_REPEATABLE, SQL_KW_REPLACE, SQL_KW_REPLICATION, SQL_KW_RESTRICT, SQL_KW_RETURNS, SQL_KW_REVOKE,
+  SQL_KW_RIGHT, SQL_KW_RLIKE, SQL_KW_ROLE, SQL_KW_ROLES, SQL_KW_ROW, SQL_KW_ROWS, SQL_KW_SCHEMA, SQL_KW_SCHEMAS,
+  SQL_KW_SELECT, SQL_KW_SEMI, SQL_KW_SEQUENCEFILE, SQL_KW_SERDEPROPERTIES, SQL_KW_SERIALIZE_FN, SQL_KW_SET,
+  SQL_KW_SHOW, SQL_KW_SMALLINT, SQL_KW_SORT, SQL_KW_STORED, SQL_KW_STRAIGHT_JOIN, SQL_KW_STRING, SQL_KW_STRUCT,
+  SQL_KW_SYMBOL, SQL_KW_TABLE, SQL_KW_TABLES, SQL_KW_TABLESAMPLE, SQL_KW_TBLPROPERTIES, SQL_KW_TERMINATED,
+  SQL_KW_TEXTFILE, SQL_KW_THEN, SQL_KW_TIMESTAMP, SQL_KW_TINYINT, SQL_KW_TRUNCATE, SQL_KW_STATS, SQL_KW_TO, SQL_KW_TRUE,
+  SQL_KW_UNBOUNDED, SQL_KW_UNCACHED, SQL_KW_UNION, SQL_KW_UNKNOWN, SQL_KW_UPDATE, SQL_KW_UPDATE_FN, SQL_KW_UPSERT,
+  SQL_KW_USE, SQL_KW_USING, SQL_KW_VALUES, SQL_KW_VARCHAR, SQL_KW_VIEW, SQL_KW_WHEN, SQL_KW_WHERE, SQL_KW_WITH;
+
+terminal SQL_UNUSED_RESERVED_WORD;
+
+terminal SQL_OP_COLON, SQL_OP_SEMICOLON, SQL_OP_COMMA, SQL_OP_DOT, SQL_DOTDOTDOT, SQL_OP_STAR, SQL_OP_LPAREN, SQL_OP_RPAREN, SQL_OP_LBRACKET,
+  SQL_OP_RBRACKET, SQL_OP_DIVIDE, SQL_OP_MOD, SQL_OP_ADD, SQL_OP_SUBTRACT;
+terminal SQL_UNARYSIGN; // Placeholder terminal for unary -/+
+terminal SQL_OP_BITAND, SQL_OP_BITOR, SQL_OP_BITXOR, SQL_OP_BITNOT, SQL_OP_AND, SQL_OP_OR;
+terminal SQL_OP_INT, SQL_OP_DOUBLE;
+terminal SQL_OP_EQUAL, SQL_OP_NOT, SQL_OP_NOTEQUAL, SQL_OP_LESSTHAN, SQL_OP_GREATERTHAN;
+terminal SQL_OP_FACTORIAL; // Placeholder terminal for postfix factorial operator
+terminal SQL_COMMENTED_PLAN_HINT_START, SQL_COMMENTED_PLAN_HINT_END;
+terminal SqlToken SQL_OP_IDENT;
+terminal SqlToken SQL_EMPTY_IDENT;
+terminal SqlToken SQL_NUMERIC_OVERFLOW;
+terminal SqlToken SQL_INTEGER_LITERAL;
+terminal SqlToken SQL_DECIMAL_LITERAL;
+terminal SqlToken SQL_STRING_LITERAL;
+terminal SqlToken SQL_UNMATCHED_STRING_LITERAL;
+terminal SqlToken SQL_UNEXPECTED_CHAR;
+
+//#use ..\CupCommon\CobolWordsSymbols.cup
+non terminal SqlToken ident_or_default;
+non terminal use_stmt;
+
+start with use_stmt;
+
+ident_or_default ::=
+  SQL_OP_IDENT:name
+  {: RESULT = (SqlToken)name; :}
+  | SQL_KW_DEFAULT:name
+  {: RESULT = (SqlToken)name; :}
+  ;
+
+use_stmt ::=
+  SQL_KW_USE ident_or_default:db
+  {: :}
+  ;

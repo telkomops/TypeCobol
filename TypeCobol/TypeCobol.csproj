@@ -366,6 +366,12 @@
     <Compile Include="Compiler\Source\SourceDocument.cs" />
     <Compile Include="Compiler\Source\SourceText.cs" />
     <Compile Include="Compiler\Source\StringSourceText.cs" />
+    <Compile Include="Compiler\SqlParser\SqlErrorStrategy.cs" />
+    <Compile Include="Compiler\SqlParser\SqlParser.cs" />
+    <Compile Include="Compiler\SqlParser\SqlSymbols.cs" />
+    <Compile Include="Compiler\SqlParser\SqlTokenizer.cs" />
+    <Compile Include="Compiler\SqlScanner\SqlScanner.cs" />
+    <Compile Include="Compiler\SqlScanner\SqlToken.cs" />
     <Compile Include="Compiler\Symbols\TypeCobolSymbol.cs" />
     <Compile Include="Compiler\Text\CobolChar.cs" />
     <Compile Include="Compiler\Text\CobolTextLine.cs" />
@@ -459,6 +465,8 @@
     <None Include="Compiler\CupParser\EmptyTypeCobolProgram.cup" />
     <None Include="Compiler\CupParser\TypeCobolProgram.cup" />
     <None Include="Compiler\CupPreprocessor\CobolCompilerDirectives.cup" />
+    <None Include="Compiler\SqlParser\SqlWorlds.cup" />
+    <None Include="Compiler\SqlScanner\SqlScanner.lex" />
     <None Include="Documentation\Architecture\Initial requirements.docx" />
     <None Include="Documentation\Architecture\TypeCobolStats_14_04_2015.xlsx" />
     <None Include="Documentation\Reference\DB2 11 for zOs - Application Programming and SQL Guide.pdf" />
@@ -531,7 +539,13 @@ COPY $(TargetDir)CobolCompilerDirectivesSymbols.cs $(ProjectDir)\Compiler\CupPre
 $(OutDir)\CSCup.exe -nodate -nopositions -expect 2000 -parser TypeCobolProgramParser -symbols TypeCobolProgramSymbols $(ProjectDir)\Compiler\CupParser\TypeCobolProgram.cup
 COPY $(TargetDir)TypeCobolProgramParser.cs $(ProjectDir)\Compiler\CupParser\
 COPY $(TargetDir)TypeCobolProgramSymbols.cs $(ProjectDir)\Compiler\CupParser\
-</PreBuildEvent>
+
+$(OutDir)\CSCup.exe -nodate -nopositions -expect 2000 -parser SqlParser -symbols SqlSymbols  $(ProjectDir)\Compiler\SqlParser\SqlWorlds.cup
+COPY $(TargetDir)SqlParser.cs $(ProjectDir)\Compiler\SqlParser\
+COPY $(TargetDir)SqlSymbols.cs $(ProjectDir)\Compiler\SqlParser\
+
+$(OutDir)\CSLex.exe $(ProjectDir)Compiler\SqlScanner\SqlScanner.lex
+COPY $(TargetDir)SqlScanner.cs $(ProjectDir)\Compiler\SqlScanner\</PreBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

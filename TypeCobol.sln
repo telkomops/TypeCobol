@@ -42,6 +42,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSCup", "CSCup\CSCup.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSCupRuntime", "CSCupRuntime\CSCupRuntime.csproj", "{8CC6CCC3-7ED4-4DC8-A636-733856301AAC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLex", "CSLex\CSLex.csproj", "{70A8AF6C-64B4-4F7B-A3A8-F60C00D9C8A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -208,6 +210,18 @@ Global
 		{8CC6CCC3-7ED4-4DC8-A636-733856301AAC}.EI_Release|Any CPU.Build.0 = EI_Release|Any CPU
 		{8CC6CCC3-7ED4-4DC8-A636-733856301AAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CC6CCC3-7ED4-4DC8-A636-733856301AAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70A8AF6C-64B4-4F7B-A3A8-F60C00D9C8A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70A8AF6C-64B4-4F7B-A3A8-F60C00D9C8A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70A8AF6C-64B4-4F7B-A3A8-F60C00D9C8A2}.EI_Debug_Net40|Any CPU.ActiveCfg = Debug|Any CPU
+		{70A8AF6C-64B4-4F7B-A3A8-F60C00D9C8A2}.EI_Debug_Net40|Any CPU.Build.0 = Debug|Any CPU
+		{70A8AF6C-64B4-4F7B-A3A8-F60C00D9C8A2}.EI_Debug|Any CPU.ActiveCfg = EI_Debug|Any CPU
+		{70A8AF6C-64B4-4F7B-A3A8-F60C00D9C8A2}.EI_Debug|Any CPU.Build.0 = EI_Debug|Any CPU
+		{70A8AF6C-64B4-4F7B-A3A8-F60C00D9C8A2}.EI_Release_Net40|Any CPU.ActiveCfg = Release|Any CPU
+		{70A8AF6C-64B4-4F7B-A3A8-F60C00D9C8A2}.EI_Release_Net40|Any CPU.Build.0 = Release|Any CPU
+		{70A8AF6C-64B4-4F7B-A3A8-F60C00D9C8A2}.EI_Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70A8AF6C-64B4-4F7B-A3A8-F60C00D9C8A2}.EI_Release|Any CPU.Build.0 = Release|Any CPU
+		{70A8AF6C-64B4-4F7B-A3A8-F60C00D9C8A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70A8AF6C-64B4-4F7B-A3A8-F60C00D9C8A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
