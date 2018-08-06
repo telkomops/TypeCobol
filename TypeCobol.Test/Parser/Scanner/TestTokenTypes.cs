@@ -1,5 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using TypeCobol.Compiler.Diagnostics;
+using TypeCobol.Compiler.Parser;
 using TypeCobol.Compiler.Scanner;
+using TypeCobol.Compiler.Text;
 
 namespace TypeCobol.Test.Parser.Scanner
 {
@@ -366,6 +372,52 @@ namespace TypeCobol.Test.Parser.Scanner
             {
                 throw new Exception("IBMCompilerOptions not set by CBL/PROCESS compiler directives");
             }
+        }
+
+        public static void CheckSqlStatements()
+        {
+            string testName = "SQLStatements";
+            string[] testTokensLine = new string[]
+            {
+                "USE TEST",
+                "/* ",
+                "comment1 ",
+                "*/",
+                "set x = 1.4e3",
+                "set x = 124556",
+                "SELECT 'toto' from blabla",
+                "-- comment in line",
+                "/* ",
+                "comment2 */",
+                "SELECT \"identity\",\"order\"",
+                "FROM \"select\"",
+                "ORDER BY \"order\";",
+                "FETCH EMPTBL INTO",
+                ": ENO,:LNAME,:FNAME,:STREET,:CITY,",
+                ":ST,:ZIP,:DEPT,:PAYRATE, ",
+                ":COM: COM - NULL - IND",
+                "SELECT DISTINCT projno, empprojact.empno,",
+                "lastname || ", " || firstnme ,salary",
+                "from corpdata / empprojact, corpdata / employee",
+                "where empprojact.empno = employee.empno and",
+                "comm >= :commission",
+                "order by projno, empno",
+            };
+
+            var tokens = SqlExpressionsBuilder.ScanSqlTokens(testTokensLine).ToList();
+
+            StringBuilder sbResult = new StringBuilder();
+
+            for (int i = 0; i < tokens.Count - 1; i++)
+            {
+                sbResult.AppendLine("-- Line " + (i + 1) + " --");
+                string tokenText = "[" + tokens[i].Column + "," + tokens[i].EndColumn +
+                                   (tokens[i].UsesVirtualSpaceAtEndOfLine ? "+" : "") + ":" + tokens[i].Text + "]<" +
+                                   tokens[i].TokenType.ToString() + ">";
+                sbResult.AppendLine(tokenText);
+            }
+
+            ScannerUtils.CheckWithResultFile(sbResult.ToString(), testName);
         }
     }
 }

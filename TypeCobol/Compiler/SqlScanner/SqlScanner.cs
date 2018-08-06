@@ -3,6 +3,7 @@ namespace TypeCobol.Compiler.SqlScanner
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Globalization;
 using TypeCobol.Compiler.Scanner;
 using TypeCobol.Compiler.Text;
 using TypeCobol.Compiler.SqlParser;
@@ -11,7 +12,7 @@ using TypeCobol.Compiler.SqlParser;
 
 public partial class SqlScanner
 {
-private const int YY_BUFFER_SIZE = 512;
+private const int YY_BUFFER_SIZE = 1024;
 private const int YY_F = -1;
 private const int YY_NO_STATE = -1;
 private const int YY_NOT_ACCEPT = 0;
@@ -58,6 +59,10 @@ static Dictionary<int,string> tokenIdMap;
                 endIndex = startIndex + 1;
             }
         }
+		if (type == SqlSymbols.SQL_DECIMAL_LITERAL)
+	    {
+	        endIndex = startIndex + yytext().Length - 1;
+	    }
         ITextLine textLine = new TextLineSnapshot(yyline,new string(yy_buffer).Trim('\0'),null);
         ITokensLine line = new TokensLine(textLine,ColumnsLayout.FreeTextFormat);
         return new SqlToken((TokenType)((int)type+550), startIndex, endIndex, line ,yyline);
@@ -135,9 +140,9 @@ accept_dispatch = new AcceptMethod[]
   new AcceptMethod(this.Accept_28),
   new AcceptMethod(this.Accept_29),
   new AcceptMethod(this.Accept_30),
-  null,
+  new AcceptMethod(this.Accept_31),
   new AcceptMethod(this.Accept_32),
-  new AcceptMethod(this.Accept_33),
+  null,
   new AcceptMethod(this.Accept_34),
   new AcceptMethod(this.Accept_35),
   new AcceptMethod(this.Accept_36),
@@ -145,28 +150,18 @@ accept_dispatch = new AcceptMethod[]
   new AcceptMethod(this.Accept_38),
   new AcceptMethod(this.Accept_39),
   new AcceptMethod(this.Accept_40),
-  new AcceptMethod(this.Accept_41),
+  null,
   new AcceptMethod(this.Accept_42),
   new AcceptMethod(this.Accept_43),
-  new AcceptMethod(this.Accept_44),
   null,
+  new AcceptMethod(this.Accept_45),
   new AcceptMethod(this.Accept_46),
-  new AcceptMethod(this.Accept_47),
+  null,
   new AcceptMethod(this.Accept_48),
+  new AcceptMethod(this.Accept_49),
   null,
-  new AcceptMethod(this.Accept_50),
   new AcceptMethod(this.Accept_51),
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
+  new AcceptMethod(this.Accept_52),
   };
 
 		keywordMap = new Dictionary<string, int>
@@ -601,111 +596,109 @@ SqlToken Accept_25()
 
 SqlToken Accept_26()
     { // begin accept action #26
-{
-  try {
-    return newToken(SqlSymbols.SQL_INTEGER_LITERAL, Decimal.Parse(yytext()));
-  } catch (FormatException) {
-    return newToken(SqlSymbols.SQL_NUMERIC_OVERFLOW, yytext());
-  }
-}
+{ return null; }
     } // end accept action #26
 
 SqlToken Accept_27()
     { // begin accept action #27
-{
-  try {
-    return newToken(SqlSymbols.SQL_DECIMAL_LITERAL, Decimal.Parse(yytext()));
-  } catch (FormatException) {
-    return newToken(SqlSymbols.SQL_NUMERIC_OVERFLOW, yytext());
-  }
-}
+{ return newToken(SqlSymbols.SQL_UNEXPECTED_CHAR, yytext()); }
     } // end accept action #27
 
 SqlToken Accept_28()
     { // begin accept action #28
-{ return newToken(SqlSymbols.SQL_UNEXPECTED_CHAR, yytext()); }
+{ return null; }
     } // end accept action #28
 
 SqlToken Accept_29()
     { // begin accept action #29
-{ return null; }
+{
+  try {
+    return newToken(SqlSymbols.SQL_INTEGER_LITERAL, Int32.Parse(yytext(), NumberStyles.Any, CultureInfo.InvariantCulture));
+  } catch (FormatException) {
+    return newToken(SqlSymbols.SQL_NUMERIC_OVERFLOW, yytext());
+  }
+}
     } // end accept action #29
 
 SqlToken Accept_30()
     { // begin accept action #30
-{ return null; }
+{
+  try {
+    return newToken(SqlSymbols.SQL_DECIMAL_LITERAL, Decimal.Parse(yytext(), NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign | NumberStyles.AllowExponent, CultureInfo.InvariantCulture));
+  } catch (FormatException) {
+    return newToken(SqlSymbols.SQL_NUMERIC_OVERFLOW, yytext());
+  }
+}
     } // end accept action #30
+
+SqlToken Accept_31()
+    { // begin accept action #31
+{ 
+	return null; 
+}
+    } // end accept action #31
 
 SqlToken Accept_32()
     { // begin accept action #32
-{
-  return newToken(SqlSymbols.SQL_COMMENTED_PLAN_HINT_END, null);
-}
+{ return newToken(SqlSymbols.SQL_OP_NOTEQUAL, "!="); }
     } // end accept action #32
-
-SqlToken Accept_33()
-    { // begin accept action #33
-{
-  return newToken(SqlSymbols.SQL_COMMENTED_PLAN_HINT_START, null);
-}
-    } // end accept action #33
 
 SqlToken Accept_34()
     { // begin accept action #34
 {
-  yybegin(EOLHINT);
-  return newToken(SqlSymbols.SQL_COMMENTED_PLAN_HINT_START, null);
+  return newToken(SqlSymbols.SQL_STRING_LITERAL, yytext().Substring(1, yytext().Length-2));
 }
     } // end accept action #34
 
 SqlToken Accept_35()
     { // begin accept action #35
-{ return newToken(SqlSymbols.SQL_OP_NOTEQUAL, "!="); }
+{
+  return newToken(SqlSymbols.SQL_STRING_LITERAL, yytext().Substring(1, yytext().Length-2));
+}
     } // end accept action #35
 
 SqlToken Accept_36()
     { // begin accept action #36
-{
-  return newToken(SqlSymbols.SQL_STRING_LITERAL, yytext().Substring(1, yytext().Length-2));
-}
+{ return newToken(SqlSymbols.SQL_DOTDOTDOT, "..."); }
     } // end accept action #36
 
 SqlToken Accept_37()
     { // begin accept action #37
 {
-  return newToken(SqlSymbols.SQL_STRING_LITERAL, yytext().Substring(1, yytext().Length-2));
+  string text = yytext().Trim();
+  int SQL_KW_id;
+  if (keywordMap.TryGetValue(text.ToLower(),out SQL_KW_id)) {
+    return newToken(SQL_KW_id, text);
+  } else if (isReserved(text)) {
+    return newToken(SqlSymbols.SQL_UNUSED_RESERVED_WORD, text);
+  } else {
+    return newToken(SqlSymbols.SQL_OP_IDENT, text);
+  }
 }
     } // end accept action #37
 
 SqlToken Accept_38()
     { // begin accept action #38
-{
-  // Remove the quotes and trim whitespace.
-  string trimmedIdent = yytext().Replace("\"","").Replace("'","").Trim();
-  if (string.IsNullOrEmpty(trimmedIdent)) {
-    return newToken(SqlSymbols.SQL_EMPTY_IDENT, yytext());
-  }
-  return newToken(SqlSymbols.SQL_OP_IDENT, trimmedIdent);
-}
+{ return null; }
     } // end accept action #38
 
 SqlToken Accept_39()
     { // begin accept action #39
-{ return newToken(SqlSymbols.SQL_DOTDOTDOT, "..."); }
+{
+  try {
+    return newToken(SqlSymbols.SQL_DECIMAL_LITERAL, Decimal.Parse(yytext(), NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign | NumberStyles.AllowExponent, CultureInfo.InvariantCulture));
+  } catch (FormatException) {
+    return newToken(SqlSymbols.SQL_NUMERIC_OVERFLOW, yytext());
+  }
+}
     } // end accept action #39
 
 SqlToken Accept_40()
     { // begin accept action #40
-{ return null; }
-    } // end accept action #40
-
-SqlToken Accept_41()
-    { // begin accept action #41
-{
-  yybegin(YYINITIAL);
-  return newToken(SqlSymbols.SQL_COMMENTED_PLAN_HINT_END, null);
+{ 
+	return null; 
 }
-    } // end accept action #41
+    } // end accept action #40
 
 SqlToken Accept_42()
     { // begin accept action #42
@@ -724,30 +717,13 @@ SqlToken Accept_42()
 
 SqlToken Accept_43()
     { // begin accept action #43
-{
-  try {
-    return newToken(SqlSymbols.SQL_DECIMAL_LITERAL, Decimal.Parse(yytext()));
-  } catch (FormatException) {
-    return newToken(SqlSymbols.SQL_NUMERIC_OVERFLOW, yytext());
-  }
+{ 
+	return null; 
 }
     } // end accept action #43
 
-SqlToken Accept_44()
-    { // begin accept action #44
-{ return null; }
-    } // end accept action #44
-
-SqlToken Accept_46()
-    { // begin accept action #46
-{
-  yybegin(YYINITIAL);
-  return newToken(SqlSymbols.SQL_COMMENTED_PLAN_HINT_END, null);
-}
-    } // end accept action #46
-
-SqlToken Accept_47()
-    { // begin accept action #47
+SqlToken Accept_45()
+    { // begin accept action #45
 {
   string text = yytext().Trim();
   int SQL_KW_id;
@@ -759,22 +735,18 @@ SqlToken Accept_47()
     return newToken(SqlSymbols.SQL_OP_IDENT, text);
   }
 }
-    } // end accept action #47
+    } // end accept action #45
+
+SqlToken Accept_46()
+    { // begin accept action #46
+{ 
+	return null; 
+}
+    } // end accept action #46
 
 SqlToken Accept_48()
     { // begin accept action #48
 {
-  try {
-    return newToken(SqlSymbols.SQL_DECIMAL_LITERAL, Decimal.Parse(yytext()));
-  } catch (FormatException) {
-    return newToken(SqlSymbols.SQL_NUMERIC_OVERFLOW, yytext());
-  }
-}
-    } // end accept action #48
-
-SqlToken Accept_50()
-    { // begin accept action #50
-{
   string text = yytext().Trim();
   int SQL_KW_id;
   if (keywordMap.TryGetValue(text.ToLower(),out SQL_KW_id)) {
@@ -785,24 +757,36 @@ SqlToken Accept_50()
     return newToken(SqlSymbols.SQL_OP_IDENT, text);
   }
 }
-    } // end accept action #50
+    } // end accept action #48
+
+SqlToken Accept_49()
+    { // begin accept action #49
+{ 
+	return null; 
+}
+    } // end accept action #49
 
 SqlToken Accept_51()
     { // begin accept action #51
 {
   try {
-    return newToken(SqlSymbols.SQL_DECIMAL_LITERAL, Decimal.Parse(yytext()));
+    return newToken(SqlSymbols.SQL_DECIMAL_LITERAL, Decimal.Parse(yytext(), NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign | NumberStyles.AllowExponent, CultureInfo.InvariantCulture));
   } catch (FormatException) {
     return newToken(SqlSymbols.SQL_NUMERIC_OVERFLOW, yytext());
   }
 }
     } // end accept action #51
 
-private const int EOLHINT = 1;
+SqlToken Accept_52()
+    { // begin accept action #52
+{ 
+	return null; 
+}
+    } // end accept action #52
+
 private const int YYINITIAL = 0;
 private static int[] yy_state_dtrans = new int[] 
-  {   0,
-  50
+  {   0
   };
 private void yybegin (int state)
   {
@@ -971,9 +955,9 @@ private static int[] yy_acpt = new int[]
   /* 28 */   YY_NO_ANCHOR,
   /* 29 */   YY_NO_ANCHOR,
   /* 30 */   YY_NO_ANCHOR,
-  /* 31 */   YY_NOT_ACCEPT,
+  /* 31 */   YY_NO_ANCHOR,
   /* 32 */   YY_NO_ANCHOR,
-  /* 33 */   YY_NO_ANCHOR,
+  /* 33 */   YY_NOT_ACCEPT,
   /* 34 */   YY_NO_ANCHOR,
   /* 35 */   YY_NO_ANCHOR,
   /* 36 */   YY_NO_ANCHOR,
@@ -981,47 +965,37 @@ private static int[] yy_acpt = new int[]
   /* 38 */   YY_NO_ANCHOR,
   /* 39 */   YY_NO_ANCHOR,
   /* 40 */   YY_NO_ANCHOR,
-  /* 41 */   YY_NO_ANCHOR,
+  /* 41 */   YY_NOT_ACCEPT,
   /* 42 */   YY_NO_ANCHOR,
   /* 43 */   YY_NO_ANCHOR,
-  /* 44 */   YY_NO_ANCHOR,
-  /* 45 */   YY_NOT_ACCEPT,
+  /* 44 */   YY_NOT_ACCEPT,
+  /* 45 */   YY_NO_ANCHOR,
   /* 46 */   YY_NO_ANCHOR,
-  /* 47 */   YY_NO_ANCHOR,
+  /* 47 */   YY_NOT_ACCEPT,
   /* 48 */   YY_NO_ANCHOR,
-  /* 49 */   YY_NOT_ACCEPT,
-  /* 50 */   YY_NO_ANCHOR,
+  /* 49 */   YY_NO_ANCHOR,
+  /* 50 */   YY_NOT_ACCEPT,
   /* 51 */   YY_NO_ANCHOR,
-  /* 52 */   YY_NOT_ACCEPT,
-  /* 53 */   YY_NOT_ACCEPT,
-  /* 54 */   YY_NOT_ACCEPT,
-  /* 55 */   YY_NOT_ACCEPT,
-  /* 56 */   YY_NOT_ACCEPT,
-  /* 57 */   YY_NOT_ACCEPT,
-  /* 58 */   YY_NOT_ACCEPT,
-  /* 59 */   YY_NOT_ACCEPT,
-  /* 60 */   YY_NOT_ACCEPT,
-  /* 61 */   YY_NOT_ACCEPT,
-  /* 62 */   YY_NOT_ACCEPT
+  /* 52 */   YY_NO_ANCHOR
   };
 private static int[] yy_cmap = new int[]
   {
-  29, 29, 29, 29, 29, 29, 29, 29,
-  29, 34, 30, 29, 29, 32, 29, 29,
-  29, 29, 29, 29, 29, 29, 29, 29,
-  29, 29, 29, 29, 29, 29, 29, 29,
-  33, 19, 22, 29, 29, 11, 14, 23,
+  27, 27, 27, 27, 27, 27, 27, 27,
+  27, 33, 25, 27, 27, 32, 27, 27,
+  27, 27, 27, 27, 27, 27, 27, 27,
+  27, 27, 27, 27, 27, 27, 27, 27,
+  28, 19, 22, 27, 27, 11, 14, 23,
   6, 7, 5, 12, 4, 13, 1, 10,
+  29, 29, 29, 29, 29, 29, 29, 29,
+  29, 29, 2, 3, 20, 18, 21, 27,
+  27, 26, 26, 26, 26, 30, 26, 26,
   26, 26, 26, 26, 26, 26, 26, 26,
-  26, 26, 2, 3, 20, 18, 21, 29,
-  29, 31, 31, 31, 31, 27, 31, 31,
-  31, 31, 31, 31, 31, 31, 31, 31,
-  31, 31, 31, 31, 31, 31, 31, 31,
-  31, 31, 31, 8, 28, 9, 16, 29,
-  24, 31, 31, 31, 25, 27, 31, 31,
-  31, 31, 31, 31, 31, 31, 31, 31,
-  31, 31, 31, 31, 31, 31, 31, 31,
-  31, 31, 31, 29, 15, 29, 17, 29,
+  26, 26, 26, 26, 26, 26, 26, 26,
+  26, 26, 26, 8, 31, 9, 16, 27,
+  24, 26, 26, 26, 26, 30, 26, 26,
+  26, 26, 26, 26, 26, 26, 26, 26,
+  26, 26, 26, 26, 26, 26, 26, 26,
+  26, 26, 26, 27, 15, 27, 17, 27,
   0, 0 
   };
 private static int[] yy_rmap = new int[]
@@ -1029,169 +1003,138 @@ private static int[] yy_rmap = new int[]
   0, 1, 2, 3, 1, 1, 4, 1,
   1, 1, 1, 5, 1, 1, 6, 7,
   8, 3, 1, 1, 9, 1, 1, 10,
-  11, 12, 13, 14, 1, 1, 1, 15,
-  1, 16, 1, 1, 1, 1, 1, 1,
-  17, 1, 3, 18, 19, 10, 20, 1,
-  3, 21, 22, 1, 11, 23, 12, 24,
-  25, 26, 27, 28, 17, 29, 30 
+  11, 1, 1, 1, 1, 12, 13, 1,
+  1, 10, 1, 1, 3, 3, 14, 15,
+  16, 17, 18, 19, 11, 1, 20, 21,
+  22, 23, 15, 24, 23 
   };
 private static int[,] yy_nxt = new int[,]
   {
   { 1, 2, 3, 4, 5, 6, 7, 8,
    9, 10, 11, 12, 13, 14, 15, 16,
    17, 18, 19, 20, 21, 22, 23, 24,
-   25, 26, 27, 42, 28, 28, 29, 42,
-   44, 30, 29 },
+   25, 26, 37, 27, 28, 29, 37, 27,
+   38, 26 },
   { -1, -1, -1, -1, -1, -1, -1, -1,
    -1, -1, -1, -1, -1, -1, -1, -1,
    -1, -1, -1, -1, -1, -1, -1, -1,
    -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1 },
-  { -1, 31, -1, -1, -1, -1, -1, -1,
+   -1, -1 },
+  { -1, 42, 37, -1, -1, 37, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1,
+   37, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, 37, -1, -1, 30, 37, -1,
+   -1, -1 },
+  { -1, 37, 37, -1, -1, 37, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1,
+   37, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, 37, -1, -1, 37, 37, -1,
+   -1, -1 },
+  { -1, 37, 37, -1, -1, 37, -1, -1,
+   -1, -1, 31, -1, -1, -1, -1, -1,
+   37, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, 37, -1, -1, 37, 37, -1,
+   -1, -1 },
+  { -1, -1, -1, -1, -1, 40, -1, -1,
    -1, -1, -1, -1, -1, -1, -1, -1,
    -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, 43, -1, -1, -1, -1, -1,
-   -1, -1, -1 },
-  { -1, -1, 42, -1, -1, 42, -1, -1,
    -1, -1, -1, -1, -1, -1, -1, -1,
-   42, -1, -1, -1, -1, -1, -1, -1,
-   -1, 42, 42, 42, -1, -1, -1, 42,
-   -1, -1, -1 },
-  { -1, -1, 42, -1, -1, 42, -1, -1,
+   -1, -1 },
+  { -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, -1, -1, -1, 43, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1 },
+  { -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, -1, -1, -1, -1, 45, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1 },
+  { -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, 45,
+   -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1 },
+  { -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1,
    -1, -1, 32, -1, -1, -1, -1, -1,
-   42, -1, -1, -1, -1, -1, -1, -1,
-   -1, 42, 42, 42, -1, -1, -1, 42,
-   -1, -1, -1 },
-  { -1, -1, -1, -1, -1, 33, -1, -1,
    -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1 },
+  { -1, 33, 33, 33, 33, 33, 33, 33,
+   33, 33, 33, 33, 33, 33, 33, 33,
+   33, 33, 33, 33, 33, 33, 34, 33,
+   33, 33, 33, 33, 33, 33, 33, 41,
+   33, 33 },
+  { -1, 44, 44, 44, 44, 44, 44, 44,
+   44, 44, 44, 44, 44, 44, 44, 44,
+   44, 44, 44, 44, 44, 44, 44, 35,
+   44, 44, 44, 44, 44, 44, 44, 47,
+   44, 44 },
+  { -1, 30, 37, -1, -1, 37, -1, -1,
    -1, -1, -1, -1, -1, -1, -1, -1,
+   37, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, 37, -1, -1, 29, 48, -1,
+   -1, -1 },
+  { -1, 37, 37, -1, -1, 37, -1, -1,
    -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1 },
-  { -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1, 34, -1, -1,
-   -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1 },
-  { -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1, -1, 47, -1,
-   -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1 },
-  { -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1, -1, -1, 47,
-   -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1 },
-  { -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, 35, -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1 },
-  { -1, 45, 45, 45, 45, 45, 45, 45,
-   45, 45, 45, 45, 45, 45, 45, 45,
-   45, 45, 45, 45, 45, 45, 36, 45,
-   45, 45, 45, 45, 49, 45, 45, 45,
-   45, 45, 45 },
-  { -1, 52, 52, 52, 52, 52, 52, 52,
-   52, 52, 52, 52, 52, 52, 52, 52,
-   52, 52, 52, 52, 52, 52, 52, 37,
-   52, 52, 52, 52, 53, 52, 52, 52,
-   52, 52, 52 },
-  { -1, 54, 54, 54, 54, 54, 54, 54,
-   54, 54, 54, 54, 54, 54, 54, 54,
-   54, 54, 54, 54, 54, 54, 54, 54,
-   38, 54, 54, 54, 55, 54, 54, 54,
-   54, 54, 54 },
-  { -1, -1, 42, -1, -1, 42, -1, -1,
-   -1, -1, -1, -1, -1, -1, -1, -1,
-   42, -1, -1, -1, -1, -1, -1, -1,
-   -1, 26, 42, 42, -1, -1, -1, 42,
-   -1, -1, -1 },
-  { -1, 43, 42, -1, -1, 42, -1, -1,
-   -1, -1, -1, -1, -1, -1, -1, -1,
-   42, -1, -1, -1, -1, -1, -1, -1,
-   -1, 42, 27, 48, -1, -1, -1, 42,
-   -1, -1, -1 },
-  { -1, 39, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1 },
-  { -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1, 56, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1 },
-  { -1, 60, 60, 60, 60, 59, 60, 60,
-   60, 60, 60, 60, 60, 60, 60, 60,
-   60, 60, 60, 60, 60, 60, 60, 60,
-   60, 60, 60, 60, 60, 60, 60, 60,
-   60, 60, 60 },
+   37, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, 37, -1, -1, 30, 48, -1,
+   -1, -1 },
   { -1, -1, -1, -1, -1, -1, -1, -1,
    -1, -1, -1, -1, -1, -1, -1, -1,
    -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, 43, 51, -1, -1, -1, -1,
-   -1, -1, -1 },
+   -1, 26, -1, -1, -1, -1, -1, -1,
+   -1, -1 },
   { -1, -1, -1, -1, -1, -1, -1, -1,
    -1, -1, -1, -1, -1, -1, -1, -1,
    -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1, -1, 29, -1,
-   -1, -1, -1 },
-  { -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1, -1, 41, -1,
-   -1, -1, -1 },
-  { -1, 45, 45, 45, 45, 45, 45, 45,
-   45, 45, 45, 45, 45, 45, 45, 45,
-   45, 45, 45, 45, 45, 45, 45, 45,
-   45, 45, 45, 45, 45, 45, -1, 45,
-   -1, 45, 45 },
-  { 1, 2, 3, 4, 5, 6, 7, 8,
-   9, 10, 11, 12, 13, 14, 15, 16,
-   17, 18, 19, 20, 21, 22, 23, 24,
-   25, 26, 27, 42, 28, 28, 41, 42,
-   46, 30, 29 },
+   -1, -1, -1, -1, -1, 39, -1, -1,
+   -1, -1 },
   { -1, 52, 52, 52, 52, 52, 52, 52,
    52, 52, 52, 52, 52, 52, 52, 52,
    52, 52, 52, 52, 52, 52, 52, 52,
-   52, 52, 52, 52, 52, 52, -1, 52,
-   -1, 52, 52 },
-  { -1, 54, 54, 54, 54, 54, 54, 54,
-   54, 54, 54, 54, 54, 54, 54, 54,
-   54, 54, 54, 54, 54, 54, 54, 54,
-   54, 54, 54, 54, 54, 54, -1, 54,
-   -1, 54, 54 },
-  { -1, 61, 61, 61, 61, 62, 61, 61,
-   61, 61, 61, 61, 58, 61, 61, 61,
-   61, 61, 61, 61, 61, 61, 61, 61,
-   61, 61, 61, 61, 61, 61, 61, 61,
-   61, 56, 61 },
-  { -1, 58, 58, 58, 58, 57, 58, 58,
-   58, 58, 40, 58, 58, 58, 58, 58,
-   58, 58, 58, 58, 58, 58, 58, 58,
-   58, 58, 58, 58, 58, 58, 61, 58,
-   61, 58, 58 },
-  { -1, 58, 58, 58, 58, 57, 58, 58,
-   58, 58, 58, 58, 58, 58, 58, 58,
-   58, 58, 58, 58, 58, 58, 58, 58,
-   58, 58, 58, 58, 58, 58, 61, 58,
-   61, 58, 58 },
-  { -1, 60, 60, 60, 60, 59, 60, 60,
-   60, 60, 40, 60, 60, 60, 60, 60,
-   60, 60, 60, 60, 60, 60, 60, 60,
-   60, 60, 60, 60, 60, 60, 60, 60,
-   60, 60, 60 },
-  { -1, 61, 61, 61, 61, 62, 61, 61,
-   61, 61, 61, 61, 61, 61, 61, 61,
-   61, 61, 61, 61, 61, 61, 61, 61,
-   61, 61, 61, 61, 61, 61, 61, 61,
-   61, 61, 61 },
-  { -1, 61, 61, 61, 61, 62, 61, 61,
-   61, 61, 60, 61, 61, 61, 61, 61,
-   61, 61, 61, 61, 61, 61, 61, 61,
-   61, 61, 61, 61, 61, 61, 61, 61,
-   61, 61, 61 }
+   52, 40, 52, 52, 40, 52, 52, 52,
+   40, 52 },
+  { -1, 33, 33, 33, 33, 33, 33, 33,
+   33, 33, 33, 33, 33, 33, 33, 33,
+   33, 33, 33, 33, 33, 33, 33, 33,
+   33, -1, 33, 33, 33, 33, 33, 33,
+   -1, 33 },
+  { -1, 36, 37, -1, -1, 37, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1,
+   37, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, 37, -1, -1, 37, 37, -1,
+   -1, -1 },
+  { -1, 43, 43, 43, 43, 43, 43, 43,
+   43, 43, 43, 43, 43, 43, 43, 43,
+   43, 43, 43, 43, 43, 43, 43, 43,
+   43, -1, 43, 43, 43, 43, 43, 43,
+   -1, 43 },
+  { -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, 46, -1, -1, 46, -1, -1, -1,
+   46, -1 },
+  { -1, 44, 44, 44, 44, 44, 44, 44,
+   44, 44, 44, 44, 44, 44, 44, 44,
+   44, 44, 44, 44, 44, 44, 44, 44,
+   44, -1, 44, 44, 44, 44, 44, 44,
+   -1, 44 },
+  { -1, 37, 37, -1, -1, 37, -1, -1,
+   -1, -1, -1, -1, 50, 50, -1, -1,
+   37, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, 37, -1, -1, 51, 37, -1,
+   -1, -1 },
+  { -1, 52, 52, 52, 52, 52, 52, 52,
+   52, 52, 52, 52, 52, 52, 52, 52,
+   52, 52, 52, 52, 52, 52, 52, 52,
+   52, 46, 52, 52, 49, 52, 52, 52,
+   46, 52 },
+  { -1, 37, 37, -1, -1, 37, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1,
+   37, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, 37, -1, -1, 51, 37, -1,
+   -1, -1 }
   };
 public SqlToken GetToken()
   {
@@ -1251,7 +1194,7 @@ public SqlToken GetToken()
         yy_to_mark();
         if (yy_last_accept_state < 0)
           {
-          if (yy_last_accept_state < 63)
+          if (yy_last_accept_state < 53)
             yy_error(YY_E_INTERNAL, false);
           }
         else

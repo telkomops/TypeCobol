@@ -177,7 +177,7 @@ namespace Lex
 
             /* Constants */
             outstream.Write(
-              "private const int YY_BUFFER_SIZE = 512;\n"
+              "private const int YY_BUFFER_SIZE = 1024;\n"
               + "private const int YY_F = -1;\n"
               + "private const int YY_NO_STATE = -1;\n"
               + "private const int YY_NOT_ACCEPT = 0;\n"

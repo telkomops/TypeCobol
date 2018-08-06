@@ -30,7 +30,7 @@ namespace TypeCobol.Compiler.CodeElements
         /// <summary>
         /// Symbols recognized by the SQL scanner
         /// </summary>
-        public SqlToken[] RecognizedSqlSymbols { get; set; }
+        public SqlToken[] RecognizedSqlTokens { get; set; }
         
         public override bool VisitCodeElement(IASTVisitor astVisitor)
         {

@@ -396,54 +396,32 @@ namespace TypeCobol.Compiler.Parser
 		////////////////////
 
 	    internal CodeElement CreateExecStatement(CodeElementsParser.ExecStatementContext context)
-	    {
-	        var statement = new ExecStatement();
-	        statement.ExecTranslatorName = CobolWordsBuilder.CreateExecTranslatorName(context.execTranslatorName());
-	        statement.CodeLines = BuildObjectArrayFromParserRules(context.alphanumericValue8(),
-	            ctx => CobolWordsBuilder.CreateAlphanumericValue(ctx));
+        {
+            var statement = new ExecStatement();
+            statement.ExecTranslatorName = CobolWordsBuilder.CreateExecTranslatorName(context.execTranslatorName());
+            statement.CodeLines = BuildObjectArrayFromParserRules(context.alphanumericValue8(),
+                ctx => CobolWordsBuilder.CreateAlphanumericValue(ctx));
 
-	        string separator = Environment.NewLine;
-	        TextReader reader = new StringReader(string.Join(separator, statement.CodeLines.Select(elem => elem.Value)));
-	        SqlScanner.SqlScanner scanner = new SqlScanner.SqlScanner(reader);
-	        List<SqlToken> recognizedSqlSymbols = new List<SqlToken>();
+            //Return immediatly if statement is NOT SQL
+            if (!statement.ExecTranslatorName.Name.Contains("SQL"))
+            {
+                return statement;
+            }
+            else
+            {
+                SqlExpressionsBuilder.SqlExpressionParser(statement);
+            }
 
-	        SqlToken symbol;
-	        do
-	        {
-	            symbol = scanner.GetToken();
-	            recognizedSqlSymbols.Add(symbol);
+            return statement;
+        }
 
-	        } while (symbol.TokenType != TokenType.EOF);
+        
 
-	        statement.RecognizedSqlSymbols =
-	            recognizedSqlSymbols.Where(elem => elem.TokenType != TokenType.EOF).ToArray();
+        ////////////////////
+        // GOTO STATEMENT //
+        ////////////////////
 
-	        //instanciate the tokenizer over the recognized symbols
-	        var sqlTokenizer = new SqlTokenizer(statement.RecognizedSqlSymbols,
-	            statement.RecognizedSqlSymbols.FirstOrDefault());
-	        //Init a CUP compiler directive parser
-	        SqlErrorStrategy cupCobolErrorStrategy = new SqlErrorStrategy();
-
-	        //pass tokenizer to built parser;
-	        SqlParser.SqlParser parser =
-	            new SqlParser.SqlParser(sqlTokenizer) {ErrorReporter = cupCobolErrorStrategy};
-	        try
-	        {
-	            var symbolParsed = parser.parse();
-	        }
-	        catch (Exception ex)
-	        {
-	            Console.WriteLine(ex.Message);
-	        }
-
-	        return statement;
-	    }
-
-	    ////////////////////
-		 // GOTO STATEMENT //
-		////////////////////
-
-		internal CodeElement CreateGotoStatement(CodeElementsParser.GotoSimpleContext context) {
+        internal CodeElement CreateGotoStatement(CodeElementsParser.GotoSimpleContext context) {
 			var statement = new GotoSimpleStatement();
 			statement.ProcedureName = CobolWordsBuilder.CreateProcedureName(context.procedureName());
 			return statement;

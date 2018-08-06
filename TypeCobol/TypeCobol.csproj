@@ -326,6 +326,7 @@
     <Compile Include="Compiler\Parser\ProgramCallTracingParser.cs" />
     <Compile Include="Compiler\Parser\ProgramClassDocument.cs" />
     <Compile Include="Compiler\Parser\ProgramClassParserStep.cs" />
+    <Compile Include="Compiler\Parser\SqlExpressionsBuilder.cs" />
     <Compile Include="Compiler\Parser\TemporarySemanticDocument.cs" />
     <Compile Include="Compiler\Preprocessor\CobolCompilerDirectivesTracingParser.cs" />
     <Compile Include="Compiler\Preprocessor\CompilerDirectiveBuilder.cs" />

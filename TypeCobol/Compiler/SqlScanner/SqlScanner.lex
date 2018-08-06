@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Globalization;
 using TypeCobol.Compiler.Scanner;
 using TypeCobol.Compiler.Text;
 using TypeCobol.Compiler.SqlParser;
@@ -354,6 +355,11 @@ static Dictionary<int,string> tokenIdMap;
                 endIndex = startIndex + 1;
             }
         }
+
+		if (type == SqlSymbols.SQL_DECIMAL_LITERAL)
+	    {
+	        endIndex = startIndex + yytext().Length - 1;
+	    }
         
         ITextLine textLine = new TextLineSnapshot(yyline,new string(yy_buffer).Trim('\0'),null);
         ITokensLine line = new TokensLine(textLine,ColumnsLayout.FreeTextFormat);
@@ -361,36 +367,25 @@ static Dictionary<int,string> tokenIdMap;
 	}
 %}
 
-LineTerminator = \r|\n|\r\n
+LineTerminator = \r|\n|\r\n|\t
 Whitespace = " "
-lineEnd = \t
-CarrigeReturn = {LineTerminator}|{lineEnd}
 
-IntegerLiteral = [\d][\d]*
+IntegerLiteral = [0-9][0-9]*
 FLit1 = [0-9]+\.[0-9]*
 FLit2 = \.[0-9]+
 FLit3 = [0-9]+
-Exponent = [eE] [+-]? [0-9]+
+Exponent = ([eE][-+]?[0-9]+)
 DecimalLiteral = ({FLit1}|{FLit2}|{FLit3}){Exponent}?
 
-IdentifierOrKw = [0-9]*[:*a-zA-Z0-9^\s]*|"&&"|"||"
-QuotedIdentifier = \`(\\.|[^\\\`])*\`
+IdentifierOrKw = [0-9]*[:*.*a-zA-Z0-9^\s]*|"&&"|"||"
 SingleQuoteStringLiteral = \'(\\.|[^\\\'])*\'
 DoubleQuoteStringLiteral = \"(\\.|[^\\\"])*\"
 
-EolHintBegin = "--" " "*
-CommentedHintBegin = "/*" " "*
-CommentedHintEnd = "*/"
-
-HintContent = (" "*"+"[^\r\n]*)
-
 Comment = {TraditionalComment}|{EndOfLineComment}
-ContainsCommentEnd = ([^]*"*/"[^]*)
-ContainsLineTerminator = ([^]*{CarrigeReturn}[^]*)
-TraditionalComment = ("/*"!({HintContent}|{ContainsCommentEnd})"*/")
-EndOfLineComment = "--" ![\r\n]*
 
-%state EOLHINT
+TraditionalComment = ("/*"[\r\n ]*[\d\D]*[\r\n ]*)|("/*"[\r\n ]*(\s*|.*)*[\r\n ]*)|("*/")
+
+EndOfLineComment = ("--"[\d\D]*)|("--"(\s*|.*)*)
 
 %%
 "..." { return newToken(SqlSymbols.SQL_DOTDOTDOT, "..."); }
@@ -420,9 +415,14 @@ EndOfLineComment = "--" ![\r\n]*
 "`" { return newToken(SqlSymbols.SQL_UNMATCHED_STRING_LITERAL, "`"); }
 "!=" { return newToken(SqlSymbols.SQL_OP_NOTEQUAL, "!="); }
 
+
+{Comment} { 
+	return null; 
+}
+
 {IntegerLiteral} {
   try {
-    return newToken(SqlSymbols.SQL_INTEGER_LITERAL, Decimal.Parse(yytext()));
+    return newToken(SqlSymbols.SQL_INTEGER_LITERAL, Int32.Parse(yytext(), NumberStyles.Any, CultureInfo.InvariantCulture));
   } catch (FormatException) {
     return newToken(SqlSymbols.SQL_NUMERIC_OVERFLOW, yytext());
   }
@@ -430,20 +430,12 @@ EndOfLineComment = "--" ![\r\n]*
 
 {DecimalLiteral} {
   try {
-    return newToken(SqlSymbols.SQL_DECIMAL_LITERAL, Decimal.Parse(yytext()));
+    return newToken(SqlSymbols.SQL_DECIMAL_LITERAL, Decimal.Parse(yytext(), NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign | NumberStyles.AllowExponent, CultureInfo.InvariantCulture));
   } catch (FormatException) {
     return newToken(SqlSymbols.SQL_NUMERIC_OVERFLOW, yytext());
   }
 }
 
-{QuotedIdentifier} {
-  // Remove the quotes and trim whitespace.
-  string trimmedIdent = yytext().Replace("\"","").Replace("'","").Trim();
-  if (string.IsNullOrEmpty(trimmedIdent)) {
-    return newToken(SqlSymbols.SQL_EMPTY_IDENT, yytext());
-  }
-  return newToken(SqlSymbols.SQL_OP_IDENT, trimmedIdent);
-}
 
 {IdentifierOrKw} {
   string text = yytext().Trim();
@@ -465,26 +457,8 @@ EndOfLineComment = "--" ![\r\n]*
   return newToken(SqlSymbols.SQL_STRING_LITERAL, yytext().Substring(1, yytext().Length-2));
 }
 
-{CommentedHintBegin} {
-  return newToken(SqlSymbols.SQL_COMMENTED_PLAN_HINT_START, null);
-}
-
-{CommentedHintEnd} {
-  return newToken(SqlSymbols.SQL_COMMENTED_PLAN_HINT_END, null);
-}
-
-{EolHintBegin} {
-  yybegin(EOLHINT);
-  return newToken(SqlSymbols.SQL_COMMENTED_PLAN_HINT_START, null);
-}
-
-<EOLHINT> {LineTerminator} {
-  yybegin(YYINITIAL);
-  return newToken(SqlSymbols.SQL_COMMENTED_PLAN_HINT_END, null);
-}
-
 {Whitespace} { return null; }
-{Comment} { return null; }
-{CarrigeReturn} { return null; }
-{EndOfLineComment} { return null; }
+
+{LineTerminator} { return null; }
+
 [^] { return newToken(SqlSymbols.SQL_UNEXPECTED_CHAR, yytext()); }

@@ -51,7 +51,7 @@ namespace TypeCobol.Test {
         public void CheckScanner()
         {
             //System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
-
+            TestTokenTypes.CheckSqlStatements();
             TestTokenTypes.CheckSeparators();
             TestTokenTypes.CheckComments();
             TestTokenTypes.CheckOperators();
