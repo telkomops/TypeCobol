@@ -8,6 +8,7 @@ using TypeCobol.Compiler.CodeElements;
 using TypeCobol.Compiler.CupParser.NodeBuilder;
 using TypeCobol.Compiler.CupParser;
 using TypeCobol.Compiler.SqlScanner;
+using TypeCobol.Compiler.SqlNodes;
 
 action code {:
 	//Current program identification
@@ -149,7 +150,7 @@ terminal SqlToken SQL_UNEXPECTED_CHAR;
 
 //#use ..\CupCommon\CobolWordsSymbols.cup
 non terminal SqlToken ident_or_default;
-non terminal use_stmt;
+non terminal UseStmt use_stmt;
 
 start with use_stmt;
 
@@ -162,5 +163,5 @@ ident_or_default ::=
 
 use_stmt ::=
   SQL_KW_USE ident_or_default:db
-  {: :}
+  {: RESULT = new UseStmt(db); :}
   ;

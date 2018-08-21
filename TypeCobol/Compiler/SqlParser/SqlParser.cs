@@ -6,6 +6,7 @@
 namespace TypeCobol.Compiler.SqlParser
  {
 
+using TypeCobol.Compiler.SqlNodes;
 using TypeCobol.Compiler.SqlScanner;
 using TypeCobol.Compiler.CupParser;
 using TypeCobol.Compiler.CupParser.NodeBuilder;
@@ -219,9 +220,9 @@ public class CUP_SqlParser_actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 3: // use_stmt ::= SQL_KW_USE ident_or_default 
             {
-              object RESULT = null;
+              UseStmt RESULT = null;
 		SqlToken db = (SqlToken)((TUVienna.CS_CUP.Runtime.Symbol) CUP_SqlParser_stack.elementAt(CUP_SqlParser_top-0)).value;
-		 
+		 RESULT = new UseStmt(db); 
               CUP_SqlParser_result = new TUVienna.CS_CUP.Runtime.Symbol(2/*use_stmt*/, RESULT);
             }
           return CUP_SqlParser_result;
@@ -250,7 +251,7 @@ public class CUP_SqlParser_actions {
           case 0: // $START ::= use_stmt EOF 
             {
               object RESULT = null;
-		object start_val = (object)((TUVienna.CS_CUP.Runtime.Symbol) CUP_SqlParser_stack.elementAt(CUP_SqlParser_top-1)).value;
+		UseStmt start_val = (UseStmt)((TUVienna.CS_CUP.Runtime.Symbol) CUP_SqlParser_stack.elementAt(CUP_SqlParser_top-1)).value;
 		RESULT = start_val;
               CUP_SqlParser_result = new TUVienna.CS_CUP.Runtime.Symbol(0/*$START*/, RESULT);
             }
