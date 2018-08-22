@@ -49,7 +49,7 @@ namespace TypeCobol.Compiler.SqlNodes.Common
             List<NodeType> result = new List<NodeType>();
             result.Add(this);
             foreach (NodeType child in children_)
-                child.getNodesPreOrderAux(result.childre_);
+                child.getNodesPreOrderAux(result.children_);
         }
 
         /**
@@ -99,7 +99,7 @@ namespace TypeCobol.Compiler.SqlNodes.Common
                 matches.Add((D)this);
                 return;
             }
-            for (NodeType child: children_) child.collect(predicate, matches);
+            foreach (NodeType child in children_) child.collect(predicate, matches);
         }
 
         /**
@@ -108,14 +108,14 @@ namespace TypeCobol.Compiler.SqlNodes.Common
          * itself is of class 'cl', the children are skipped.
          */
         public  void collect(
-            Class cl, Collection<D> matches)
+            Type cl, List<NodeType> matches)
         {
-            if (cl.equals(getClass()))
+            if (cl == GetType())
             {
                 matches.Add(this);
                 return;
             }
-            for (NodeType child: children_) child.collect(cl, matches);
+            foreach (NodeType child in children_) child.collect(cl, matches);
         }
 
         /**
@@ -124,10 +124,10 @@ namespace TypeCobol.Compiler.SqlNodes.Common
          * that match in the subtree are added.
          */
         public void collectAll(
-            Predicate<? super C> predicate, List<D> matches)
+            Predicate predicate, List<NodeType> matches)
         {
-            if (predicate.apply((C)this)) matches.Add((D)this);
-            for (NodeType child: children_) child.collectAll(predicate, matches);
+            if (predicate.apply((NodeType)this)) matches.Add((NodeType)this);
+            foreach (NodeType child in children_) child.collectAll(predicate, matches);
         }
 
         /**
@@ -195,10 +195,10 @@ namespace TypeCobol.Compiler.SqlNodes.Common
         /**
          * Return true if any node in nodeList contains children of class cl.
          */
-        public static <C extends TreeNode<C>> bool contains(
-            List<C> nodeList, Class cl)
+        public static TreeNode<NodeType> bool contains(
+            List<NodeType> nodeList, Class cl)
         {
-            for (C node: nodeList) if (node.contains(cl)) return true;
+            foreach (NodeType node in nodeList) if (node.contains(cl)) return true;
             return false;
         }
 

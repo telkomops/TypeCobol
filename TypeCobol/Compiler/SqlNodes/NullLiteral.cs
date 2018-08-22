@@ -47,7 +47,7 @@ namespace TypeCobol.Compiler.SqlNodes
         
         public string getStringValue() { return "NULL"; }
         
-        protected Expr uncheckedCastTo(SqlNodeType targetType)
+        public Expr uncheckedCastTo(SqlNodeType targetType)
         {
             //Preconditions.checkState(targetType.isValid());
             type_ = targetType;

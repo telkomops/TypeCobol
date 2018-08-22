@@ -87,13 +87,7 @@ namespace TypeCobol.Compiler.SqlNodes
         public static readonly string MAPKEYFIELDNAME = "key";
         public static readonly string MAPVALUEFIELDNAME = "value";
 
-        public enum PathType
-        {
-            SLOTREF,
-            TABLEREF,
-            STAR,
-            ANY, // Reference to any field or table in schema.
-        }
+        
 
         // Implicit or explicit raw path to be resolved relative to rootDesc or rootTable.
         // Every raw-path element is mapped to zero, one or two types/positions in resolution.
@@ -542,5 +536,13 @@ namespace TypeCobol.Compiler.SqlNodes
             Path result = new Path(rootPath, new List<string>(fieldNames));
             return result;
         }
+    }
+
+    public enum PathType
+    {
+        SLOTREF,
+        TABLEREF,
+        STAR,
+        ANY, // Reference to any field or table in schema.
     }
 }

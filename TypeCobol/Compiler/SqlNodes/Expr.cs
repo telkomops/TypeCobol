@@ -108,15 +108,15 @@ namespace TypeCobol.Compiler.SqlNodes
 
         public static readonly Predicate<Expr> IS_NOT_EQ_BINARY_PREDICATE =
             arg => arg is BinaryPredicate
-                   && ((BinaryPredicate) arg).getOp() != Operator.EQ
-                   && ((BinaryPredicate) arg).getOp() != Operator.NOT_DISTINCT;
+                   && ((BinaryPredicate) arg).getOp() != BinaryPredicate.Operator.EQ
+                   && ((BinaryPredicate) arg).getOp() != BinaryPredicate.Operator.NOT_DISTINCT;
 
         public static readonly Predicate<Expr> IS_BINARY_PREDICATE =
             arg => arg is BinaryPredicate;
 
         public static readonly Predicate<Expr> IS_EXPR_EQ_LITERAL_PREDICATE =
             arg => arg is BinaryPredicate
-                   && ((BinaryPredicate) arg).getOp() == Operator.EQ
+                   && ((BinaryPredicate) arg).getOp() == BinaryPredicate.Operator.EQ
                    && (((BinaryPredicate) arg).getChild(1).isLiteral());
 
         public static readonly Predicate<Expr>
@@ -207,7 +207,7 @@ namespace TypeCobol.Compiler.SqlNodes
         public ExprId getId() => id_;
 
 
-        protected void setId(ExprId id)
+        public void setId(ExprId id)
         {
             id_ = id;
         }
@@ -620,7 +620,12 @@ namespace TypeCobol.Compiler.SqlNodes
 
         public string toSql()
         {
-            return (printSqlInParens_) ? "(" + ToSqlImpl() + ")" : ToSqlImpl();
+            return (printSqlInParens_) ? "(" + toSqlImpl() + ")" : toSqlImpl();
+        }
+
+        private string toSqlImpl()
+        {
+            return string.Empty;
         }
 
         /**
@@ -746,7 +751,7 @@ namespace TypeCobol.Compiler.SqlNodes
          */
         protected bool localEquals(Expr that)
         {
-            return getClass() == that.getClass() &&
+            return GetType() == that.GetType() &&
                    (fn_ == null ? that.fn_ == null : fn_.Equals(that.fn_));
         }
 
@@ -979,7 +984,7 @@ namespace TypeCobol.Compiler.SqlNodes
          *  in this class to force new Exprs to implement it.
          */
 
-        public Expr clone();
+        public abstract Expr clone();
 
         /**
          * Create a deep copy of 'l'. The elements of the returned list are of the same
@@ -1110,6 +1115,7 @@ namespace TypeCobol.Compiler.SqlNodes
             //Preconditions.checkNotNull(conjuncts);
             try
             {
+                //TODO - find a better implementation for BitSet n c#
                 BitSet candidates = new BitSet(conjuncts.Count);
                 candidates[0] = Math.Min(conjuncts.Count, CONST_PROPAGATION_EXPR_LIMIT);
                 int transfers = 0;
@@ -1191,6 +1197,7 @@ namespace TypeCobol.Compiler.SqlNodes
             return true;
         }
 
+        public abstract bool IsBoundByTupleIds(List<TupleId> tids);
         /**
          * Returns true if expr is fully bound by slotIds, otherwise false.
          */
@@ -1203,6 +1210,8 @@ namespace TypeCobol.Compiler.SqlNodes
 
             return true;
         }
+
+        public abstract bool IsBoundBySlotIds(List<SlotId> slotIds);
 
         public static Expr getFirstBoundChild(Expr expr, List<TupleId> tids)
         {
@@ -1230,6 +1239,8 @@ namespace TypeCobol.Compiler.SqlNodes
                 child.getIdsHelper(tupleIds, slotIds);
             }
         }
+
+        public abstract void GetIdsHelper(HashSet<TupleId> tupleIds, HashSet<SlotId> slotIds);
 
         public static void getIds(List<Expr> exprs,
             List<TupleId> tupleIds, List<SlotId> slotIds)
@@ -1413,7 +1424,9 @@ namespace TypeCobol.Compiler.SqlNodes
         {
             if (isImplicitCast()) return getChild(0).ignoreImplicitCast();
             return this;
-        }
+        } 
+
+        public abstract Expr IgnoreImplicitCast();
 
         /**
          * Returns true if 'this' is an implicit cast expr.

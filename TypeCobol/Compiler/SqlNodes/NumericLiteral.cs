@@ -262,7 +262,7 @@ namespace TypeCobol.Compiler.SqlNodes
          * Explicitly cast this literal to 'targetType'. The targetType must be a
          * float point type.
          */
-        protected void explicitlyCastToFloat(SqlNodeType targetType)
+        public void explicitlyCastToFloat(SqlNodeType targetType)
         {
             //Preconditions.checkState(targetType.isFloatingPointType());
             type_ = targetType;
@@ -270,7 +270,7 @@ namespace TypeCobol.Compiler.SqlNodes
         }
 
         //@Override
-        protected Expr uncheckedCastTo(SqlNodeType targetType)
+        public Expr uncheckedCastTo(SqlNodeType targetType)
         {
             //Preconditions.checkState(targetType.isNumericType());
             // Implicit casting to decimals allows truncating digits from the left of the
@@ -289,6 +289,7 @@ namespace TypeCobol.Compiler.SqlNodes
                 // truncating values from the right of the decimal point.
                 //Preconditions.checkState(value_.precision() <= decimalType.decimalPrecision());
                 //Preconditions.checkState(value_.scale() <= decimalType.decimalScale());
+                //TODO - check what precision is used by java and convert next line
                 int valLeftDigits = value_.precision() - value_.scale();
                 int typeLeftDigits = decimalType.decimalPrecision() - decimalType.decimalScale();
                 if (typeLeftDigits < valLeftDigits) return new CastExpr(targetType, this);
@@ -302,13 +303,13 @@ namespace TypeCobol.Compiler.SqlNodes
         public void swapSign()
         {
             // swapping sign does not change the type
-            value_ = value_.negate();
+            value_ = decimal.Negate(value_);
         }
 
         //@Override
         public int CompareTo(LiteralExpr o)
         {
-            int ret = base.CompareTo(o);
+            int ret = base.compareTo(o);
             if (ret != 0) return ret;
             NumericLiteral other = (NumericLiteral) o;
             return value_.CompareTo(other.value_);
@@ -339,27 +340,27 @@ namespace TypeCobol.Compiler.SqlNodes
          */
         public static bool isOverflow(decimal value, SqlNodeType type)
         {
-            switch (type.getPrimitiveType())
+            switch (type.getPrimitiveType().value)
             {
-                case TINYINT:
+                case PrimitiveType.PTValues.TINYINT:
                     return (value.CompareTo(Byte.MaxValue) > 0 ||
                             value.CompareTo(Byte.MinValue) < 0);
-                case SMALLINT:
+                case PrimitiveType.PTValues.SMALLINT:
                     return (value.CompareTo(short.MaxValue) > 0 ||
                             value.CompareTo(short.MinValue) < 0);
-                case INT:
+                case PrimitiveType.PTValues.INT:
                     return (value.CompareTo(int.MaxValue) > 0 ||
                             value.CompareTo(int.MinValue) < 0);
-                case BIGINT:
+                case PrimitiveType.PTValues.BIGINT:
                     return (value.CompareTo(long.MaxValue) > 0 ||
                             value.CompareTo(long.MinValue) < 0);
-                case FLOAT:
+                case PrimitiveType.PTValues.FLOAT:
                     return (value.CompareTo(float.MaxValue) > 0 ||
                             value.CompareTo(float.MinValue) < 0);
-                case DOUBLE:
+                case PrimitiveType.PTValues.DOUBLE:
                     return (value.CompareTo(Double.MaxValue) > 0 ||
                             value.CompareTo(Double.MinValue) < 0);
-                case DECIMAL:
+                case PrimitiveType.PTValues.DECIMAL:
                     return (TypesUtil.computeDecimalType(value) == null);
                 default:
                     throw new AnalysisException("Overflow check on " + type + " isn't supported.");

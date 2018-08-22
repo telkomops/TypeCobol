@@ -437,12 +437,12 @@ namespace TypeCobol.Compiler.SqlNodes.Catalog
             else if (isArrayType())
             {
                 ArrayType arrayType = (ArrayType) this;
-                if (arrayType.GetItemType().exceedsMaxNestingDepth(d + 1)) return true;
+                if (arrayType.GetItemType.exceedsMaxNestingDepth(d + 1)) return true;
             }
             else if (isMapType())
             {
                 MapType mapType = (MapType) this;
-                if (mapType.getValueType().exceedsMaxNestingDepth(d + 1)) return true;
+                if (mapType.getValueType.exceedsMaxNestingDepth(d + 1)) return true;
             }
 
             return false;

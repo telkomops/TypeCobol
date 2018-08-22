@@ -38,6 +38,11 @@ namespace TypeCobol.Compiler.SqlNodes
             return false;
         }
 
+        public override Expr IgnoreImplicitCast()
+        {
+            throw new NotImplementedException();
+        }
+
 
         public LiteralExpr()
         {
@@ -60,31 +65,31 @@ namespace TypeCobol.Compiler.SqlNodes
         {
             //Preconditions.checkArgument(type.isValid());
             LiteralExpr e = null;
-            switch (type.getPrimitiveType())
+            switch (type.getPrimitiveType().value)
             {
-                case NULL_TYPE:
+                case PrimitiveType.PTValues.NULL_TYPE:
                     e = new NullLiteral();
                     break;
-                case BOOLEAN:
+                case PrimitiveType.PTValues.BOOLEAN:
                     e = new BoolLiteral(value);
                     break;
-                case TINYINT:
-                case SMALLINT:
-                case INT:
-                case BIGINT:
-                case FLOAT:
-                case DOUBLE:
-                case DECIMAL:
+                case PrimitiveType.PTValues.TINYINT:
+                case PrimitiveType.PTValues.SMALLINT:
+                case PrimitiveType.PTValues.INT:
+                case PrimitiveType.PTValues.BIGINT:
+                case PrimitiveType.PTValues.FLOAT:
+                case PrimitiveType.PTValues.DOUBLE:
+                case PrimitiveType.PTValues.DECIMAL:
                     e = new NumericLiteral(value, type);
                     break;
-                case STRING:
-                case VARCHAR:
-                case CHAR:
+                case PrimitiveType.PTValues.STRING:
+                case PrimitiveType.PTValues.VARCHAR:
+                case PrimitiveType.PTValues.CHAR:
                     e = new StringLiteral(value);
                     break;
-                case DATE:
-                case DATETIME:
-                case TIMESTAMP:
+                case PrimitiveType.PTValues.DATE:
+                case PrimitiveType.PTValues.DATETIME:
+                case PrimitiveType.PTValues.TIMESTAMP:
                     // TODO: we support TIMESTAMP but no way to specify it in SQL.
                     return null;
                 //default:
@@ -193,71 +198,71 @@ namespace TypeCobol.Compiler.SqlNodes
             {
                 val = FeSupport.EvalExprWithoutRow(constExpr, queryCtx);
             }
-            catch (InternalException e)
+            catch (Exception )
             {
-                LOG.error(String.format("Failed to evaluate expr '%s': %s",
-                    constExpr.toSql(), e.getMessage()));
+                //LOG.error(String.Format("Failed to evaluate expr '%s': %s",
+                //    constExpr.toSql(), e.Message));
                 return null;
             }
 
             LiteralExpr result = null;
-            switch (constExpr.getType().getPrimitiveType())
+            switch (constExpr.getType().getPrimitiveType().value)
             {
-                case NULL_TYPE:
+                case PrimitiveType.PTValues.NULL_TYPE:
                     result = new NullLiteral();
                     break;
-                case BOOLEAN:
+                case PrimitiveType.PTValues.BOOLEAN:
                     if (val.isSetBool_val()) result = new BoolLiteral(val.bool_val);
                     break;
-                case TINYINT:
+                case PrimitiveType.PTValues.TINYINT:
                     if (val.isSetByte_val())
                     {
-                        result = new NumericLiteral(decimal.valueOf(val.byte_val));
+                        result = new NumericLiteral(val.byte_val);
                     }
 
                     break;
-                case SMALLINT:
+                case PrimitiveType.PTValues.SMALLINT:
                     if (val.isSetShort_val())
                     {
-                        result = new NumericLiteral(decimal.valueOf(val.short_val));
+                        result = new NumericLiteral(val.short_val);
                     }
 
                     break;
-                case INT:
+                case PrimitiveType.PTValues.INT:
                     if (val.isSetInt_val())
                     {
-                        result = new NumericLiteral(decimal.valueOf(val.int_val));
+                        result = new NumericLiteral(val.int_val);
                     }
 
                     break;
-                case BIGINT:
+                case PrimitiveType.PTValues.BIGINT:
                     if (val.isSetLong_val())
                     {
-                        result = new NumericLiteral(decimal.valueOf(val.long_val));
+                        result = new NumericLiteral(val.long_val);
                     }
 
                     break;
-                case FLOAT:
-                case DOUBLE:
+                case PrimitiveType.PTValues.FLOAT:
+                case PrimitiveType.PTValues.DOUBLE:
                     if (val.isSetDouble_val())
                     {
                         // A NumericLiteral cannot represent NaN, infinity or negative zero.
                         if (!NumericLiteral.isValidLiteral(val.double_val)) return null;
-                        result = new NumericLiteral(new decimal(val.double_val), constExpr.getType());
+                        result = new NumericLiteral((decimal)val.double_val, constExpr.getType());
                     }
 
                     break;
-                case DECIMAL:
+                case PrimitiveType.PTValues.DECIMAL:
                     if (val.isSetString_val())
                     {
                         result =
-                            new NumericLiteral(new decimal(val.string_val), constExpr.getType());
+                            new NumericLiteral((decimal)val.string_val, constExpr.getType());
                     }
 
                     break;
-                case STRING:
-                case VARCHAR:
-                case CHAR:
+                case PrimitiveType.PTValues.STRING:
+                case PrimitiveType.PTValues.VARCHAR:
+                case PrimitiveType.PTValues.CHAR:
                     if (val.isSetBinary_val())
                     {
                         byte[] bytes = new byte[val.binary_val.remaining()];
@@ -272,18 +277,18 @@ namespace TypeCobol.Compiler.SqlNodes
                         try
                         {
                             // US-ASCII is 7-bit ASCII.
-                            String strVal = new String(bytes, "US-ASCII");
+                            String strVal = new string(bytes, "US-ASCII");
                             // The evaluation result is a raw string that must not be unescaped.
                             result = new StringLiteral(strVal, constExpr.getType(), false);
                         }
-                        catch (UnsupportedEncodingException e)
+                        catch (Exception )
                         {
                             return null;
                         }
                     }
 
                     break;
-                case TIMESTAMP:
+                case PrimitiveType.PTValues.TIMESTAMP:
                     // Expects both the binary and string fields to be set, so we get the raw
                     // representation as well as the string representation.
                     if (val.isSetBinary_val() && val.isSetString_val())
@@ -292,8 +297,8 @@ namespace TypeCobol.Compiler.SqlNodes
                     }
 
                     break;
-                case DATE:
-                case DATETIME:
+                case PrimitiveType.PTValues.DATE:
+                case PrimitiveType.PTValues.DATETIME:
                     return null;
                 //default:
                 //Preconditions.checkState(false,
@@ -314,8 +319,28 @@ namespace TypeCobol.Compiler.SqlNodes
             if (this is NullLiteral && other is NullLiteral) return 0;
             if (this is NullLiteral) return -1;
             if (other is NullLiteral) return 1;
-            if (getClass() != other.getClass()) return -1;
+            if (GetType() != other.GetType()) return -1;
             return 0;
+        }
+
+        public override Expr clone()
+        {
+            return new LiteralExpr(this);
+        }
+
+        public override bool IsBoundByTupleIds(List<int> tids)
+        {
+            return base.isBoundByTupleIds(tids);
+        }
+
+        public override bool IsBoundBySlotIds(List<SlotId> slotIds)
+        {
+            return base.isBoundBySlotIds(slotIds);
+        }
+
+        public override void GetIdsHelper(HashSet<int> tupleIds, HashSet<SlotId> slotIds)
+        {
+            base.getIdsHelper(tupleIds, slotIds);
         }
     }
 }
