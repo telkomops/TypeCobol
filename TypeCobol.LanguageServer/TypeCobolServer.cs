@@ -117,6 +117,7 @@ namespace TypeCobol.LanguageServer
             initializeResult.capabilities.completionProvider = completionOptions;
             SignatureHelpOptions sigHelpOptions = new SignatureHelpOptions {triggerCharacters = new string[0]};
             initializeResult.capabilities.signatureHelpProvider = sigHelpOptions;
+            initializeResult.capabilities.outlineDataProvider = true;
 
             return initializeResult;
         }

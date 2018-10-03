@@ -85,5 +85,10 @@ namespace TypeCobol.LanguageServer.VsCodeProtocol
         /// The server provides rename support.
         /// </summary>
         public bool renameProvider { get; set; }
+
+        /// <summary>
+        /// The server provides outlineData support.
+        /// </summary>
+        public bool outlineDataProvider { get; set; }
     }
 }

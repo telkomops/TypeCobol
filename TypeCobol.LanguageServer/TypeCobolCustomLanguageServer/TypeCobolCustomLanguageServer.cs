@@ -15,6 +15,7 @@ namespace TypeCobol.LanguageServer.TypeCobolCustomLanguageServerProtocol
             rpcServer.RegisterNotificationMethod(NodeRefreshNotification.Type, ReceivedRefreshNodeDemand);
             rpcServer.RegisterRequestMethod(NodeRefreshRequest.Type, ReceivedRefreshNodeRequest);
             rpcServer.RegisterNotificationMethod(SignatureHelpContextNotification.Type, ReceivedSignatureHelpContext);
+            rpcServer.RegisterRequestMethod(OutlineDataRequest.Type, ReceivedOutlineDataRequest);
         }
 
         private void CallReceiveMissingCopies(NotificationType notificationType, object parameters)
@@ -57,6 +58,22 @@ namespace TypeCobol.LanguageServer.TypeCobolCustomLanguageServerProtocol
             return resultOrError;
         }
 
+        private ResponseResultOrError ReceivedOutlineDataRequest(RequestType requestType, object parameters)
+        {
+            ResponseResultOrError resultOrError = null;
+            try
+            {
+                OutlineData result = OnDidReceiveOutlineData((TextDocumentIdentifier)parameters);
+                resultOrError = new ResponseResultOrError() { result = result };
+            }
+            catch (Exception e)
+            {
+                NotifyException(e);
+                resultOrError = new ResponseResultOrError() { code = ErrorCodes.InternalError, message = e.Message };
+            }
+            return resultOrError;
+        }
+
         private void ReceivedSignatureHelpContext(NotificationType notificationType, object parameters)
         {
             try
@@ -86,6 +103,20 @@ namespace TypeCobol.LanguageServer.TypeCobolCustomLanguageServerProtocol
         public virtual void OnDidReceiveNodeRefresh(NodeRefreshParams parameter)
         {
             
+        }
+
+        /// <summary>
+        /// The Outline Data notification is sent from the client to the server 
+        /// </summary>
+        /// <param name="parameter"></param>
+        public virtual OutlineData OnDidReceiveOutlineData(TextDocumentIdentifier parameter)
+        {
+            OutlineData.Node root = new OutlineData.Node();
+            root.id = Guid.NewGuid().ToString();
+            root.name = "root";
+            root.parent = root.id;
+            root.value = "Hello Outline";
+            return new OutlineData(new OutlineData.Node[] {root});
         }
 
         public virtual void OnDidReceiveSignatureHelpContext(SignatureHelpContextParams procedureHash)
