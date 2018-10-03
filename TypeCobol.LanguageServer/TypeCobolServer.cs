@@ -342,7 +342,7 @@ namespace TypeCobol.LanguageServer
 
         public override Hover OnHover(TextDocumentPosition parameters)
         {
-            AnalyticsWrapper.Telemetry.TrackEvent(EventType.Hover, "Hover event", LogType.Completion);
+            //AnalyticsWrapper.Telemetry.TrackEvent(EventType.Hover, "Hover event", LogType.Completion);
 
             var fileCompiler = GetFileCompilerFromStringUri(parameters.uri);
             if (fileCompiler == null)
