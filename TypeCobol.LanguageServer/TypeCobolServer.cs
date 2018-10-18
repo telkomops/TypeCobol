@@ -370,7 +370,6 @@ namespace TypeCobol.LanguageServer
                 out userFilterToken, out lastSignificantToken); //Magic happens here
             if (matchingCodeElement == null)
             {
-                System.Diagnostics.Debug.WriteLine("Matching code element null: " + DateTime.Now);
                 return null;
             }
                 
@@ -388,7 +387,7 @@ namespace TypeCobol.LanguageServer
                             new Range(parameters.position.line, hoveredToken.StartIndex, parameters.position.line,
                                 hoveredToken.StopIndex + 1),
                         contents =
-                            new MarkedString[] { new MarkedString() { language = "Cobol", value = "<b><pre>" + string.Join("\r\n", dataDefinition.TypeDefinition.SelfAndChildrenLines.Select(e => e.Text + "<br>&#9;")) + "</pre></b>" } }
+                            new MarkedString[] { new MarkedString() { language = "Cobol", value = String.Join("", dataDefinition.TypeDefinition.SelfAndChildrenLines.Select(e => e.Text + "\r\n")) } }
                     };
                 }
             }
