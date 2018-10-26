@@ -11,10 +11,11 @@ namespace TypeCobol.LanguageServer.TypeCobolCustomLanguageServerProtocol
     {
         public class Node
         {
-            public String id;
+            public string id;
             public string name;
-            public string value;
             public string parent;
+            public string line;
+            public Node[] childNodes;
         }
 
         public Node[] data;

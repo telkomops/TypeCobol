@@ -29,7 +29,7 @@ namespace TypeCobol.LanguageServer
         }
 
         // -- Initialization : create workspace and return language server capabilities --
-        private Workspace typeCobolWorkspace;
+        private static Workspace typeCobolWorkspace;
         private Queue<MessageActionWrapper> _MessagesActionsQueue;
         private FunctionDeclaration _SignatureCompletionContext;
         private Dictionary<SignatureInformation, FunctionDeclaration> _FunctionDeclarationSignatureDictionary;
@@ -905,7 +905,7 @@ namespace TypeCobol.LanguageServer
             return codeElements.Select(c => new CodeElementWrapper(c));
         }
 
-        private FileCompiler GetFileCompilerFromStringUri(string uri, bool acceptNodeRefresh = true)
+        public static FileCompiler GetFileCompilerFromStringUri(string uri, bool acceptNodeRefresh = true)
         {
             Uri objUri = new Uri(uri);
             if (objUri.IsFile)

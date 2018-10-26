@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using TypeCobol.Compiler.CodeModel;
 using TypeCobol.Compiler.Nodes;
 using TypeCobol.LanguageServer.JsonRPC;
 using TypeCobol.LanguageServer.VsCodeProtocol;
@@ -111,12 +115,207 @@ namespace TypeCobol.LanguageServer.TypeCobolCustomLanguageServerProtocol
         /// <param name="parameter"></param>
         public virtual OutlineData OnDidReceiveOutlineData(TextDocumentIdentifier parameter)
         {
-            OutlineData.Node root = new OutlineData.Node();
-            root.id = Guid.NewGuid().ToString();
-            root.name = "root";
-            root.parent = root.id;
-            root.value = "Hello Outline";
-            return new OutlineData(new OutlineData.Node[] {root});
+            if (parameter == null) return null;
+            // --- Node
+            // Get the text document as well as the node
+            var fileCompiler = TypeCobolServer.GetFileCompilerFromStringUri(parameter.uri);
+            if (!fileCompiler.CompilationResultsForProgram.CodeElementsDocumentSnapshot.CodeElements.Any())
+                return null;
+            var codeElement =
+                fileCompiler.CompilationResultsForProgram.CodeElementsDocumentSnapshot.CodeElements.First();
+            var node = CompletionFactory.GetMatchingNode(fileCompiler, codeElement);
+
+            if (node == null) return null;
+
+            // --- OutlineData
+            // Structure the JSON needed to be send back to the plugin in a OutlineData format
+            var data = new List<OutlineData.Node>();
+
+            // PROGRAM 
+            var program = new OutlineData.Node
+            {
+                id = Guid.NewGuid().ToString(),
+                name = node.Name
+            };
+            program.parent = program.id;
+            program.line = node.CodeElement.Line.ToString();
+            var programChildNodes = new List<OutlineData.Node>();
+            var divisions = node.GetChildren<Node>();
+
+            // --- DATA DIVISION
+            var dataDivisionNode = divisions.ToList().Find(item => item.ID.Equals("data-division"));
+            if (dataDivisionNode != null)
+            {
+                var dataDivisionNodeChildNodes = new List<OutlineData.Node>();
+                var dataDivision = new OutlineData.Node
+                {
+                    id = Guid.NewGuid().ToString(),
+                    name = dataDivisionNode.ID.ToUpper(),
+                    parent = program.id,
+                    line = dataDivisionNode.CodeElement.Line.ToString()
+                };
+                
+
+                // ------ SECTION
+                var dataDivisionNodeSections = dataDivisionNode.GetChildren<Node>();
+                foreach (var dataDivisionNodeSection in dataDivisionNodeSections)
+                {
+                    if (dataDivisionNodeSection.ID.Equals("working-storage") || dataDivisionNodeSection.ID.Equals("linkage"))
+                    {
+                        var sectionNode = new OutlineData.Node
+                        {
+                            id = Guid.NewGuid().ToString(),
+                            name = dataDivisionNodeSection.ID.ToUpper(),
+                            parent = dataDivision.id,
+                            line = dataDivisionNodeSection.CodeElement.Line.ToString()
+                        };
+                        dataDivisionNodeChildNodes.Add(sectionNode);
+                    }
+                }
+
+                dataDivision.childNodes = dataDivisionNodeChildNodes.ToArray();
+                programChildNodes.Add(dataDivision);
+            }
+
+            var procedureDivisionNode = divisions.ToList().Find(item => item.ID.Equals("procedure-division"));
+            if (procedureDivisionNode != null)
+            {
+                // --- PROCEDURE DIVISION
+                var procedureDivision = new OutlineData.Node
+                {
+                    id = Guid.NewGuid().ToString(),
+                    name = procedureDivisionNode.ID.ToUpper(),
+                    parent = program.id,
+                    line = procedureDivisionNode.CodeElement.Line.ToString()
+                };
+
+                // Get the functions in the nodeFile
+                // Get the sections in each function
+                // Add the sections to each function and functions to the PROCEDURE DIVISION
+                var proceduresDivisionList = new List<OutlineData.Node>();
+                var documentFunctions = node.SymbolTable.EnclosingScope.Functions;
+                foreach (var documentFunction in documentFunctions)
+                {
+                    // foreach function with a different signature
+                    foreach (var documentFunctionSignature in documentFunction.Value)
+                    {
+                        // construct the name of the function showed from his name, input, inout and output parameters
+                        var functionName = new StringBuilder();
+                        functionName.Append(documentFunctionSignature.Name);
+
+                        if (documentFunctionSignature.Profile.InputParameters.Count > 0 ||
+                            documentFunctionSignature.Profile.InoutParameters.Count > 0)
+                        {
+                            functionName.Append("(");
+                            foreach (var inputParameter in documentFunctionSignature.Profile.InputParameters)
+                            {
+                                var inputType = inputParameter.DataType.Name == "?" ? inputParameter.Usage.ToString() : inputParameter.DataType.Name;
+
+                                if (inputParameter == documentFunctionSignature.Profile.InputParameters.First())
+                                {
+                                    functionName.Append("INPUT: " + inputType);
+                                    if (documentFunctionSignature.Profile.InputParameters.Count > 1)
+                                        functionName.Append(", ");
+                                    if (documentFunctionSignature.Profile.InoutParameters.Count > 0)
+                                        functionName.Append(" ");
+                                    continue;
+                                }
+
+                                if (inputParameter != documentFunctionSignature.Profile.InputParameters.Last())
+                                {
+                                    functionName.Append(inputType + ", ");
+                                    continue;
+                                }
+
+                                functionName.Append(inputType);
+
+                                if (documentFunctionSignature.Profile.InoutParameters.Count > 0)
+                                    functionName.Append(" ");
+                            }
+
+                            foreach (var inoutParameter in documentFunctionSignature.Profile.InoutParameters)
+                            {
+                                var inoutType = inoutParameter.DataType.Name == "?" ? inoutParameter.Usage.ToString() : inoutParameter.DataType.Name;
+
+                                if (inoutParameter == documentFunctionSignature.Profile.InoutParameters.First())
+                                {
+                                    functionName.Append("INOUT: " + inoutType);
+                                    if (documentFunctionSignature.Profile.InoutParameters.Count > 1)
+                                        functionName.Append(", ");
+                                    continue;
+                                }
+
+                                if (inoutParameter != documentFunctionSignature.Profile.InoutParameters.Last())
+                                {
+                                    functionName.Append(inoutType + ", ");
+                                    continue;
+                                }
+
+                                functionName.Append(inoutType);
+                            }
+                            functionName.Append(")");
+                        }
+
+                        if (documentFunctionSignature.Profile.OutputParameters.Count > 0)
+                        {
+                            functionName.Append(": ");
+                            foreach (var outputParameter in documentFunctionSignature.Profile.OutputParameters)
+                            {
+                                var outputType = outputParameter.DataType.Name == "?" ? outputParameter.Usage.ToString() : outputParameter.DataType.Name;
+
+                                if (outputParameter == documentFunctionSignature.Profile.OutputParameters.Last())
+                                {
+                                    functionName.Append(outputType);
+                                }
+                                else 
+                                {
+                                    functionName.Append(outputType + ", ");
+                                }
+                            }
+                        }
+
+                        // create a new function node 
+                        var function = new OutlineData.Node
+                        {
+                            id = Guid.NewGuid().ToString(),
+                            name = functionName.ToString(),
+                            parent = procedureDivision.id,
+                            line = documentFunctionSignature.CodeElement.Line.ToString()
+                        };
+
+                        // foreach section of the function
+                        var documentFunctionSignatureSections = documentFunctionSignature.Children.First().SelfAndChildrenLines;
+                        var documentFunctionSignatureChildrensNodes = new List<OutlineData.Node>();
+                        foreach (var documentFunctionSignatureSection in documentFunctionSignatureSections)
+                        {
+                            // verify the section is a section then create a OutlineData.Node for each of them
+                            if (documentFunctionSignatureSection.Text.EndsWith("section."))
+                            {
+                                documentFunctionSignatureChildrensNodes.Add(new OutlineData.Node
+                                {
+                                    id = Guid.NewGuid().ToString(),
+                                    name = documentFunctionSignatureSection.Text.TrimStart(),
+                                    parent = function.id,
+                                    line = (documentFunctionSignatureSection.LineIndex + 1).ToString()
+                                });
+                            }
+                        }
+                        // Add the section node list to the function childNodes
+                        function.childNodes = documentFunctionSignatureChildrensNodes.ToArray();
+                        // Add the function to the list of PROCEDURE DIVISION
+                        proceduresDivisionList.Add(function);
+                    }
+                }
+                procedureDivision.childNodes = proceduresDivisionList.ToArray();
+                programChildNodes.Add(procedureDivision);
+            }
+            
+
+            // Add the nodes to the Program and add the program to the data NodeList
+            program.childNodes = programChildNodes.ToArray();
+            data.Add(program);
+            return new OutlineData(data.ToArray());
+
         }
 
         public virtual void OnDidReceiveSignatureHelpContext(SignatureHelpContextParams procedureHash)
