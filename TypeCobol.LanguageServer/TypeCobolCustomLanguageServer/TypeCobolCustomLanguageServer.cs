@@ -155,7 +155,6 @@ namespace TypeCobol.LanguageServer.TypeCobolCustomLanguageServerProtocol
                     line = dataDivisionNode.CodeElement.Line.ToString()
                 };
                 
-
                 // ------ SECTION
                 var dataDivisionNodeSections = dataDivisionNode.GetChildren<Node>();
                 foreach (var dataDivisionNodeSection in dataDivisionNodeSections)
@@ -169,6 +168,30 @@ namespace TypeCobol.LanguageServer.TypeCobolCustomLanguageServerProtocol
                             parent = dataDivision.id,
                             line = dataDivisionNodeSection.CodeElement.Line.ToString()
                         };
+
+                        // --------- WORKING STORAGE
+                        if (dataDivisionNodeSection.ID.Equals("working-storage"))
+                        {
+                            var declarations = dataDivisionNodeSection.GetChildren<DataDefinition>();
+                            var workingStorageChildNodes = new List<OutlineData.Node>();
+                            foreach (var declaration in declarations)
+                            {
+                                if (declaration.IsPartOfATypeDef)
+                                {
+                                    var declarationNode = new OutlineData.Node
+                                    {
+                                        id = Guid.NewGuid().ToString(),
+                                        name = declaration.Name + ": TYPEDEF",
+                                        parent = sectionNode.id,
+                                        line = declaration.CodeElement.Line.ToString()
+                                    };
+                                    workingStorageChildNodes.Add(declarationNode);
+                                }
+                            }
+
+                            sectionNode.childNodes = workingStorageChildNodes.ToArray();
+                        }
+
                         dataDivisionNodeChildNodes.Add(sectionNode);
                     }
                 }
