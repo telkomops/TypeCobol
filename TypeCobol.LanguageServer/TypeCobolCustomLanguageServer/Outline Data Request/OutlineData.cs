@@ -15,6 +15,7 @@ namespace TypeCobol.LanguageServer.TypeCobolCustomLanguageServerProtocol
             public string name;
             public string parent;
             public string line;
+            public string lineEnd;
             public Node[] childNodes;
         }
 

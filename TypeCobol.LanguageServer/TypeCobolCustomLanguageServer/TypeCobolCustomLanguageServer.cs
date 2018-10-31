@@ -209,7 +209,7 @@ namespace TypeCobol.LanguageServer.TypeCobolCustomLanguageServerProtocol
                     id = Guid.NewGuid().ToString(),
                     name = procedureDivisionNode.ID.ToUpper(),
                     parent = program.id,
-                    line = procedureDivisionNode.CodeElement.Line.ToString()
+                    line = procedureDivisionNode.CodeElement.Line.ToString(),
                 };
 
                 // Get the functions in the nodeFile
@@ -303,7 +303,8 @@ namespace TypeCobol.LanguageServer.TypeCobolCustomLanguageServerProtocol
                             id = Guid.NewGuid().ToString(),
                             name = functionName.ToString(),
                             parent = procedureDivision.id,
-                            line = documentFunctionSignature.CodeElement.Line.ToString()
+                            line = documentFunctionSignature.CodeElement.Line.ToString(),
+                            lineEnd = documentFunctionSignature.SelfAndChildrenLines.ToList().Find(item => item.Text.TrimStart().Equals("end-declare."))?.LineIndex.ToString()
                         };
 
                         // foreach section of the function
